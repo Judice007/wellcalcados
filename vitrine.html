@@ -13,6 +13,7 @@
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{background:var(--bg);color:var(--navy);font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}
+    body.viewer-open{overflow:hidden}
     body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 10% 0,rgba(91,46,147,.08),transparent 32%),radial-gradient(circle at 90% 20%,rgba(8,20,41,.04),transparent 28%);pointer-events:none;z-index:-1}
     .shell{width:min(1120px,calc(100% - 32px));margin:auto}
     .top{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
@@ -39,17 +40,20 @@
     .catalog-head{display:flex;align-items:end;justify-content:space-between;gap:20px;padding:40px 0 20px}.catalog-head h2{font:28px 'Archivo Black',sans-serif;text-transform:uppercase}.count{font:10px 'Space Mono',monospace;color:var(--muted)}
     .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding-bottom:70px}
     .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 20px 40px -32px rgba(8,20,41,.42);display:flex;flex-direction:column}
-    .photo{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--soft)}.photo img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}.card:hover .photo img{transform:scale(1.035)}
+    .photo{position:relative;display:block;width:100%;aspect-ratio:1/1;overflow:hidden;border:0;background:var(--soft);text-align:left;cursor:zoom-in}.photo img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}.card:hover .photo img{transform:scale(1.035)}
     .available{position:absolute;left:10px;bottom:10px;display:flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;background:rgba(8,20,41,.88);color:#fff;font:8px 'Space Mono',monospace}.available::before{content:"";width:5px;height:5px;border-radius:50%;background:#B59AE0;box-shadow:0 0 6px #B59AE0}
+    .zoom-hint{position:absolute;right:10px;top:10px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.92);color:var(--navy);box-shadow:0 8px 20px rgba(8,20,41,.14);transition:.2s}.zoom-hint .icon{width:16px}.photo:hover .zoom-hint{background:var(--purple);color:#fff;transform:scale(1.06)}
     .info{padding:14px;display:flex;flex:1;flex-direction:column}.brand-name{font:9px 'Space Mono',monospace;color:var(--purple);letter-spacing:.08em;text-transform:uppercase}.name{margin-top:6px;font-size:14px;font-weight:700;line-height:1.3}.sizes{margin-top:5px;min-height:28px;font:9px/1.4 'Space Mono',monospace;color:var(--muted);text-transform:uppercase}.bottom{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}.price{font:700 16px 'Space Mono',monospace}.price small{font-size:9px;color:var(--muted)}
     .order{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 12px;border:0;border-radius:999px;background:var(--navy);color:#fff;font:700 11px Inter,sans-serif;cursor:pointer}.order .icon{width:15px}
     .empty{display:none;padding:60px 20px;text-align:center;border:1px dashed var(--line);border-radius:18px;color:var(--muted)}
     .empty.show{display:block}.grid.hidden{display:none}
     .toast{position:fixed;left:50%;bottom:22px;z-index:20;transform:translate(-50%,30px);opacity:0;pointer-events:none;width:min(360px,calc(100% - 32px));padding:13px 16px;border-radius:13px;background:var(--navy);color:#fff;text-align:center;font-size:12px;box-shadow:0 18px 38px -16px rgba(8,20,41,.6);transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
+    .viewer[hidden]{display:none}.viewer{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:rgba(4,8,17,.78);backdrop-filter:blur(10px);animation:viewerIn .22s ease}.viewer-panel{position:relative;width:min(1020px,100%);max-height:calc(100vh - 40px);display:grid;grid-template-columns:minmax(0,1fr) 290px;overflow:hidden;border-radius:24px;background:#fff;box-shadow:0 35px 90px rgba(0,0,0,.38)}.viewer-stage{position:relative;min-height:min(72vh,720px);display:grid;place-items:center;background:var(--soft);overflow:hidden}.viewer-image{width:100%;height:100%;max-height:calc(100vh - 40px);object-fit:contain}.viewer-info{padding:64px 28px 28px;display:flex;flex-direction:column}.viewer-brand{font:10px 'Space Mono',monospace;color:var(--purple);letter-spacing:.12em;text-transform:uppercase}.viewer-info h2{margin-top:10px;font-size:25px;line-height:1.15}.viewer-detail{margin-top:12px;font:11px/1.6 'Space Mono',monospace;color:var(--muted);text-transform:uppercase}.viewer-price{margin-top:20px;font:700 23px 'Space Mono',monospace}.viewer-price small{font-size:11px;color:var(--muted)}.viewer-order{margin-top:auto;min-height:48px;border:0;border-radius:999px;background:var(--purple);color:#fff;font-weight:700;cursor:pointer}.viewer-close{position:absolute;z-index:3;right:16px;top:16px;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:22px;cursor:pointer}.viewer-nav{position:absolute;z-index:2;top:50%;transform:translateY(-50%);width:46px;height:46px;border:1px solid rgba(8,20,41,.12);border-radius:50%;background:rgba(255,255,255,.92);color:var(--navy);font-size:22px;cursor:pointer;box-shadow:0 10px 24px rgba(8,20,41,.12)}.viewer-prev{left:16px}.viewer-next{right:16px}@keyframes viewerIn{from{opacity:0}to{opacity:1}}
     footer{border-top:1px solid var(--line);padding:28px 0 34px;color:var(--muted);font-size:11px}.footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-row a{color:var(--purple);text-decoration:none;font-weight:700}
     @media(min-width:700px){.filter-row{grid-template-columns:minmax(260px,1fr) 180px}.brand-filters{grid-column:auto;grid-row:1;grid-column:2/3;display:none}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.info{padding:16px}.name{font-size:15px}.intro{padding-top:84px}}
     @media(min-width:980px){.filter-row{grid-template-columns:minmax(260px,1fr) auto 170px}.brand-filters{display:flex;grid-column:auto;grid-row:auto}.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}.top-link{padding-inline:18px}}
-    @media(max-width:520px){.top-link:not(.primary){display:none}.intro{padding-top:48px}.catalog-head{padding-top:30px}.grid{gap:10px}.info{padding:11px}.order{width:44px;padding:0}.order span{display:none}.price{font-size:14px}.sizes{font-size:8px}}
+    @media(max-width:700px){.viewer{padding:0}.viewer-panel{width:100%;height:100%;max-height:none;border-radius:0;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}.viewer-stage{min-height:0}.viewer-image{max-height:none}.viewer-info{padding:18px 20px 22px}.viewer-info h2{font-size:19px}.viewer-detail{margin-top:7px}.viewer-price{margin-top:10px;font-size:18px}.viewer-order{margin-top:16px}.viewer-nav{top:44%;width:44px;height:44px}.viewer-close{right:12px;top:12px}}
+    @media(max-width:520px){.top-link:not(.primary){display:none}.intro{padding-top:48px}.catalog-head{padding-top:30px}.grid{gap:10px}.info{padding:11px}.order{width:44px;padding:0}.order span{display:none}.price{font-size:14px}.sizes{font-size:8px}.zoom-hint{width:34px;height:34px}}
   </style>
 </head>
 <body>
@@ -90,6 +94,17 @@
 
   <footer><div class="shell footer-row"><span>WELLCALÇADOS © 2026 · ANGRA DOS REIS, RJ</span><a href="https://instagram.com/wellcalcados" target="_blank" rel="noopener">@wellcalcados →</a></div></footer>
   <div class="toast" id="toast" role="status" aria-live="polite">Mensagem copiada. Cole no direct para pedir este modelo.</div>
+  <div class="viewer" id="productViewer" role="dialog" aria-modal="true" aria-labelledby="viewerName" hidden>
+    <div class="viewer-panel">
+      <button class="viewer-close" id="viewerClose" type="button" aria-label="Fechar imagem ampliada">×</button>
+      <div class="viewer-stage">
+        <img class="viewer-image" id="viewerImage" src="" alt="">
+        <button class="viewer-nav viewer-prev" id="viewerPrev" type="button" aria-label="Produto anterior">‹</button>
+        <button class="viewer-nav viewer-next" id="viewerNext" type="button" aria-label="Próximo produto">›</button>
+      </div>
+      <div class="viewer-info"><span class="viewer-brand" id="viewerBrand"></span><h2 id="viewerName"></h2><p class="viewer-detail" id="viewerDetail"></p><div class="viewer-price" id="viewerPrice"></div><button class="viewer-order" id="viewerOrder" type="button">Pedir este modelo</button></div>
+    </div>
+  </div>
 
   <script src="catalog.js"></script>
   <script>
@@ -101,6 +116,17 @@
     const count = document.getElementById('count');
     const empty = document.getElementById('empty');
     const toast = document.getElementById('toast');
+    const viewer = document.getElementById('productViewer');
+    const viewerImage = document.getElementById('viewerImage');
+    const viewerBrand = document.getElementById('viewerBrand');
+    const viewerName = document.getElementById('viewerName');
+    const viewerDetail = document.getElementById('viewerDetail');
+    const viewerPrice = document.getElementById('viewerPrice');
+    const viewerClose = document.getElementById('viewerClose');
+    const viewerOrder = document.getElementById('viewerOrder');
+    let visibleProducts = products;
+    let viewerIndex = 0;
+    let viewerTrigger;
     let activeBrand = 'Todas';
 
     const brands = ['Todas', ...new Set(products.map(product => product.brand))];
@@ -120,12 +146,24 @@
       const option = document.createElement('option'); option.value = size; option.textContent = `Tamanho ${size}`; sizeFilter.appendChild(option);
     });
 
-    function productCard(product) {
+    function productCard(product, index) {
       const sizes = product.sizes.length ? `Tam. ${product.sizes.join(' e ')}` : 'Consulte a numeração';
       const detail = [sizes, product.note].filter(Boolean).join(' · ');
       const price = product.price ? `<span class="price"><small>R$</small> ${product.price}</span>` : '<span class="price"><small>CONSULTAR</small></span>';
-      return `<article class="card"><div class="photo"><img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async"><span class="available">DISPONÍVEL</span></div><div class="info"><span class="brand-name">${product.brand}</span><h3 class="name">${product.name}</h3><p class="sizes">${detail}</p><div class="bottom">${price}<button class="order" type="button" data-name="${product.name}" data-size="${product.sizes.join('/')}"><span>Pedir este</span><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></button></div></div></article>`;
+      return `<article class="card"><button class="photo photo-open" type="button" data-index="${index}" aria-label="Ampliar foto de ${product.name}"><img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async"><span class="available">DISPONÍVEL</span><span class="zoom-hint" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4M11 8v6M8 11h6"/></svg></span></button><div class="info"><span class="brand-name">${product.brand}</span><h3 class="name">${product.name}</h3><p class="sizes">${detail}</p><div class="bottom">${price}<button class="order" type="button" data-name="${product.name}" data-size="${product.sizes.join('/')}"><span>Pedir este</span><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></button></div></div></article>`;
     }
+
+    function updateViewer() {
+      const product = visibleProducts[viewerIndex];
+      const sizes = product.sizes.length ? `Tamanhos ${product.sizes.join(' e ')}` : 'Consulte a numeração';
+      viewerImage.src = product.image; viewerImage.alt = `Foto ampliada de ${product.name}`;
+      viewerBrand.textContent = product.brand; viewerName.textContent = product.name;
+      viewerDetail.textContent = [sizes, product.note].filter(Boolean).join(' · ');
+      viewerPrice.innerHTML = product.price ? `<small>R$</small> ${product.price}` : '<small>CONSULTAR VALOR</small>';
+    }
+    function openViewer(index, trigger) { viewerIndex = index; viewerTrigger = trigger; updateViewer(); viewer.hidden = false; document.body.classList.add('viewer-open'); viewerClose.focus(); }
+    function closeViewer() { viewer.hidden = true; document.body.classList.remove('viewer-open'); if (viewerTrigger) viewerTrigger.focus(); }
+    function moveViewer(direction) { viewerIndex = (viewerIndex + direction + visibleProducts.length) % visibleProducts.length; updateViewer(); }
 
     function render() {
       const term = search.value.trim().toLocaleLowerCase('pt-BR');
@@ -136,6 +174,7 @@
         const haystack = `${product.brand} ${product.name} ${product.note}`.toLocaleLowerCase('pt-BR');
         return matchesBrand && matchesSize && (!term || haystack.includes(term));
       });
+      visibleProducts = filtered;
       grid.innerHTML = filtered.map(productCard).join('');
       count.textContent = `${filtered.length} ${filtered.length === 1 ? 'modelo' : 'modelos'}`;
       grid.classList.toggle('hidden', filtered.length === 0); empty.classList.toggle('show', filtered.length === 0);
@@ -143,7 +182,15 @@
         await window.copyProductAndOpenDirect(button.dataset.name, button.dataset.size);
         toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3500);
       }));
+      grid.querySelectorAll('.photo-open').forEach(button => button.addEventListener('click', () => openViewer(Number(button.dataset.index), button)));
     }
+
+    viewerClose.addEventListener('click', closeViewer);
+    document.getElementById('viewerPrev').addEventListener('click', () => moveViewer(-1));
+    document.getElementById('viewerNext').addEventListener('click', () => moveViewer(1));
+    viewer.addEventListener('click', event => { if (event.target === viewer) closeViewer(); });
+    viewerOrder.addEventListener('click', async () => { const product = visibleProducts[viewerIndex]; await window.copyProductAndOpenDirect(product.name, product.sizes.join('/')); toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3500); });
+    document.addEventListener('keydown', event => { if (viewer.hidden) return; if (event.key === 'Escape') closeViewer(); if (event.key === 'ArrowLeft') moveViewer(-1); if (event.key === 'ArrowRight') moveViewer(1); });
 
     search.addEventListener('input', render); sizeFilter.addEventListener('change', render); render();
   </script>
