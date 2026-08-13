@@ -63,10 +63,19 @@
     .btn-primary{background:var(--purple);color:#fff;box-shadow:0 12px 25px rgba(109,54,167,.22)}
     .btn-primary:hover{background:var(--purple-dark);transform:translateY(-2px)}
     .btn-ghost{border-color:var(--line);background:#fff}
-    .hero-product{height:430px;position:relative;display:grid;place-items:center;z-index:2}
+    .hero-product{height:430px;position:relative;display:grid;place-items:center;z-index:2;perspective:1100px;transform-style:preserve-3d}
     .hero-product::after{content:"";position:absolute;left:17%;right:8%;bottom:51px;height:42px;background:rgba(20,13,28,.18);filter:blur(22px);border-radius:50%;z-index:-1}
-    .hero-shoe{width:116%;max-width:690px;transform:rotate(-10deg) translateX(-2%);filter:drop-shadow(0 28px 18px rgba(32,18,48,.18));animation:float 5s ease-in-out infinite}
-    @keyframes float{50%{transform:rotate(-8deg) translate(-2%,-8px)}}
+    .shoe-deck{position:absolute;inset:0 -10%;transform-style:preserve-3d}
+    .shoe-slide{position:absolute;inset:0;display:grid;place-items:center;opacity:0;pointer-events:none;transform:translate3d(28%,0,-180px) rotateY(-42deg) rotateZ(-4deg) scale(.72);transition:opacity .7s ease,transform .95s cubic-bezier(.2,.75,.2,1);transform-style:preserve-3d}
+    .shoe-slide img{width:100%;max-width:690px;max-height:410px;object-fit:contain;filter:drop-shadow(0 28px 18px rgba(32,18,48,.18))}
+    .shoe-slide.is-active{opacity:1;pointer-events:auto;transform:translate3d(0,0,35px) rotateY(-7deg) rotateZ(-8deg) scale(1);z-index:3}
+    .shoe-slide.is-prev{opacity:0;transform:translate3d(-30%,0,-180px) rotateY(45deg) rotateZ(5deg) scale(.72);z-index:1}
+    .shoe-slide.is-next{opacity:0;transform:translate3d(30%,0,-180px) rotateY(-45deg) rotateZ(-5deg) scale(.72);z-index:2}
+    .shoe-slide.is-active img{animation:shoeFloat 4.8s ease-in-out infinite}
+    @keyframes shoeFloat{50%{transform:translateY(-9px) rotateX(2deg)}}
+    .shoe-dots{position:absolute;z-index:6;bottom:15px;right:3%;display:flex;align-items:center;gap:7px}
+    .shoe-dot{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:#cfc6d7;cursor:pointer;transition:.25s}
+    .shoe-dot.is-active{width:24px;border-radius:999px;background:var(--purple)}
     .feature-tag{position:absolute;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:999px;padding:9px 13px;box-shadow:0 10px 30px rgba(25,20,31,.08);font-size:10px;font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:7px;backdrop-filter:blur(8px)}
     .feature-tag i{width:8px;height:8px;background:var(--purple);border:2px solid #e3d4ef;border-radius:50%;box-sizing:content-box}
     .tag-one{left:3%;top:20%}.tag-two{right:-2%;top:36%}.tag-three{left:19%;bottom:12%}
@@ -86,8 +95,15 @@
     .section-head h2,.story-copy h2,.trade-copy h2{font:600 clamp(30px,3.2vw,46px)/1.05 "Manrope",sans-serif;letter-spacing:-.055em}
     .section-head p{font-size:13px;color:var(--muted);margin-top:8px}
     .view-all{font-size:12px;text-decoration:none;font-weight:700;border-bottom:1px solid var(--ink);padding-bottom:4px;white-space:nowrap}
-    .product-rail{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
-    .product-card{position:relative;min-width:0}
+    .rail-actions{display:flex;align-items:center;gap:14px}
+    .rail-toggle{width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--ink);cursor:pointer;display:grid;place-items:center;font-size:12px}
+    .product-marquee{position:relative;overflow-x:auto;overflow-y:hidden;padding-bottom:8px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 2.5%,#000 97.5%,transparent);mask-image:linear-gradient(90deg,transparent,#000 2.5%,#000 97.5%,transparent)}
+    .product-marquee::-webkit-scrollbar{display:none}
+    .product-rail{display:flex;width:max-content;gap:16px;animation:productMarquee 52s linear infinite;will-change:transform}
+    .product-set{display:flex;gap:16px}
+    .product-marquee:hover .product-rail,.product-marquee:focus-within .product-rail,.product-marquee.is-paused .product-rail{animation-play-state:paused}
+    @keyframes productMarquee{to{transform:translateX(calc(-50% - 8px))}}
+    .product-card{position:relative;min-width:0;flex:0 0 214px}
     .product-photo{position:relative;aspect-ratio:1/.86;background:var(--surface);border-radius:20px;overflow:hidden}
     .product-photo img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
     .product-card:hover .product-photo img{transform:scale(1.045)}
@@ -132,8 +148,8 @@
       .nav{display:none}.menu-btn{display:grid}
       .hero{min-height:auto;padding-top:54px}.hero::before{width:420px;height:420px;left:66%;top:44%}
       .hero-grid{grid-template-columns:.92fr 1.2fr}.hero-side{display:none}
-      h1{font-size:clamp(58px,8vw,78px)}.hero-product{height:390px}.hero-shoe{width:125%}
-      .product-rail{grid-template-columns:repeat(3,1fr)}.product-card:nth-child(n+4){display:none}
+      h1{font-size:clamp(58px,8vw,78px)}.hero-product{height:390px}.shoe-deck{inset:0 -16%}.shoe-slide img{width:112%}
+      .product-card{flex-basis:210px}
       .story-grid{gap:36px}.story-visual{height:420px}.trade-card{grid-template-columns:1fr 270px}.trade-shoe{width:350px}
     }
     @media(max-width:640px){
@@ -142,16 +158,16 @@
       .hero{padding:40px 0 30px}.hero::before{width:330px;height:330px;left:58%;top:54%}.hero::after{display:none}
       .hero-grid{display:flex;flex-direction:column;align-items:stretch}.hero-copy{z-index:4}
       h1{font-size:58px;line-height:.9}.hero-copy p{margin:24px 0 18px;font-size:13px;max-width:280px}.hero-copy .btn{min-height:46px}
-      .hero-product{height:310px;margin-top:-16px}.hero-shoe{width:112%;transform:rotate(-10deg);margin-left:5%}@keyframes float{50%{transform:rotate(-8deg) translateY(-7px)}}
+      .hero-product{height:310px;margin-top:-16px}.shoe-deck{inset:0 -20%}.shoe-slide img{width:106%;max-height:295px}.shoe-slide.is-active{transform:translate3d(0,0,25px) rotateY(-5deg) rotateZ(-7deg) scale(1)}.shoe-dots{bottom:0;right:7%}
       .feature-tag{font-size:8.5px;padding:7px 9px}.tag-one{left:0;top:24%}.tag-two{right:0;top:38%}.tag-three{left:16%;bottom:6%}
       .trust-row{display:block;margin-top:0}.brand-list{margin-top:18px;justify-content:space-between;gap:10px}.trust-group:nth-child(2){display:none}
-      .products{padding:48px 0 56px}.section-head{align-items:start}.section-head h2{font-size:32px}.section-head p{max-width:220px}.view-all{margin-top:7px}
-      .product-rail{grid-template-columns:repeat(2,1fr);gap:12px}.product-card:nth-child(4){display:block}.product-photo{border-radius:16px}.product-info h3{font-size:12px}
+      .products{padding:48px 0 56px}.section-head{align-items:start}.section-head h2{font-size:32px}.section-head p{max-width:190px}.view-all{display:none}.rail-actions{gap:8px}
+      .product-rail,.product-set{gap:12px}.product-card{flex-basis:165px}.product-photo{border-radius:16px}.product-info h3{font-size:12px}@keyframes productMarquee{to{transform:translateX(calc(-50% - 6px))}}
       .story{padding:56px 0}.story-grid{display:flex;flex-direction:column;gap:40px}.story-visual{width:100%;height:360px;gap:10px}.story-photo{border-radius:18px}.story-photo:first-child{margin-top:44px}.story-copy h2{font-size:34px}.benefits{grid-template-columns:1fr}
       .trade{padding:48px 0}.trade-card{display:block;padding:36px 28px 190px;border-radius:24px}.trade-copy h2{font-size:34px}.trade-shoe{width:310px;right:-20px;bottom:-38px}
       .footer-row{align-items:flex-start;flex-direction:column}.footer-links{flex-wrap:wrap}
     }
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-shoe{animation:none}*{transition:none!important}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.shoe-slide.is-active img,.product-rail{animation:none}*{transition:none!important}}
   </style>
 </head>
 <body>
@@ -176,16 +192,21 @@
           <p>Sneakers selecionados para acompanhar seu ritmo — com atendimento direto, preço justo e estilo de sobra.</p>
           <a class="btn btn-primary" href="vitrine.html">Explorar vitrine <svg viewBox="0 0 24 24"><path d="m5 12 14 0m-5-5 5 5-5 5"/></svg></a>
         </div>
-        <div class="hero-product" aria-label="Nike Air Force 1 em destaque">
-          <img class="hero-shoe" src="img/hero-af1-cutout.png" alt="Tênis Nike Air Force 1 branco, preto e roxo">
+        <div class="hero-product" aria-label="Tênis em destaque">
+          <div class="shoe-deck" id="shoeDeck">
+            <figure class="shoe-slide is-active"><img src="img/hero-af1-cutout.png" alt="Nike Air Force 1 branco, preto e roxo"></figure>
+            <figure class="shoe-slide is-next"><img src="img/hero-samba-cutout.png" alt="Adidas Samba branco, preto e marrom"></figure>
+            <figure class="shoe-slide"><img src="img/hero-oncloud-cutout.png" alt="On Cloud preto e branco"></figure>
+          </div>
           <span class="feature-tag tag-one"><i></i> Pronta entrega</span>
           <span class="feature-tag tag-two"><i></i> Até 3x sem juros</span>
           <span class="feature-tag tag-three"><i></i> Aceitamos permuta</span>
+          <div class="shoe-dots" aria-label="Selecionar tênis em destaque"><button class="shoe-dot is-active" type="button" aria-label="Mostrar Nike Air Force 1"></button><button class="shoe-dot" type="button" aria-label="Mostrar Adidas Samba"></button><button class="shoe-dot" type="button" aria-label="Mostrar On Cloud"></button></div>
         </div>
         <aside class="hero-side">
-          <div class="side-count">01 / 03</div>
-          <h2>Conforto que acompanha o seu corre.</h2>
-          <p>Modelos selecionados, numeração real e atendimento humano pelo direct.</p>
+          <div class="side-count" id="heroCount">01 / 03 · NIKE</div>
+          <h2 id="heroProductName">Air Force 1 para acompanhar o seu corre.</h2>
+          <p id="heroProductMeta">Pronta entrega, tamanhos 38 e atendimento humano pelo direct.</p>
           <a class="text-link" href="#diferenciais">Por que escolher a Well?</a>
         </aside>
       </div>
@@ -197,8 +218,8 @@
     </section>
 
     <section class="products shell" id="destaques">
-      <div class="section-head"><div><h2>Em destaque</h2><p>Os pares que estão chamando atenção na vitrine.</p></div><a class="view-all" href="vitrine.html">Ver todos os modelos →</a></div>
-      <div class="product-rail" id="homeProducts" aria-live="polite"></div>
+      <div class="section-head"><div><h2>Em movimento</h2><p>A vitrine passa por aqui. Pause quando encontrar o seu par.</p></div><div class="rail-actions"><button class="rail-toggle" id="railToggle" type="button" aria-label="Pausar produtos">Ⅱ</button><a class="view-all" href="vitrine.html">Ver todos os modelos →</a></div></div>
+      <div class="product-marquee" id="productMarquee"><div class="product-rail" id="homeProducts" aria-live="polite"></div></div>
     </section>
 
     <section class="story" id="diferenciais">
@@ -234,13 +255,14 @@
   <script src="catalog.js"></script>
   <script>
     const productsRoot = document.getElementById('homeProducts');
-    const featured = window.WELL_PRODUCTS.slice(0, 5);
+    const featured = window.WELL_PRODUCTS;
     const arrow = '<svg viewBox="0 0 24 24"><path d="m7 17 10-10M8 7h9v9"/></svg>';
-    productsRoot.innerHTML = featured.map((product, index) => {
+    const renderProducts = (hidden = false) => `<div class="product-set"${hidden ? ' aria-hidden="true"' : ''}>${featured.map((product, index) => {
       const sizes = product.sizes.length ? `Tam. ${product.sizes.join(' · ')}` : product.note;
       const price = product.price ? `R$ ${product.price}` : 'Consultar valor';
       return `<article class="product-card"><div class="product-photo"><img src="${product.image}" alt="${product.name}" ${index > 1 ? 'loading="lazy"' : ''}><span class="product-brand">${product.brand}</span><a class="product-order" href="https://instagram.com/wellcalcados" data-index="${index}" aria-label="Pedir ${product.name}">${arrow}</a></div><div class="product-info"><h3>${product.name}</h3><div class="meta">${sizes}</div><div class="price">${price}</div></div></article>`;
-    }).join('');
+    }).join('')}</div>`;
+    productsRoot.innerHTML = renderProducts() + renderProducts(true);
     const toast = document.getElementById('toast');
     productsRoot.addEventListener('click', async event => {
       const link = event.target.closest('.product-order');
@@ -251,6 +273,49 @@
       toast.classList.add('show');
       window.setTimeout(() => toast.classList.remove('show'), 3200);
     });
+
+    const productMarquee = document.getElementById('productMarquee');
+    const railToggle = document.getElementById('railToggle');
+    railToggle.addEventListener('click', () => {
+      const paused = productMarquee.classList.toggle('is-paused');
+      railToggle.textContent = paused ? '▶' : 'Ⅱ';
+      railToggle.setAttribute('aria-label', paused ? 'Continuar produtos' : 'Pausar produtos');
+    });
+    productMarquee.addEventListener('pointerdown', () => productMarquee.classList.add('is-paused'), {passive:true});
+
+    const shoeSlides = [...document.querySelectorAll('.shoe-slide')];
+    const shoeDots = [...document.querySelectorAll('.shoe-dot')];
+    const heroModels = [
+      {count:'01 / 03 · NIKE',name:'Air Force 1 para acompanhar o seu corre.',meta:'Pronta entrega, tamanhos disponíveis e atendimento humano pelo direct.'},
+      {count:'02 / 03 · ADIDAS',name:'Samba: um clássico que atravessa estilos.',meta:'Visual retrô, dois cadarços e pronta entrega na vitrine Well.'},
+      {count:'03 / 03 · ON CLOUD',name:'Leveza e presença para a rotina inteira.',meta:'Conforto esportivo em um modelo preto fácil de combinar.'}
+    ];
+    let activeShoe = 0;
+    let shoeTimer;
+    const showShoe = next => {
+      activeShoe = (next + shoeSlides.length) % shoeSlides.length;
+      shoeSlides.forEach((slide, index) => {
+        slide.classList.remove('is-active','is-prev','is-next');
+        if (index === activeShoe) slide.classList.add('is-active');
+        else if (index === (activeShoe - 1 + shoeSlides.length) % shoeSlides.length) slide.classList.add('is-prev');
+        else slide.classList.add('is-next');
+      });
+      shoeDots.forEach((dot,index) => dot.classList.toggle('is-active',index === activeShoe));
+      const model = heroModels[activeShoe];
+      document.getElementById('heroCount').textContent = model.count;
+      document.getElementById('heroProductName').textContent = model.name;
+      document.getElementById('heroProductMeta').textContent = model.meta;
+    };
+    const startShoes = () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      window.clearInterval(shoeTimer);
+      shoeTimer = window.setInterval(() => showShoe(activeShoe + 1), 4300);
+    };
+    shoeDots.forEach((dot,index) => dot.addEventListener('click',() => { showShoe(index); startShoes(); }));
+    document.querySelector('.hero-product').addEventListener('pointerenter',() => window.clearInterval(shoeTimer));
+    document.querySelector('.hero-product').addEventListener('pointerleave',startShoes);
+    document.addEventListener('visibilitychange',() => document.hidden ? window.clearInterval(shoeTimer) : startShoes());
+    startShoes();
   </script>
 </body>
 </html>
