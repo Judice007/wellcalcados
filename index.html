@@ -286,6 +286,42 @@
     border:1px dashed var(--line); border-radius:12px; padding:14px; text-decoration:none;
   }
 
+  /* GUIA DE MEDIDAS */
+  .size-table-wrap{
+    margin-top:22px; border:1px solid var(--line); border-radius:14px; overflow:hidden;
+  }
+  .size-table{ width:100%; border-collapse:collapse; font-family:'Inter',sans-serif; font-size:13.5px; }
+  .size-table th{
+    text-align:left; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.1em;
+    color:var(--muted); text-transform:uppercase; padding:10px 14px; border-bottom:1px solid var(--line);
+    background:var(--panel-2);
+  }
+  .size-table td{ padding:9px 14px; border-bottom:1px solid var(--line); color:var(--navy); }
+  .size-table tr:last-child td{ border-bottom:none; }
+  .size-table tr:nth-child(even) td{ background:rgba(91,46,147,0.04); }
+  .size-table td:first-child{ font-weight:700; }
+
+  /* ENCOMENDA — modelos importados sob encomenda */
+  .delivery-card{
+    margin-top:22px; background:linear-gradient(135deg, var(--panel-2), #fff);
+    border:1px solid var(--line); border-radius:18px; padding:28px 24px;
+    display:flex; flex-direction:column; align-items:center; text-align:center; gap:4px;
+  }
+  .dt-label{ font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:0.14em; color:var(--muted); }
+  .dt-number{ display:flex; align-items:baseline; gap:8px; margin-top:8px; }
+  .dt-number .num{
+    font-family:'Archivo Black',sans-serif; font-size:44px;
+    background:linear-gradient(90deg,var(--navy),var(--purple));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .dt-number .conn{ font-family:'Inter',sans-serif; font-size:16px; color:var(--muted); font-weight:600; }
+  .dt-number .unit{ font-family:'Inter',sans-serif; font-size:16px; color:var(--navy); font-weight:700; }
+  .dt-note{
+    margin-top:10px; font-family:'Space Mono',monospace; font-size:11.5px; color:var(--purple);
+    display:flex; align-items:center; gap:6px;
+  }
+  .badge-row-3{ display:flex; flex-direction:column; gap:10px; margin-top:18px; }
+
   /* BADGES / diferenciais */
   .badge-row{ display:flex; flex-direction:column; gap:10px; }
   .badge{
@@ -404,6 +440,7 @@
     .product-grid{ grid-template-columns:repeat(4,1fr); }
 
     .badge-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .badge-row-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
 
     h2.display{ font-size:32px; }
 
@@ -464,7 +501,9 @@
           <div class="brands-list">
             <span class="brand-chip">Nike</span>
             <span class="brand-chip">Adidas</span>
-            <span class="brand-chip">On</span>
+            <span class="brand-chip">New Balance</span>
+            <span class="brand-chip">Lacoste</span>
+            <span class="brand-chip">On Cloud</span>
           </div>
         </div>
       </div>
@@ -508,6 +547,33 @@
           <p>Combinamos entrega em Angra ou envio pra sua região.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- GUIA DE MEDIDAS -->
+  <section id="medidas">
+    <div class="kicker">ANTES DE PEDIR</div>
+    <h2 class="display">Guia de medidas</h2>
+    <p class="section-sub">Meça seu pé em centímetros (do calcanhar à ponta do maior dedo) e compare com a tabela.</p>
+    <div class="size-table-wrap">
+      <table class="size-table">
+        <thead>
+          <tr><th>BR</th><th>US</th><th>Medição (cm)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>34</td><td>5</td><td>22,5 cm</td></tr>
+          <tr><td>35</td><td>5.5</td><td>23 cm</td></tr>
+          <tr><td>36</td><td>6</td><td>24 cm</td></tr>
+          <tr><td>37</td><td>6.5</td><td>24,5 cm</td></tr>
+          <tr><td>38</td><td>7</td><td>25 cm</td></tr>
+          <tr><td>39</td><td>7.5</td><td>25,5 cm</td></tr>
+          <tr><td>40</td><td>8.5</td><td>26,5 cm</td></tr>
+          <tr><td>41</td><td>9.5</td><td>27,5 cm</td></tr>
+          <tr><td>42</td><td>10</td><td>28 cm</td></tr>
+          <tr><td>43</td><td>11</td><td>29 cm</td></tr>
+          <tr><td>44</td><td>12</td><td>30 cm</td></tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
@@ -836,6 +902,41 @@
       </div>
     </div>
     <a class="product-more" href="#contato">ver catálogo completo no direct →</a>
+  </section>
+
+  <!-- ENCOMENDA — modelos importados -->
+  <section id="encomenda">
+    <div class="kicker">TAMBÉM TRABALHAMOS COM</div>
+    <h2 class="display">Não achou? A gente encomenda</h2>
+    <p class="section-sub">Os modelos da vitrine são pronta entrega, aqui em Angra dos Reis. Modelos importados fora do estoque saem por encomenda.</p>
+
+    <div class="delivery-card">
+      <span class="dt-label">PRAZO DE ENTREGA APÓS A ENCOMENDA</span>
+      <div class="dt-number">
+        <span class="num">7</span>
+        <span class="conn">a</span>
+        <span class="num">10</span>
+        <span class="unit">dias</span>
+      </div>
+      <span class="dt-note">🚚 podendo chegar antes</span>
+    </div>
+
+    <div class="badge-row-3">
+      <div class="badge">
+        <div class="ic">🛡️</div>
+        <div><h5>Compra segura</h5><p>Seus dados protegidos do início ao fim.</p></div>
+      </div>
+      <div class="badge">
+        <div class="ic">✅</div>
+        <div><h5>Produtos de qualidade</h5><p>O melhor pra você, sempre.</p></div>
+      </div>
+      <div class="badge">
+        <div class="ic">📍</div>
+        <div><h5>Acompanhe sua entrega</h5><p>Do pedido até você.</p></div>
+      </div>
+    </div>
+
+    <a class="product-more" href="#contato">encomendar modelo importado no direct →</a>
   </section>
 
 </div>
