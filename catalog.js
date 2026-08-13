@@ -10,7 +10,7 @@ window.WELL_PRODUCTS = [
   { brand:'Nike', name:'Nike Air Force 1 preto/branco', sizes:[38], note:'', price:250, image:'img/produto-af1-panda.jpg' },
   { brand:'Nike', name:'Nike AF1 plataforma azul', sizes:[36,37], note:'', price:250, image:'img/produto-af1-jester-azul.jpg' },
   { brand:'Nike', name:'Nike Court branco/azul', sizes:[37,39], note:'2 cadarços', price:250, image:'img/produto-nike-court.jpg' },
-  { brand:'Adidas', name:'Adidas Samba', sizes:[37], note:'2 cadarços', price:170, image:'img/produto-adidas-samba.jpg' },
+  { brand:'Adidas', name:'Adidas Samba', sizes:[37], note:'2 cadarços', price:170, image:'img/produto-adidas-samba-nova.webp' },
   { brand:'Adidas', name:'Adidas SL72 areia', sizes:[37], note:'2 cadarços', price:250, image:'img/produto-adidas-sl72-areia.jpg' },
   { brand:'Adidas', name:'Adidas SL72 bordô', sizes:[38], note:'feminino', price:250, image:'img/produto-adidas-sl72-bordo.jpg' },
   { brand:'Adidas', name:'Adidas feminino branco', sizes:[37,39], note:'', price:170, image:'img/produto-adidas-feminino-branco.jpg' },
@@ -28,7 +28,15 @@ window.WELL_PRODUCTS = [
   { brand:'Nike', name:'Nike Air Max Plus prata', sizes:[38,39,40,41,42,43], note:'Importado · somente por encomenda', price:null, image:'img/importado-nike-air-max-plus-prata.webp', category:'Importados', orderOnly:true },
   { brand:'Adidas', name:'Adidas Adizero azul e coral', sizes:[38,39,40,41,42,43], note:'Importado · somente por encomenda', price:null, image:'img/importado-adidas-adizero-azul.webp', category:'Importados', orderOnly:true },
   { brand:'Adidas', name:'Adidas Adizero neon', sizes:[38,39,40,41,42,43], note:'Importado · somente por encomenda', price:null, image:'img/importado-adidas-adizero-neon.webp', category:'Importados', orderOnly:true },
-  { brand:'Adidas', name:'Adidas Adizero azul e neon', sizes:[40,41,42,43], note:'Importado · somente por encomenda', price:null, image:'img/importado-adidas-adizero-azul-neon.webp', category:'Importados', orderOnly:true }
+  { brand:'Adidas', name:'Adidas Adizero azul e neon', sizes:[40,41,42,43], note:'Importado · somente por encomenda', price:null, image:'img/importado-adidas-adizero-azul-neon.webp', category:'Importados', orderOnly:true },
+  { brand:'Nacional', name:'Tênis casual branco e preto', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-casual-branco-preto.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Nacional', name:'Tênis casual preto com detalhes verde e vermelho', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-casual-preto-verde-vermelho.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Nacional', name:'Tênis casual branco com detalhes verde e vermelho', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-casual-branco-verde-vermelho.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Adidas', name:'Adidas Samba marrom', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-adidas-samba-marrom.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Adidas', name:'Adidas Samba branco e verde', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-adidas-samba-branco-verde.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Adidas', name:'Adidas Samba branco e vermelho', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-adidas-samba-branco-vermelho.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Adidas', name:'Adidas Samba preto', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-adidas-samba-preto.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Adidas', name:'Adidas Samba off-white', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-adidas-samba-off-white.webp', category:'Nacionais', orderOnly:true }
 ];
 
 window.copyProductAndOpenDirect = async function(productName, sizeText, orderOnly = false) {
