@@ -34,10 +34,9 @@
     img{max-width:100%;display:block}
     .page{width:min(1360px,calc(100% - 40px));margin:24px auto;background:var(--white);border-radius:32px;box-shadow:0 30px 80px rgba(21,17,27,.09);overflow:hidden}
     .shell{width:min(1180px,calc(100% - 64px));margin-inline:auto}
-    .topbar{height:80px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
-    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:"Manrope",sans-serif;font-weight:800;font-size:16px;letter-spacing:-.03em}
-    .logo img{width:37px;height:37px;object-fit:contain}
-    .logo em{color:var(--purple);font-style:normal}
+    .topbar{height:96px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+    .logo{display:flex;align-items:center;text-decoration:none}
+    .logo img{width:128px;height:auto;max-height:76px;object-fit:contain}
     .nav{display:flex;align-items:center;gap:32px}
     .nav a{text-decoration:none;color:#45474d;font-size:13px;font-weight:500;transition:.2s}
     .nav a:hover{color:var(--purple)}
@@ -154,7 +153,7 @@
     }
     @media(max-width:640px){
       body{background:#fff}.page{width:100%;margin:0;border-radius:0;box-shadow:none}.shell{width:calc(100% - 32px)}
-      .topbar{height:68px}.logo img{width:32px;height:32px}.head-actions .icon-btn:first-child{display:none}
+      .topbar{height:82px}.logo img{width:106px;max-height:68px}.head-actions .icon-btn:first-child{display:none}
       .hero{padding:40px 0 30px}.hero::before{width:330px;height:330px;left:58%;top:54%}.hero::after{display:none}
       .hero-grid{display:flex;flex-direction:column;align-items:stretch}.hero-copy{z-index:4}
       h1{font-size:52px;line-height:.92}.hero-copy p{margin:24px 0 18px;font-size:13px;max-width:280px}.hero-copy .btn{min-height:46px}
@@ -173,7 +172,7 @@
 <body>
   <main class="page">
     <header class="shell topbar">
-      <a class="logo" href="#inicio" aria-label="WellCalçados — início"><img src="img/logo-icon.png" alt=""><span>WELL<em>CALÇADOS</em></span></a>
+      <a class="logo" href="#inicio" aria-label="WellCalçados — início"><img src="img/logo-header-transparent.png" alt="WellCalçados — conforto, estilo, você"></a>
       <nav class="nav" aria-label="Navegação principal">
         <a href="#inicio">Início</a><a href="vitrine.html">Vitrine</a><a href="#diferenciais">Diferenciais</a><a href="#permuta">Permuta</a>
       </nav>
@@ -247,7 +246,7 @@
       </div>
     </section>
 
-    <footer><div class="shell footer-row"><a class="logo" href="#inicio"><img src="img/logo-icon.png" alt=""><span>WELL<em>CALÇADOS</em></span></a><p class="footer-note">Sneakers selecionados em Angra dos Reis, RJ.</p><div class="footer-links"><a href="vitrine.html">Vitrine</a><a href="https://instagram.com/wellcalcados" target="_blank" rel="noopener">Instagram</a></div></div></footer>
+    <footer><div class="shell footer-row"><a class="logo" href="#inicio"><img src="img/logo-header-transparent.png" alt="WellCalçados"></a><p class="footer-note">Sneakers selecionados em Angra dos Reis, RJ.</p><div class="footer-links"><a href="vitrine.html">Vitrine</a><a href="https://instagram.com/wellcalcados" target="_blank" rel="noopener">Instagram</a></div></div></footer>
   </main>
   <div class="toast" id="toast" role="status" aria-live="polite">Mensagem copiada. Agora é só colar no direct.</div>
   <script src="catalog.js"></script>
