@@ -136,7 +136,8 @@
     let viewerTrigger;
     let activeBrand = 'Todas';
 
-    const brands = ['Todas', 'Air Force', 'New Balance 9060', 'Chuteiras', 'Importados', 'Nacionais', ...new Set(products.map(product => product.brand).filter(brand => !['Nacional','New Balance'].includes(brand)))];
+    const categoryFilters = ['Pronta entrega', 'Sob encomenda', 'Air Force', 'Adidas Samba', 'New Balance 9060', 'Chuteiras', 'Importados', 'Nacionais'];
+    const brands = ['Todas', ...categoryFilters, ...new Set(products.map(product => product.brand).filter(brand => !['Nacional','New Balance'].includes(brand)))];
     brands.forEach(brand => {
       const button = document.createElement('button');
       button.className = 'filter-chip' + (brand === 'Air Force' ? ' featured' : '') + (brand === activeBrand ? ' active' : '');
@@ -180,14 +181,22 @@
       const size = Number(sizeFilter.value);
       const filtered = products.filter(product => {
         const isAirForce = /air force|\baf1\b/i.test(product.name);
-        const matchesBrand = activeBrand === 'Todas' || (activeBrand === 'Air Force' ? isAirForce : ['New Balance 9060','Chuteiras','Importados','Nacionais'].includes(activeBrand) ? product.category === activeBrand : product.brand === activeBrand);
+        const isSamba = /adidas samba/i.test(product.name);
+        const matchesBrand = activeBrand === 'Todas'
+          || (activeBrand === 'Pronta entrega' ? !product.orderOnly
+          : activeBrand === 'Sob encomenda' ? product.orderOnly
+          : activeBrand === 'Air Force' ? isAirForce
+          : activeBrand === 'Adidas Samba' ? isSamba
+          : ['New Balance 9060','Chuteiras','Importados','Nacionais'].includes(activeBrand) ? product.category === activeBrand
+          : product.brand === activeBrand);
         const matchesSize = !size || product.sizes.includes(size);
         const haystack = `${product.brand} ${product.name} ${product.note}`.toLocaleLowerCase('pt-BR');
         return matchesBrand && matchesSize && (!term || haystack.includes(term));
       });
       visibleProducts = filtered;
       grid.innerHTML = filtered.map(productCard).join('');
-      catalogTitle.textContent = activeBrand === 'Air Force' ? 'Coleção Air Force' : activeBrand === 'New Balance 9060' ? 'New Balance 9060 por encomenda' : activeBrand === 'Chuteiras' ? 'Chuteiras por encomenda' : activeBrand === 'Importados' ? 'Importados por encomenda' : activeBrand === 'Nacionais' ? 'Nacionais por encomenda' : activeBrand === 'Todas' ? 'Todos os modelos' : `Modelos ${activeBrand}`;
+      const catalogTitles = {'Todas':'Todos os modelos','Pronta entrega':'Modelos à pronta entrega','Sob encomenda':'Todos os modelos sob encomenda','Air Force':'Coleção Air Force','Adidas Samba':'Coleção Adidas Samba','New Balance 9060':'New Balance 9060 por encomenda','Chuteiras':'Chuteiras por encomenda','Importados':'Importados por encomenda','Nacionais':'Nacionais por encomenda'};
+      catalogTitle.textContent = catalogTitles[activeBrand] || `Modelos ${activeBrand}`;
       count.textContent = `${filtered.length} ${filtered.length === 1 ? 'modelo' : 'modelos'}`;
       grid.classList.toggle('hidden', filtered.length === 0); empty.classList.toggle('show', filtered.length === 0);
       grid.querySelectorAll('.order').forEach(button => button.addEventListener('click', async () => {
