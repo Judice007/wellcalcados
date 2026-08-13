@@ -3,12 +3,12 @@
 Landing page em HTML único (`index.html`), sem build/framework — abre direto no navegador.
 
 ## Identidade visual
-- Conceito: "etiqueta de autenticidade de tênis" (tag pendurada, código de barras, furinho)
+- Conceito: vitrine editorial de sneakers, com produto em destaque e uma etiqueta compacta de pronta entrega (modelo, tamanho, preço e código de barras)
 - Paleta: fundo escuro (#0B0B0E), roxo (#6F4DFF), magenta (#FF3D9A), amarelo-tag (#FFC93C)
 - Fontes: Archivo Black (títulos), Space Mono (preço/tamanho/tags), Inter (texto)
 
 ## Estrutura da página
-1. Hero — tag balançando com headline
+1. Hero — composição de e-commerce com headline ampla, produto protagonista e etiqueta compacta
 2. Processo — 3 passos (escolher → confirmar → receber)
 3. Categorias — 4 cards com foto de fundo
 4. Vitrine — grid de produtos com preço/tamanho (fotos reais já embutidas em base64)

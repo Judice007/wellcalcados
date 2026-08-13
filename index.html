@@ -53,11 +53,11 @@
     z-index:0;
   }
 
-  .wrap{ max-width:520px; margin:0 auto; position:relative; padding:0 22px; }
+  .wrap{ max-width:520px; margin:0 auto; position:relative; padding:0 14px; }
 
   /* the stitched cord that threads through the page */
   .cord{
-    position:absolute; left:50%; top:0; bottom:0; width:2px;
+    position:absolute; left:50%; top:980px; bottom:0; width:2px;
     transform:translateX(-50%);
     background-image: repeating-linear-gradient(to bottom, var(--purple) 0 6px, transparent 6px 14px);
     opacity:0.18;
@@ -82,77 +82,87 @@
     text-decoration:none; letter-spacing:0.04em; flex-shrink:0;
   }
 
-  /* HERO — hanging authentication tag */
-  .hero{ position:relative; z-index:2; padding:38px 0 10px; text-align:center; }
-  .hero .hook{
-    width:2px; height:34px; background:rgba(8,20,41,0.25); margin:0 auto;
+  /* HERO — product-first ecommerce composition */
+  .hero{
+    position:relative; z-index:2; margin-top:16px; padding:34px 20px 26px;
+    background:linear-gradient(145deg,#FBFBFC 0%,#F4F1F9 100%);
+    border:1px solid rgba(8,20,41,0.08); border-radius:28px; overflow:hidden;
   }
-  .hero .hook::after{
-    content:""; display:block; width:14px; height:14px; border:2px solid rgba(8,20,41,0.25);
-    border-radius:50%; margin:0 auto; margin-top:-2px;
+  .hero::before{
+    content:"W"; position:absolute; right:-22px; top:34%; transform:translateY(-50%);
+    font-family:'Archivo Black',sans-serif; font-size:270px; line-height:1; color:rgba(91,46,147,0.035);
+    pointer-events:none;
   }
-  .tag{
-    position:relative;
-    background:var(--panel);
-    border:1.5px solid var(--line);
-    border-radius:18px;
-    padding:30px 24px 26px;
-    margin:0 auto;
-    max-width:340px;
-    transform:rotate(-3deg);
-    box-shadow: 0 30px 60px -24px rgba(8,20,41,0.28);
-    animation: swing 6s ease-in-out infinite;
+  .hero-grid{ display:flex; flex-direction:column; gap:30px; }
+  .hero-copy{ position:relative; z-index:3; }
+  .hero-kicker{
+    display:flex; align-items:center; gap:10px; margin-bottom:18px;
+    font-family:'Space Mono',monospace; font-size:9.5px; color:var(--purple); letter-spacing:0.15em;
   }
-  .tag::before{
-    content:""; position:absolute; top:16px; left:50%; transform:translateX(-50%);
-    width:22px; height:22px; border-radius:50%; background:var(--bg); border:1.5px solid var(--line);
+  .hero-kicker::before{ content:""; width:24px; height:2px; background:var(--purple); }
+  .hero-title{ letter-spacing:-0.065em; }
+  .hero-title span{ display:block; }
+  .hero-title .solid{ font-size:52px; color:var(--navy); }
+  .hero-title .soft{
+    margin-top:2px; font-family:'Inter',sans-serif; font-size:48px; font-weight:300;
+    font-style:italic; line-height:0.92; color:var(--purple); text-transform:none;
   }
-  @keyframes swing{
-    0%,100%{ transform:rotate(-3deg); }
-    50%{ transform:rotate(2deg); }
+  .hero-copy .sub{ margin-top:22px; max-width:390px; color:var(--muted); font-size:14px; line-height:1.65; }
+  .hero-actions{ margin-top:24px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+  .hero-actions .btn-primary{ padding:14px 20px; border-radius:999px; }
+  .hero-actions .btn-secondary{ color:var(--navy); font-family:'Inter',sans-serif; font-weight:700; text-decoration:none; }
+  .hero-proof{ margin-top:24px; display:flex; align-items:center; gap:14px; color:var(--muted); font-size:11px; }
+  .hero-proof strong{ color:var(--navy); font-size:12px; }
+  .hero-proof .avatars{ display:flex; }
+  .hero-proof .avatars span{
+    display:grid; place-items:center; width:28px; height:28px; margin-left:-7px; border:2px solid #fff;
+    border-radius:50%; background:var(--navy); color:#fff; font-family:'Space Mono',monospace; font-size:8px;
   }
-  .tag .eyebrow{
-    font-family:'Space Mono',monospace; font-size:10.5px; color:var(--purple);
-    letter-spacing:0.16em; margin-top:14px; margin-bottom:14px;
-  }
-  .tag h1{ font-size:38px; }
-  .tag h1 span{ display:block; }
-  .tag h1 .g1{ color:var(--navy); }
-  .tag h1 .g2{
-    background:linear-gradient(90deg,var(--purple),var(--purple-light));
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-  }
-  .tag .sub{
-    margin-top:14px; color:var(--muted); font-size:14px; line-height:1.5;
-  }
-  .barcode{
-    margin-top:20px; height:30px;
-    background-image: repeating-linear-gradient(90deg, var(--navy) 0 2px, transparent 2px 5px, var(--navy) 5px 6px, transparent 6px 10px);
-    opacity:0.5;
-  }
-  .barcode-label{
-    margin-top:6px; font-family:'Space Mono',monospace; font-size:9.5px; color:var(--muted); letter-spacing:0.12em;
-  }
+  .hero-proof .avatars span:first-child{ margin-left:0; background:var(--purple); }
+  .hero-proof .avatars span:last-child{ background:#D8CDE8; color:var(--navy); }
 
-  /* HERO — floating product visual with pinned spec badges */
-  .hero-visual{ position:relative; max-width:280px; margin:34px auto 0; }
-  .hero-visual .circle-bg{
-    position:absolute; inset:6%; border-radius:50%; z-index:0;
-    background:radial-gradient(circle, rgba(91,46,147,0.18), rgba(91,46,147,0) 70%);
+  /* HERO — real product photo with a compact authentication ticket */
+  .hero-visual{ position:relative; z-index:2; width:100%; max-width:370px; margin:0 auto 10px; padding:18px 0 42px; }
+  .hero-visual::after{
+    content:""; position:absolute; z-index:0; left:8%; right:5%; bottom:24px; height:64px;
+    border-radius:50%; background:rgba(8,20,41,0.14); filter:blur(22px);
+  }
+  .hero-visual .visual-index{
+    position:absolute; z-index:2; top:0; right:2px; writing-mode:vertical-rl;
+    font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.16em; color:var(--muted);
   }
   .hero-visual .photo-wrap{
-    position:relative; z-index:1; aspect-ratio:1/1; border-radius:50%; overflow:hidden;
-    box-shadow:0 30px 60px -20px rgba(8,20,41,0.35); border:1px solid var(--line);
+    position:relative; z-index:1; width:88%; margin-left:auto; aspect-ratio:0.92/1;
+    border-radius:34px 34px 110px 34px; overflow:hidden; transform:rotate(2deg);
+    box-shadow:0 38px 70px -32px rgba(8,20,41,0.5); border:1px solid rgba(8,20,41,0.08);
   }
-  .hero-visual .photo-wrap img{ width:100%; height:100%; object-fit:cover; }
+  .hero-visual .photo-wrap img{ width:100%; height:100%; object-fit:cover; object-position:center 48%; transform:scale(1.04); }
+  .product-ticket{
+    position:absolute; z-index:4; left:0; bottom:0; width:214px; padding:18px 18px 14px;
+    background:#fff; border:1px solid var(--line); border-radius:16px; transform:rotate(-2deg);
+    box-shadow:0 22px 42px -22px rgba(8,20,41,0.42);
+  }
+  .product-ticket::before{
+    content:""; position:absolute; top:12px; right:14px; width:11px; height:11px; border-radius:50%;
+    background:#F4F1F9; border:1px solid var(--line); box-shadow:inset 0 0 0 3px #fff;
+  }
+  .ticket-label{ display:block; margin-bottom:8px; font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.12em; color:var(--purple); }
+  .product-ticket strong{ display:block; max-width:160px; font-size:14px; line-height:1.25; }
+  .ticket-meta{ margin-top:10px; display:flex; align-items:end; justify-content:space-between; gap:10px; }
+  .ticket-size{ font-family:'Space Mono',monospace; font-size:9px; color:var(--muted); }
+  .ticket-price{ font-family:'Archivo Black',sans-serif; font-size:19px; color:var(--navy); }
+  .ticket-barcode{
+    margin-top:11px; width:100%; height:12px; opacity:0.45;
+    background-image:repeating-linear-gradient(90deg,var(--navy) 0 1px,transparent 1px 3px,var(--navy) 3px 5px,transparent 5px 8px);
+  }
   .spec-badge{
     position:absolute; z-index:2; background:#fff; border:1px solid var(--line); border-radius:20px;
     padding:7px 12px; font-family:'Space Mono',monospace; font-size:10px; color:var(--navy);
     box-shadow:0 10px 24px -10px rgba(8,20,41,0.3); display:flex; align-items:center; gap:6px; white-space:nowrap;
   }
-  .spec-badge.b1{ top:6px; left:-14px; }
-  .spec-badge.b2{ bottom:64px; right:-18px; }
-  .spec-badge.b3{ bottom:-8px; left:24px; }
+  .spec-badge.b1{ top:34px; left:-4px; }
+  .spec-badge.b2{ top:82px; right:-2px; }
+  .spec-badge.b3{ display:none; }
 
   .cta-row{ margin-top:26px; display:flex; flex-direction:column; gap:10px; align-items:center; }
   .btn-primary{
@@ -169,7 +179,7 @@
 
   /* BRANDS — trust bar with the labels we carry */
   .brands-row{
-    margin-top:28px; padding-top:22px; border-top:1px dashed var(--line);
+    position:relative; z-index:3; margin-top:26px; padding-top:20px; border-top:1px solid var(--line);
     display:flex; flex-direction:column; align-items:center; gap:10px;
   }
   .brands-label{
@@ -404,13 +414,17 @@
   }
 
   @media (max-width:380px){
-    .tag h1{ font-size:32px; }
+    .hero-title .solid{ font-size:46px; }
+    .hero-title .soft{ font-size:43px; }
+    .hero{ padding-left:16px; padding-right:16px; }
+    .spec-badge{ font-size:9px; padding:7px 9px; }
   }
 
   /* DESKTOP / TABLET — the mobile column gets room to breathe instead of floating in empty margins */
   @media (min-width:860px){
-    .wrap{ max-width:920px; }
-    header.top{ max-width:920px; padding:26px 22px 14px; }
+    .wrap{ max-width:1100px; padding:0 22px; }
+    header.top{ max-width:1100px; padding:26px 22px 14px; }
+    .cord{ top:760px; }
 
     .nav-links{ display:flex; align-items:center; gap:30px; }
     .nav-links a{
@@ -419,17 +433,20 @@
     }
     .nav-links a:hover{ color:var(--purple); }
 
-    .hero{ padding-top:20px; }
-    .hero-grid{ display:grid; grid-template-columns:1.05fr 0.95fr; align-items:center; gap:30px; }
-    .tag{ max-width:460px; padding:40px 34px 34px; }
-    .tag h1{ font-size:50px; }
-    .tag .sub{ font-size:15.5px; }
-    .brands-row{ flex-direction:row; gap:16px; }
-    .hero-visual{ max-width:380px; margin:0 auto; }
+    .hero{ min-height:610px; margin-top:22px; padding:58px 62px 28px; }
+    .hero::before{ right:22%; top:48%; font-size:430px; }
+    .hero-grid{ display:grid; grid-template-columns:0.92fr 1.08fr; align-items:center; gap:14px; }
+    .hero-title .solid{ font-size:76px; }
+    .hero-title .soft{ font-size:72px; }
+    .hero-copy .sub{ font-size:15px; }
+    .brands-row{ flex-direction:row; gap:16px; margin-top:26px; }
+    .hero-visual{ max-width:500px; margin:0; padding-bottom:54px; }
+    .hero-visual .photo-wrap{ width:86%; border-radius:44px 44px 150px 44px; }
+    .product-ticket{ left:-18px; bottom:10px; width:235px; padding:20px; }
     .spec-badge{ font-size:11px; padding:9px 15px; }
-    .spec-badge.b1{ top:10px; left:-30px; }
-    .spec-badge.b2{ bottom:90px; right:-34px; }
-    .spec-badge.b3{ bottom:-10px; left:10px; }
+    .spec-badge.b1{ top:42px; left:-8px; }
+    .spec-badge.b2{ top:98px; right:-12px; }
+    .spec-badge.b3{ display:flex; right:2px; bottom:48px; }
 
     .steps{ flex-direction:row; gap:20px; }
     .step{ flex-direction:column; gap:10px; border-top:none; border-left:1px dashed var(--line); padding:4px 0 4px 20px; }
@@ -470,52 +487,61 @@
     <a href="#vitrine">Vitrine</a>
     <a href="#diferenciais">Diferenciais</a>
   </nav>
-  <a class="cta-pill" href="#contato">DIRECT →</a>
+  <a class="cta-pill" href="https://instagram.com/wellcalcados" target="_blank" rel="noopener">DIRECT →</a>
 </header>
 
 <div class="wrap">
 
   <!-- HERO -->
-  <section class="hero" style="padding-top:20px;">
+  <section class="hero">
     <div class="hero-grid">
       <div class="hero-copy">
-        <div class="hook"></div>
-        <div class="tag">
-          <div class="eyebrow">◆ ETIQUETA DE AUTENTICIDADE</div>
-          <h1 class="display">
-            <span class="g1">OS MAIS</span>
-            <span class="g2">DESEJADOS</span>
-          </h1>
-          <p class="sub">Sneakers selecionados, preço justo e atendimento rápido — direto de Angra dos Reis pra você.</p>
-          <div class="barcode"></div>
-          <div class="barcode-label mono">SKU // ANGRA-RJ · 2026</div>
+        <div class="hero-kicker">CURADORIA SNEAKER · ANGRA DOS REIS</div>
+        <h1 class="display hero-title">
+          <span class="solid">OS MAIS</span>
+          <span class="soft">desejados</span>
+        </h1>
+        <p class="sub">Modelos selecionados, pronta entrega e atendimento sem enrolação. Encontre o par que combina com você.</p>
+
+        <div class="hero-actions">
+          <a class="btn-primary" href="#vitrine">Explorar vitrine <span aria-hidden="true">→</span></a>
+          <a class="btn-secondary" href="https://instagram.com/wellcalcados" target="_blank" rel="noopener">Falar no direct</a>
         </div>
 
-        <div class="cta-row">
-          <a class="btn-primary" href="#contato">👟 Ver catálogo no direct</a>
-          <a class="btn-secondary" href="#diferenciais">como funciona a permuta ↓</a>
-        </div>
-
-        <div class="brands-row">
-          <span class="brands-label">TRABALHAMOS COM</span>
-          <div class="brands-list">
-            <span class="brand-chip">Nike</span>
-            <span class="brand-chip">Adidas</span>
-            <span class="brand-chip">New Balance</span>
-            <span class="brand-chip">Lacoste</span>
-            <span class="brand-chip">On Cloud</span>
-          </div>
+        <div class="hero-proof" aria-label="Atendimento local e produtos selecionados">
+          <div class="avatars" aria-hidden="true"><span>W</span><span>RJ</span><span>+</span></div>
+          <div><strong>Curadoria Well</strong><br>pronta entrega em Angra</div>
         </div>
       </div>
 
       <div class="hero-visual">
-        <div class="circle-bg"></div>
+        <div class="visual-index">DROP 01 · WELLCALÇADOS</div>
         <div class="photo-wrap">
           <img src="img/produto-af1-panda.jpg" alt="Tênis Nike Air Force 1 preto e branco em destaque" loading="eager" decoding="async">
+        </div>
+        <div class="product-ticket" aria-label="Nike Air Force 1 preto e branco, tamanho 38, R$ 250">
+          <span class="ticket-label">◆ PRONTA ENTREGA</span>
+          <strong>Air Force 1 preto/branco</strong>
+          <div class="ticket-meta">
+            <span class="ticket-size">TAM. 38</span>
+            <span class="ticket-price">R$ 250</span>
+          </div>
+          <div class="ticket-barcode" aria-hidden="true"></div>
         </div>
         <div class="spec-badge b1">🔁&nbsp;Aceita permuta</div>
         <div class="spec-badge b2">💳&nbsp;3x sem juros</div>
         <div class="spec-badge b3">📍&nbsp;Angra dos Reis</div>
+      </div>
+    </div>
+
+    <div class="brands-row">
+      <span class="brands-label">TRABALHAMOS COM</span>
+      <div class="brands-list">
+        <span class="brand-chip">Nike</span>
+        <span class="brand-chip">Adidas</span>
+        <span class="brand-chip">New Balance</span>
+        <span class="brand-chip">Lacoste</span>
+        <span class="brand-chip">On Cloud</span>
       </div>
     </div>
   </section>
