@@ -49,7 +49,7 @@
     .hero{position:relative;min-height:650px;padding:74px 0 38px;overflow:hidden}
     .hero::before{content:"";position:absolute;width:490px;height:490px;border-radius:50%;background:linear-gradient(145deg,#f7f0fa,#efe5f6);left:53%;top:45%;transform:translate(-50%,-50%)}
     .hero::after{content:"WELL / 2026";position:absolute;right:24px;top:50%;transform:rotate(90deg) translateX(50%);transform-origin:right top;color:#aaa5ae;font-size:9px;letter-spacing:.25em}
-    .hero-grid{display:grid;grid-template-columns:.88fr 1.2fr .72fr;align-items:center;position:relative;z-index:2}
+    .hero-grid{display:grid;grid-template-columns:.9fr 1.05fr .85fr;align-items:center;column-gap:18px;position:relative;z-index:2}
     .hero-copy{padding-top:10px;position:relative;z-index:3}
     .eyebrow{display:flex;align-items:center;gap:10px;color:var(--purple);font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;margin-bottom:24px}
     .eyebrow::before{content:"";width:28px;height:2px;background:var(--purple)}
@@ -63,12 +63,12 @@
     .btn-primary{background:var(--purple);color:#fff;box-shadow:0 12px 25px rgba(109,54,167,.22)}
     .btn-primary:hover{background:var(--purple-dark);transform:translateY(-2px)}
     .btn-ghost{border-color:var(--line);background:#fff}
-    .hero-product{height:430px;position:relative;display:grid;place-items:center;z-index:2;perspective:1100px;transform-style:preserve-3d}
-    .hero-product::after{content:"";position:absolute;left:17%;right:8%;bottom:51px;height:42px;background:rgba(20,13,28,.18);filter:blur(22px);border-radius:50%;z-index:-1}
-    .shoe-deck{position:absolute;inset:0 -10%;transform-style:preserve-3d}
-    .shoe-slide{position:absolute;inset:0;display:grid;place-items:center;opacity:0;pointer-events:none;transform:translate3d(28%,0,-180px) rotateY(-42deg) rotateZ(-4deg) scale(.72);transition:opacity .7s ease,transform .95s cubic-bezier(.2,.75,.2,1);transform-style:preserve-3d}
-    .shoe-slide img{width:100%;max-width:690px;max-height:410px;object-fit:contain;filter:drop-shadow(0 28px 18px rgba(32,18,48,.18))}
-    .shoe-slide.is-active{opacity:1;pointer-events:auto;transform:translate3d(0,0,35px) rotateY(-7deg) rotateZ(-8deg) scale(1);z-index:3}
+    .hero-product{height:430px;position:relative;display:grid;place-items:center;z-index:2;perspective:1100px;transform-style:preserve-3d;isolation:isolate}
+    .hero-product::after{content:"";position:absolute;left:16%;right:13%;bottom:58px;height:38px;background:rgba(20,13,28,.16);filter:blur(22px);border-radius:50%;z-index:-1}
+    .shoe-deck{position:absolute;inset:0 -2%;transform-style:preserve-3d}
+    .shoe-slide{position:absolute;inset:0;display:grid;place-items:center;opacity:0;visibility:hidden;pointer-events:none;transform:translate3d(28%,0,-180px) rotateY(-42deg) rotateZ(-4deg) scale(.72);transition:opacity .25s ease,transform .85s cubic-bezier(.2,.75,.2,1),visibility 0s;transform-style:preserve-3d}
+    .shoe-slide img{width:100%;max-width:570px;max-height:390px;object-fit:contain;filter:drop-shadow(0 28px 18px rgba(32,18,48,.18))}
+    .shoe-slide.is-active{opacity:1;visibility:visible;pointer-events:auto;transform:translate3d(-5%,0,35px) rotateY(-7deg) rotateZ(-8deg) scale(1);transition:opacity .35s ease,transform .85s cubic-bezier(.2,.75,.2,1),visibility 0s;z-index:3}
     .shoe-slide.is-prev{opacity:0;transform:translate3d(-30%,0,-180px) rotateY(45deg) rotateZ(5deg) scale(.72);z-index:1}
     .shoe-slide.is-next{opacity:0;transform:translate3d(30%,0,-180px) rotateY(-45deg) rotateZ(-5deg) scale(.72);z-index:2}
     .shoe-slide.is-active img{animation:shoeFloat 4.8s ease-in-out infinite}
@@ -78,8 +78,9 @@
     .shoe-dot.is-active{width:24px;border-radius:999px;background:var(--purple)}
     .feature-tag{position:absolute;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:999px;padding:9px 13px;box-shadow:0 10px 30px rgba(25,20,31,.08);font-size:10px;font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:7px;backdrop-filter:blur(8px)}
     .feature-tag i{width:8px;height:8px;background:var(--purple);border:2px solid #e3d4ef;border-radius:50%;box-sizing:content-box}
-    .tag-one{left:3%;top:20%}.tag-two{right:-2%;top:36%}.tag-three{left:19%;bottom:12%}
-    .hero-side{align-self:end;padding-bottom:44px;position:relative;z-index:3}
+    .tag-one{left:0;top:20%}.tag-two{right:0;top:36%}.tag-three{left:16%;bottom:12%}
+    .hero-side{align-self:end;padding:0 0 44px 10px;position:relative;z-index:6}
+    .hero-side::before{content:"";position:absolute;z-index:-1;inset:-22px -12px -28px -22px;background:linear-gradient(90deg,rgba(255,255,255,.82),#fff 28%);border-radius:24px;filter:blur(1px)}
     .side-count{font:700 11px "Manrope",sans-serif;color:var(--purple);margin-bottom:14px}
     .hero-side h2{font:700 18px/1.2 "Manrope",sans-serif;letter-spacing:-.03em;margin-bottom:10px}
     .hero-side p{font-size:12px;line-height:1.55;color:var(--muted);margin-bottom:16px}
@@ -148,7 +149,7 @@
       .nav{display:none}.menu-btn{display:grid}
       .hero{min-height:auto;padding-top:54px}.hero::before{width:420px;height:420px;left:66%;top:44%}
       .hero-grid{grid-template-columns:.92fr 1.2fr}.hero-side{display:none}
-      h1{font-size:clamp(58px,8vw,78px)}.hero-product{height:390px}.shoe-deck{inset:0 -16%}.shoe-slide img{width:112%}
+      h1{font-size:clamp(58px,8vw,78px)}.hero-product{height:390px}.shoe-deck{inset:0 -16%}.shoe-slide img{width:112%;max-width:690px}
       .product-card{flex-basis:210px}
       .story-grid{gap:36px}.story-visual{height:420px}.trade-card{grid-template-columns:1fr 270px}.trade-shoe{width:350px}
     }
@@ -158,7 +159,7 @@
       .hero{padding:40px 0 30px}.hero::before{width:330px;height:330px;left:58%;top:54%}.hero::after{display:none}
       .hero-grid{display:flex;flex-direction:column;align-items:stretch}.hero-copy{z-index:4}
       h1{font-size:58px;line-height:.9}.hero-copy p{margin:24px 0 18px;font-size:13px;max-width:280px}.hero-copy .btn{min-height:46px}
-      .hero-product{height:310px;margin-top:-16px}.shoe-deck{inset:0 -20%}.shoe-slide img{width:106%;max-height:295px}.shoe-slide.is-active{transform:translate3d(0,0,25px) rotateY(-5deg) rotateZ(-7deg) scale(1)}.shoe-dots{bottom:0;right:7%}
+      .hero-product{height:310px;margin-top:-16px}.shoe-deck{inset:0 -20%}.shoe-slide img{width:106%;max-width:690px;max-height:295px}.shoe-slide.is-active{transform:translate3d(0,0,25px) rotateY(-5deg) rotateZ(-7deg) scale(1)}.shoe-dots{bottom:0;right:7%}
       .feature-tag{font-size:8.5px;padding:7px 9px}.tag-one{left:0;top:24%}.tag-two{right:0;top:38%}.tag-three{left:16%;bottom:6%}
       .trust-row{display:block;margin-top:0}.brand-list{margin-top:18px;justify-content:space-between;gap:10px}.trust-group:nth-child(2){display:none}
       .products{padding:48px 0 56px}.section-head{align-items:start}.section-head h2{font-size:32px}.section-head p{max-width:190px}.view-all{display:none}.rail-actions{gap:8px}
