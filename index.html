@@ -119,7 +119,8 @@
     .story-visual{display:grid;grid-template-columns:.92fr 1.08fr;gap:14px;height:490px}
     .story-photo{overflow:hidden;border-radius:24px;background:#ddd}
     .story-photo:first-child{margin-top:62px}
-    .story-photo img{width:100%;height:100%;object-fit:cover}
+    .story-photo img,.story-photo video{display:block;width:100%;height:100%;object-fit:cover}
+    .story-photo video{object-position:center}
     .story-copy .eyebrow{margin-bottom:18px}
     .story-copy>p{color:var(--muted);font-size:14px;line-height:1.7;margin:20px 0 28px;max-width:460px}
     .benefits{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:30px}
@@ -227,7 +228,7 @@
       <div class="shell story-grid">
         <div class="story-visual">
           <div class="story-photo"><img src="img/cat-adidas-refined.webp" alt="Tênis Adidas da seleção WellCalçados" loading="lazy"></div>
-          <div class="story-photo"><img src="img/cat-tn-colecao-refined.webp" alt="Tênis Nike da coleção WellCalçados" loading="lazy"></div>
+          <div class="story-photo"><video id="storyVideo" src="img/unboxing-well.mp4" poster="img/unboxing-well-poster.jpg" aria-label="Abertura de uma caixa e apresentação de um tênis Nike azul" autoplay muted loop playsinline preload="metadata"></video></div>
         </div>
         <div class="story-copy">
           <div class="eyebrow">Do seu jeito</div><h2>Mais que vender tênis, a gente ajuda você a encontrar o par certo.</h2>
@@ -284,6 +285,15 @@
       railToggle.setAttribute('aria-label', paused ? 'Continuar produtos' : 'Pausar produtos');
     });
     productMarquee.addEventListener('pointerdown', () => productMarquee.classList.add('is-paused'), {passive:true});
+
+    const storyVideo = document.getElementById('storyVideo');
+    if (storyVideo) {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion) storyVideo.pause();
+      else if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => entry.isIntersecting ? storyVideo.play().catch(() => {}) : storyVideo.pause(), {threshold:.25}).observe(storyVideo);
+      }
+    }
 
     const shoeSlides = [...document.querySelectorAll('.shoe-slide')];
     const shoeDots = [...document.querySelectorAll('.shoe-dot')];
