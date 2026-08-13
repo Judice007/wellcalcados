@@ -53,7 +53,7 @@
     .hero-copy{padding-top:10px;position:relative;z-index:3}
     .eyebrow{display:flex;align-items:center;gap:10px;color:var(--purple);font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;margin-bottom:24px}
     .eyebrow::before{content:"";width:28px;height:2px;background:var(--purple)}
-    h1{font-family:"Manrope",sans-serif;font-size:clamp(60px,6.1vw,88px);line-height:.9;letter-spacing:-.07em;font-weight:500}
+    h1{font-family:"Manrope",sans-serif;font-size:clamp(54px,5.35vw,77px);line-height:.92;letter-spacing:-.065em;font-weight:500}
     h1 span{display:block;white-space:nowrap}
     h1 .outline{position:relative;color:var(--purple);font-weight:700;display:inline-block;padding:0 18px 8px 8px}
     h1 .outline::after{content:"";position:absolute;inset:7px -12px -2px -14px;border:4px solid var(--purple);border-radius:50%;transform:rotate(-2deg);z-index:-1}
@@ -82,7 +82,8 @@
     .hero-side{align-self:center;padding-left:4px;position:relative;z-index:6}
     .hero-side::before{content:"";position:absolute;z-index:-1;inset:-28px -14px -28px -30px;background:linear-gradient(90deg,rgba(255,255,255,.68),#fff 32%);border-radius:24px}
     .side-count{font:700 10px "Manrope",sans-serif;color:var(--purple);margin-bottom:12px;letter-spacing:.04em}
-    .hero-side h2{font:700 22px/1.08 "Manrope",sans-serif;letter-spacing:-.045em;max-width:220px}
+    .hero-side h2{font:700 19px/1.12 "Manrope",sans-serif;letter-spacing:-.04em;max-width:230px}
+    .hero-side p{max-width:235px;margin-top:11px;color:var(--muted);font-size:11.5px;line-height:1.55}
     .trust-row{position:relative;z-index:4;display:flex;align-items:center;justify-content:space-between;margin-top:6px;padding-top:22px;border-top:1px solid var(--line)}
     .trust-group{display:flex;align-items:center;gap:11px;color:#53555b;font-size:11px}
     .trust-icon{width:34px;height:34px;border-radius:50%;background:var(--lilac);display:grid;place-items:center;color:var(--purple)}
@@ -147,7 +148,7 @@
       .nav{display:none}.menu-btn{display:grid}
       .hero{min-height:auto;padding-top:54px}.hero::before{width:420px;height:420px;left:66%;top:44%}
       .hero-grid{grid-template-columns:.92fr 1.2fr}.hero-side{display:none}
-      h1{font-size:clamp(58px,8vw,78px)}.hero-product{height:390px}.shoe-deck{inset:0 -16%}.shoe-slide img{width:112%;max-width:690px}
+      h1{font-size:clamp(54px,7.3vw,70px)}.hero-product{height:390px}.shoe-deck{inset:0 -16%}.shoe-slide img{width:112%;max-width:690px}
       .product-card{flex-basis:210px}
       .story-grid{gap:36px}.story-visual{height:420px}.trade-card{grid-template-columns:1fr 270px}.trade-shoe{width:350px}
     }
@@ -156,7 +157,7 @@
       .topbar{height:68px}.logo img{width:32px;height:32px}.head-actions .icon-btn:first-child{display:none}
       .hero{padding:40px 0 30px}.hero::before{width:330px;height:330px;left:58%;top:54%}.hero::after{display:none}
       .hero-grid{display:flex;flex-direction:column;align-items:stretch}.hero-copy{z-index:4}
-      h1{font-size:58px;line-height:.9}.hero-copy p{margin:24px 0 18px;font-size:13px;max-width:280px}.hero-copy .btn{min-height:46px}
+      h1{font-size:52px;line-height:.92}.hero-copy p{margin:24px 0 18px;font-size:13px;max-width:280px}.hero-copy .btn{min-height:46px}
       .hero-product{height:310px;margin-top:-16px}.shoe-deck{inset:0 -20%}.shoe-slide img{width:106%;max-width:690px;max-height:295px}.shoe-slide.is-active{transform:translate3d(0,0,25px) rotateY(-5deg) rotateZ(-7deg) scale(1)}.shoe-dots{bottom:0;right:7%}
       .feature-tag{font-size:8.5px;padding:7px 9px}.tag-one{left:0;top:24%}.tag-two{right:0;top:38%}.tag-three{left:16%;bottom:6%}
       .trust-row{display:block;margin-top:0}.brand-list{margin-top:18px;justify-content:space-between;gap:10px}.trust-group:nth-child(2){display:none}
@@ -204,6 +205,7 @@
         <aside class="hero-side">
           <div class="side-count" id="heroCount">01 / 03 · NIKE</div>
           <h2 id="heroProductName">Nike Air Force 1</h2>
+          <p id="heroProductMeta">Conforto clássico para acompanhar o seu corre.</p>
         </aside>
       </div>
       <div class="trust-row">
@@ -282,9 +284,9 @@
     const shoeSlides = [...document.querySelectorAll('.shoe-slide')];
     const shoeDots = [...document.querySelectorAll('.shoe-dot')];
     const heroModels = [
-      {count:'01 / 03 · NIKE',name:'Nike Air Force 1'},
-      {count:'02 / 03 · ADIDAS',name:'Adidas Samba'},
-      {count:'03 / 03 · ON CLOUD',name:'On Cloud preto'}
+      {count:'01 / 03 · NIKE',name:'Nike Air Force 1',meta:'Conforto clássico para acompanhar o seu corre.'},
+      {count:'02 / 03 · ADIDAS',name:'Adidas Samba',meta:'Visual retrô, dois cadarços e pronta entrega na vitrine Well.'},
+      {count:'03 / 03 · ON CLOUD',name:'On Cloud preto',meta:'Leveza e presença para acompanhar a rotina inteira.'}
     ];
     let activeShoe = 0;
     let shoeTimer;
@@ -300,6 +302,7 @@
       const model = heroModels[activeShoe];
       document.getElementById('heroCount').textContent = model.count;
       document.getElementById('heroProductName').textContent = model.name;
+      document.getElementById('heroProductMeta').textContent = model.meta;
     };
     const startShoes = () => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
