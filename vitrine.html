@@ -36,7 +36,7 @@
     .size-select{min-width:150px;padding:0 36px 0 13px}
     .brand-filters{grid-column:1/-1;display:flex;gap:8px;overflow:auto;padding-bottom:2px;scrollbar-width:none}.brand-filters::-webkit-scrollbar{display:none}
     .filter-chip{min-height:38px;padding:0 15px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--navy);font:700 12px Inter,sans-serif;white-space:nowrap;cursor:pointer}
-    .filter-chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .filter-chip.featured{border-color:rgba(91,46,147,.35);color:var(--purple)}.filter-chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}.filter-chip.featured.active{background:var(--purple);border-color:var(--purple);color:#fff}
     .catalog-head{display:flex;align-items:end;justify-content:space-between;gap:20px;padding:40px 0 20px}.catalog-head h2{font:28px 'Archivo Black',sans-serif;text-transform:uppercase}.count{font:10px 'Space Mono',monospace;color:var(--muted)}
     .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding-bottom:70px}
     .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 20px 40px -32px rgba(8,20,41,.42);display:flex;flex-direction:column}
@@ -86,7 +86,7 @@
     </section>
 
     <section class="shell">
-      <div class="catalog-head"><h2>Todos os modelos</h2><div class="count" id="count" aria-live="polite"></div></div>
+      <div class="catalog-head"><h2 id="catalogTitle">Todos os modelos</h2><div class="count" id="count" aria-live="polite"></div></div>
       <div class="grid" id="productGrid"></div>
       <div class="empty" id="empty"><strong>Nenhum modelo encontrado.</strong><br>Ajuste os filtros ou fale com a Well para encomendar.</div>
     </section>
@@ -114,6 +114,7 @@
     const sizeFilter = document.getElementById('sizeFilter');
     const brandFilters = document.getElementById('brandFilters');
     const count = document.getElementById('count');
+    const catalogTitle = document.getElementById('catalogTitle');
     const empty = document.getElementById('empty');
     const toast = document.getElementById('toast');
     const viewer = document.getElementById('productViewer');
@@ -129,14 +130,14 @@
     let viewerTrigger;
     let activeBrand = 'Todas';
 
-    const brands = ['Todas', ...new Set(products.map(product => product.brand))];
+    const brands = ['Todas', 'Destaques', ...new Set(products.map(product => product.brand))];
     brands.forEach(brand => {
       const button = document.createElement('button');
-      button.className = 'filter-chip' + (brand === activeBrand ? ' active' : '');
-      button.type = 'button'; button.textContent = brand;
+      button.className = 'filter-chip' + (brand === 'Destaques' ? ' featured' : '') + (brand === activeBrand ? ' active' : '');
+      button.type = 'button'; button.dataset.filter = brand; button.textContent = brand === 'Destaques' ? '★ Destaques' : brand; button.setAttribute('aria-pressed', brand === activeBrand);
       button.addEventListener('click', () => {
         activeBrand = brand;
-        document.querySelectorAll('.filter-chip').forEach(chip => chip.classList.toggle('active', chip.textContent === brand));
+        document.querySelectorAll('.filter-chip').forEach(chip => { const selected = chip.dataset.filter === brand; chip.classList.toggle('active', selected); chip.setAttribute('aria-pressed', selected); });
         render();
       });
       brandFilters.appendChild(button);
@@ -169,13 +170,15 @@
       const term = search.value.trim().toLocaleLowerCase('pt-BR');
       const size = Number(sizeFilter.value);
       const filtered = products.filter(product => {
-        const matchesBrand = activeBrand === 'Todas' || product.brand === activeBrand;
+        const isAirForce = /air force|\baf1\b/i.test(product.name);
+        const matchesBrand = activeBrand === 'Todas' || (activeBrand === 'Destaques' ? isAirForce : product.brand === activeBrand);
         const matchesSize = !size || product.sizes.includes(size);
         const haystack = `${product.brand} ${product.name} ${product.note}`.toLocaleLowerCase('pt-BR');
         return matchesBrand && matchesSize && (!term || haystack.includes(term));
       });
       visibleProducts = filtered;
       grid.innerHTML = filtered.map(productCard).join('');
+      catalogTitle.textContent = activeBrand === 'Destaques' ? 'Air Force em destaque' : activeBrand === 'Todas' ? 'Todos os modelos' : `Modelos ${activeBrand}`;
       count.textContent = `${filtered.length} ${filtered.length === 1 ? 'modelo' : 'modelos'}`;
       grid.classList.toggle('hidden', filtered.length === 0); empty.classList.toggle('show', filtered.length === 0);
       grid.querySelectorAll('.order').forEach(button => button.addEventListener('click', async () => {
