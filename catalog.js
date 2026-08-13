@@ -20,7 +20,7 @@ window.WELL_PRODUCTS = [
 
 window.copyProductAndOpenDirect = async function(productName, sizeText) {
   const message = `Olá! Tenho interesse no ${productName}${sizeText ? `, tamanho ${sizeText}` : ''}. Pode me passar mais informações?`;
-  window.open('https://instagram.com/wellcalcados', '_blank', 'noopener');
+  window.open(`https://wa.me/5524999485839?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
   try { await navigator.clipboard.writeText(message); } catch (_) {}
   return message;
 };
