@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WellCalçados — Angra dos Reis</title>
+<meta name="description" content="Sneakers selecionados direto de Angra dos Reis: Nike, Adidas e edições especiais. Até 3x sem juros, aceita permuta, atendimento rápido no direct.">
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WellCalçados — Conforto, estilo, você">
+<meta property="og:description" content="Sneakers selecionados, preço justo e atendimento rápido — direto de Angra dos Reis pra você.">
+<meta property="og:image" content="img/produto-air-force-1.jpg">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23081429'/%3E%3Cstop offset='1' stop-color='%235B2E93'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='%23FFFFFF'/%3E%3Crect x='7' y='7' width='18' height='18' rx='5' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --panel:#FFFFFF;
+    --panel-2:#F3F0FA;
+    --navy:#081429;
+    --purple:#5B2E93;
+    --purple-light:#8B5FC7;
+    --ink:#081429;
+    --on-dark:#F5F3FA;
+    --on-dark-muted: rgba(245,243,250,0.75);
+    --muted:#667085;
+    --line: rgba(8,20,41,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{ font-family:'Space Mono', monospace; letter-spacing:0.02em; }
+  .display{ font-family:'Archivo Black', sans-serif; text-transform:uppercase; line-height:0.95; }
+
+  /* background texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(91,46,147,0.07), transparent 40%),
+      radial-gradient(circle at 85% 4%, rgba(8,20,41,0.05), transparent 38%),
+      radial-gradient(circle at 50% 100%, rgba(91,46,147,0.06), transparent 45%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrap{ max-width:520px; margin:0 auto; position:relative; padding:0 22px; }
+
+  /* the stitched cord that threads through the page */
+  .cord{
+    position:absolute; left:50%; top:0; bottom:0; width:2px;
+    transform:translateX(-50%);
+    background-image: repeating-linear-gradient(to bottom, var(--purple) 0 6px, transparent 6px 14px);
+    opacity:0.18;
+    z-index:0;
+  }
+
+  header.top{
+    position:relative; z-index:2;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 22px 10px;
+    max-width:520px; margin:0 auto;
+  }
+  .brand{ display:flex; align-items:center; gap:9px; }
+  .brand img{ height:28px; width:auto; display:block; }
+  .brand span{ font-family:'Space Mono',monospace; font-weight:700; font-size:13px; letter-spacing:0.06em; }
+  .brand span .b1{ color:var(--navy); }
+  .brand span .b2{ color:var(--purple); }
+  .nav-links{ display:none; }
+  header.top .cta-pill{
+    font-family:'Space Mono',monospace; font-size:11px; color:var(--purple);
+    border:1px solid rgba(91,46,147,0.35); border-radius:20px; padding:7px 13px;
+    text-decoration:none; letter-spacing:0.04em; flex-shrink:0;
+  }
+
+  /* HERO — hanging authentication tag */
+  .hero{ position:relative; z-index:2; padding:38px 0 10px; text-align:center; }
+  .hero .hook{
+    width:2px; height:34px; background:rgba(8,20,41,0.25); margin:0 auto;
+  }
+  .hero .hook::after{
+    content:""; display:block; width:14px; height:14px; border:2px solid rgba(8,20,41,0.25);
+    border-radius:50%; margin:0 auto; margin-top:-2px;
+  }
+  .tag{
+    position:relative;
+    background:var(--panel);
+    border:1.5px solid var(--line);
+    border-radius:18px;
+    padding:30px 24px 26px;
+    margin:0 auto;
+    max-width:340px;
+    transform:rotate(-3deg);
+    box-shadow: 0 30px 60px -24px rgba(8,20,41,0.28);
+    animation: swing 6s ease-in-out infinite;
+  }
+  .tag::before{
+    content:""; position:absolute; top:16px; left:50%; transform:translateX(-50%);
+    width:22px; height:22px; border-radius:50%; background:var(--bg); border:1.5px solid var(--line);
+  }
+  @keyframes swing{
+    0%,100%{ transform:rotate(-3deg); }
+    50%{ transform:rotate(2deg); }
+  }
+  .tag .eyebrow{
+    font-family:'Space Mono',monospace; font-size:10.5px; color:var(--purple);
+    letter-spacing:0.16em; margin-top:14px; margin-bottom:14px;
+  }
+  .tag h1{ font-size:38px; }
+  .tag h1 span{ display:block; }
+  .tag h1 .g1{ color:var(--navy); }
+  .tag h1 .g2{
+    background:linear-gradient(90deg,var(--purple),var(--purple-light));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .tag .sub{
+    margin-top:14px; color:var(--muted); font-size:14px; line-height:1.5;
+  }
+  .barcode{
+    margin-top:20px; height:30px;
+    background-image: repeating-linear-gradient(90deg, var(--navy) 0 2px, transparent 2px 5px, var(--navy) 5px 6px, transparent 6px 10px);
+    opacity:0.5;
+  }
+  .barcode-label{
+    margin-top:6px; font-family:'Space Mono',monospace; font-size:9.5px; color:var(--muted); letter-spacing:0.12em;
+  }
+
+  .cta-row{ margin-top:26px; display:flex; flex-direction:column; gap:10px; align-items:center; }
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:8px;
+    background:linear-gradient(90deg,var(--navy),var(--purple));
+    color:#fff; font-weight:700; font-size:14.5px;
+    padding:14px 26px; border-radius:12px; text-decoration:none;
+    box-shadow:0 12px 30px -10px rgba(91,46,147,0.45);
+  }
+  .btn-secondary{
+    font-family:'Space Mono',monospace; font-size:11.5px; color:var(--muted);
+    text-decoration:underline; text-underline-offset:3px;
+  }
+
+  /* SECTION shared */
+  section{ position:relative; z-index:2; padding:54px 0 6px; }
+  .kicker{
+    font-family:'Space Mono',monospace; font-size:11px; color:var(--purple);
+    letter-spacing:0.16em; display:flex; align-items:center; gap:10px; margin-bottom:14px;
+  }
+  .kicker::after{ content:""; flex:1; height:1px; background:var(--line); }
+  h2.display{ font-size:26px; margin-bottom:6px; }
+  .section-sub{ color:var(--muted); font-size:14px; margin-bottom:26px; max-width:400px; }
+
+  /* PROCESS — real 3-step sequence, numbered honestly */
+  .steps{ display:flex; flex-direction:column; gap:0; }
+  .step{
+    display:flex; gap:16px; padding:20px 0; border-top:1px dashed var(--line);
+  }
+  .step:last-child{ border-bottom:1px dashed var(--line); }
+  .step .num{
+    font-family:'Archivo Black',sans-serif; font-size:26px; color:transparent;
+    -webkit-text-stroke:1.4px var(--purple); flex-shrink:0; width:38px;
+  }
+  .step h3{ font-size:15.5px; margin-bottom:5px; }
+  .step p{ font-size:13.5px; color:var(--muted); line-height:1.5; }
+
+  /* CATEGORIES */
+  .cat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .cat-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    position:relative; overflow:hidden; min-height:168px;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    box-shadow:0 16px 32px -24px rgba(8,20,41,0.3);
+  }
+  .cat-card img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    filter:saturate(1.05) contrast(1.02);
+  }
+  .cat-card .shade{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(8,20,41,0) 30%, rgba(8,20,41,0.92) 100%);
+  }
+  .cat-card .content{ position:relative; padding:16px; z-index:1; }
+  .cat-card .tagnum{ font-family:'Space Mono',monospace; font-size:10px; color:var(--purple-light); margin-bottom:6px; letter-spacing:0.08em; }
+  .cat-card h4{ font-size:15px; font-weight:700; color:var(--on-dark); }
+  .cat-card .stock{ font-family:'Space Mono',monospace; font-size:10px; color:var(--on-dark-muted); margin-top:3px; }
+
+  /* PRODUCT SHOWCASE — tag-style cards */
+  .product-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .product-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    overflow:hidden; position:relative;
+    box-shadow:0 16px 32px -24px rgba(8,20,41,0.3);
+  }
+  .product-card .punch{
+    position:absolute; top:10px; left:10px; width:10px; height:10px; border-radius:50%;
+    background:var(--panel-2); border:1px solid var(--line); z-index:2;
+  }
+  .product-card .photo{
+    position:relative; aspect-ratio:1/1; overflow:hidden; background:var(--panel-2);
+  }
+  .product-card .photo img{ width:100%; height:100%; object-fit:cover; }
+  .product-card .stock-pill{
+    position:absolute; bottom:8px; left:8px; z-index:2;
+    background:rgba(8,20,41,0.85); border:1px solid rgba(139,95,199,0.5);
+    color:var(--on-dark); font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.04em;
+    padding:4px 8px; border-radius:20px; display:flex; align-items:center; gap:5px;
+  }
+  .product-card .stock-pill .blip{
+    width:5px; height:5px; border-radius:50%; background:var(--purple-light);
+    box-shadow:0 0 6px var(--purple-light);
+  }
+  .product-card .info{ padding:12px 12px 14px; }
+  .product-card .pname{ font-size:13.5px; font-weight:600; margin-bottom:2px; }
+  .product-card .psize{ font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); margin-bottom:8px; }
+  .product-card .price-row{ display:flex; align-items:baseline; gap:7px; }
+  .product-card .price-old{
+    font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); text-decoration:line-through;
+  }
+  .product-card .price-new{
+    font-family:'Space Mono',monospace; font-size:15px; font-weight:700; color:var(--navy);
+  }
+  .product-card .price-new::before{ content:"R$ "; font-size:10px; color:var(--muted); }
+  .product-card .price-inquire{
+    font-family:'Space Mono',monospace; font-size:12px; color:var(--purple);
+    border:1px solid rgba(91,46,147,0.35); padding:3px 8px; border-radius:20px;
+  }
+  .product-more{
+    margin-top:16px; display:flex; align-items:center; justify-content:center; gap:8px;
+    font-family:'Space Mono',monospace; font-size:11.5px; color:var(--muted);
+    border:1px dashed var(--line); border-radius:12px; padding:14px; text-decoration:none;
+  }
+
+  /* BADGES / diferenciais */
+  .badge-row{ display:flex; flex-direction:column; gap:10px; }
+  .badge{
+    display:flex; align-items:center; gap:14px;
+    background:var(--panel-2); border:1px solid var(--line); border-radius:12px; padding:14px 16px;
+  }
+  .badge .ic{
+    width:36px; height:36px; border-radius:8px; flex-shrink:0;
+    background:linear-gradient(135deg,var(--navy),var(--purple));
+    display:flex; align-items:center; justify-content:center; font-size:16px;
+  }
+  .badge div h5{ font-size:14px; margin-bottom:2px; }
+  .badge div p{ font-size:12.5px; color:var(--muted); }
+
+  /* TESTIMONIAL */
+  .testi{
+    background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px;
+    border-left:3px solid var(--purple);
+    box-shadow:0 16px 32px -24px rgba(8,20,41,0.3);
+  }
+  .testi p{ font-size:14.5px; line-height:1.6; color:var(--ink); margin-bottom:14px; }
+  .testi .who{ font-family:'Space Mono',monospace; font-size:11.5px; color:var(--muted); }
+
+  /* FINAL CTA */
+  .final{
+    text-align:center; padding:60px 0 50px;
+  }
+  .final h2{ font-size:28px; margin-bottom:12px; }
+  .final .sub{ color:var(--muted); font-size:14px; margin-bottom:26px; }
+
+  footer{
+    position:relative; z-index:2; text-align:center; padding:26px 0 40px;
+    font-family:'Space Mono',monospace; font-size:10.5px; color:var(--muted);
+    border-top:1px dashed var(--line); margin-top:10px;
+  }
+
+  @media (max-width:380px){
+    .tag h1{ font-size:32px; }
+  }
+
+  /* DESKTOP / TABLET — the mobile column gets room to breathe instead of floating in empty margins */
+  @media (min-width:860px){
+    .wrap{ max-width:920px; }
+    header.top{ max-width:920px; padding:26px 22px 14px; }
+
+    .nav-links{ display:flex; align-items:center; gap:30px; }
+    .nav-links a{
+      font-family:'Inter',sans-serif; font-size:14px; font-weight:500;
+      color:var(--muted); text-decoration:none; transition:color .15s ease;
+    }
+    .nav-links a:hover{ color:var(--purple); }
+
+    .hero{ padding-top:20px; }
+    .tag{ max-width:460px; padding:40px 34px 34px; }
+    .tag h1{ font-size:50px; }
+    .tag .sub{ font-size:15.5px; }
+
+    .steps{ flex-direction:row; gap:20px; }
+    .step{ flex-direction:column; gap:10px; border-top:none; border-left:1px dashed var(--line); padding:4px 0 4px 20px; }
+    .step:last-child{ border-bottom:none; }
+    .step .num{ font-size:30px; }
+
+    .cat-grid{ grid-template-columns:repeat(4,1fr); }
+    .product-grid{ grid-template-columns:repeat(4,1fr); }
+
+    .badge-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+    h2.display{ font-size:32px; }
+    .final h2{ font-size:36px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cord"></div>
+
+<header class="top">
+  <div class="brand">
+    <img src="img/logo-icon.png" alt="WellCalçados" width="56" height="26">
+    <span><span class="b1">WELL</span><span class="b2">CALÇADOS</span></span>
+  </div>
+  <nav class="nav-links">
+    <a href="#processo">Processo</a>
+    <a href="#categorias">Categorias</a>
+    <a href="#vitrine">Vitrine</a>
+    <a href="#diferenciais">Diferenciais</a>
+  </nav>
+  <a class="cta-pill" href="#contato">DIRECT →</a>
+</header>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" style="padding-top:20px;">
+    <div class="hook"></div>
+    <div class="tag">
+      <div class="eyebrow">◆ ETIQUETA DE AUTENTICIDADE</div>
+      <h1 class="display">
+        <span class="g1">OS MAIS</span>
+        <span class="g2">DESEJADOS</span>
+      </h1>
+      <p class="sub">Sneakers selecionados, preço justo e atendimento rápido — direto de Angra dos Reis pra você.</p>
+      <div class="barcode"></div>
+      <div class="barcode-label mono">SKU // ANGRA-RJ · 2026</div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn-primary" href="#contato">👟 Ver catálogo no direct</a>
+      <a class="btn-secondary" href="#diferenciais">como funciona a permuta ↓</a>
+    </div>
+  </section>
+
+  <!-- PROCESSO -->
+  <section id="processo">
+    <div class="kicker">PROCESSO</div>
+    <h2 class="display">Do direct pro seu pé</h2>
+    <p class="section-sub">Três etapas, sem enrolação.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="num mono">01</div>
+        <div>
+          <h3>Escolhe o modelo</h3>
+          <p>Manda print ou fala o modelo/tamanho direto no Instagram.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num mono">02</div>
+        <div>
+          <h3>Confirma condição</h3>
+          <p>Preço, forma de pagamento (até 3x sem juros) ou permuta.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num mono">03</div>
+        <div>
+          <h3>Recebe rapidinho</h3>
+          <p>Combinamos entrega em Angra ou envio pra sua região.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIAS -->
+  <section id="categorias">
+    <div class="kicker">ESTOQUE</div>
+    <h2 class="display">Categorias em destaque</h2>
+    <p class="section-sub">Atualizado toda semana — o que sobe no feed pode sair rápido.</p>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <img src="img/cat-air-max-plus.jpg" alt="Categoria Nike Air Max Plus TN, várias cores" loading="lazy" decoding="async">
+        <div class="shade"></div>
+        <div class="content">
+          <div class="tagnum mono">CAT.01</div>
+          <h4>Nike Air Max Plus</h4>
+          <div class="stock">TN — várias cores</div>
+        </div>
+      </div>
+      <div class="cat-card">
+        <img src="img/cat-adidas.jpg" alt="Categoria linha Adidas performance e corrida" loading="lazy" decoding="async">
+        <div class="shade"></div>
+        <div class="content">
+          <div class="tagnum mono">CAT.02</div>
+          <h4>Linha Adidas</h4>
+          <div class="stock">performance & corrida</div>
+        </div>
+      </div>
+      <div class="cat-card">
+        <img src="img/cat-edicao-especial.jpg" alt="Categoria edição especial com detalhes em strass" loading="lazy" decoding="async">
+        <div class="shade"></div>
+        <div class="content">
+          <div class="tagnum mono">CAT.03</div>
+          <h4>Edição Especial</h4>
+          <div class="stock">detalhes em strass</div>
+        </div>
+      </div>
+      <div class="cat-card">
+        <img src="img/cat-tn-colecao.jpg" alt="Categoria TN coleção importados" loading="lazy" decoding="async">
+        <div class="shade"></div>
+        <div class="content">
+          <div class="tagnum mono">CAT.04</div>
+          <h4>TN Coleção</h4>
+          <div class="stock">importados RP</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VITRINE — grade de produto com preço e estoque -->
+  <section id="vitrine">
+    <div class="kicker">DISPONÍVEL AGORA</div>
+    <h2 class="display">Vitrine da semana</h2>
+    <p class="section-sub">Preço à vista — parcelado em até 3x sem juros.</p>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-zoomx-preto.jpg" alt="Tênis Nike ZoomX preto" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Nike ZoomX preto</div>
+          <div class="psize mono">TAM. 36 E 37</div>
+          <div class="price-row">
+            <span class="price-new">170</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-zoomx-bege-prata.jpg" alt="Tênis Nike ZoomX bege e prata" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Nike ZoomX bege/prata</div>
+          <div class="psize mono">TAM. 40</div>
+          <div class="price-row">
+            <span class="price-new">150</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-zoomx-invincible-azul.jpg" alt="Tênis Nike ZoomX Invincible Run 3 azul marinho" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Nike ZoomX Invincible azul</div>
+          <div class="psize mono">TAM. 40 E 41</div>
+          <div class="price-row">
+            <span class="price-new">150</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-af1-preto.jpg" alt="Tênis Nike Air Force 1 preto" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Nike Air Force 1 preto</div>
+          <div class="psize mono">TAM. 39 E 41</div>
+          <div class="price-row">
+            <span class="price-new">250</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-af1-branco.jpg" alt="Tênis Nike Air Force 1 branco" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Nike Air Force 1 branco</div>
+          <div class="psize mono">TAM. 37 E 41 · CADARÇOS EXTRAS</div>
+          <div class="price-row">
+            <span class="price-new">250</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-af1-cinza.jpg" alt="Tênis Nike Air Force 1 cinza" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Nike Air Force 1 cinza</div>
+          <div class="psize mono">TAM. 41 E 43</div>
+          <div class="price-row">
+            <span class="price-new">250</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-af1-bege-rosa.jpg" alt="Tênis Nike Air Force 1 bege e rosa" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Nike Air Force 1 bege/rosa</div>
+          <div class="psize mono">TAM. 36 · 2 CADARÇOS</div>
+          <div class="price-row">
+            <span class="price-new">250</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-af1-shadow-azul-rosa.jpg" alt="Tênis Nike Air Force 1 Shadow azul e rosa" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Nike AF1 Shadow azul/rosa</div>
+          <div class="psize mono">TAM. 37</div>
+          <div class="price-row">
+            <span class="price-new">250</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-af1-panda.jpg" alt="Tênis Nike Air Force 1 preto e branco" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Nike Air Force 1 preto/branco</div>
+          <div class="psize mono">TAM. 38</div>
+          <div class="price-row">
+            <span class="price-new">250</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-af1-jester-azul.jpg" alt="Tênis Nike Air Force 1 plataforma azul bebê" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Nike AF1 plataforma azul</div>
+          <div class="psize mono">TAM. 36 E 37</div>
+          <div class="price-row">
+            <span class="price-new">250</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-nike-court.jpg" alt="Tênis Nike Court branco e azul" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Nike Court branco/azul</div>
+          <div class="psize mono">TAM. 37 E 39 · 2 CADARÇOS</div>
+          <div class="price-row">
+            <span class="price-new">250</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-adidas-samba.jpg" alt="Tênis Adidas Samba branco e preto" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Adidas Samba</div>
+          <div class="psize mono">TAM. 37 · 2 CADARÇOS</div>
+          <div class="price-row">
+            <span class="price-new">170</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-adidas-sl72-areia.jpg" alt="Tênis Adidas SL72 areia e preto" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Adidas SL72 areia</div>
+          <div class="psize mono">TAM. 37 · 2 CADARÇOS</div>
+          <div class="price-row">
+            <span class="price-new">250</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-adidas-sl72-bordo.jpg" alt="Tênis Adidas SL72 bordô feminino" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Adidas SL72 bordô</div>
+          <div class="psize mono">TAM. 38 · FEMININO</div>
+          <div class="price-row">
+            <span class="price-new">250</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-adidas-feminino-branco.jpg" alt="Tênis Adidas feminino branco e prata" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Adidas feminino branco</div>
+          <div class="psize mono">TAM. 37 E 39</div>
+          <div class="price-row">
+            <span class="price-new">170</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-on-cloud-preto.jpg" alt="Tênis On Cloud preto e branco" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">On Cloud preto</div>
+          <div class="psize mono">TAM. 36 E 37</div>
+          <div class="price-row">
+            <span class="price-inquire">consultar no direct</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="punch"></div>
+        <div class="photo">
+          <img src="img/produto-air-max-plus-tn.jpg" alt="Tênis Nike Air Max Plus TN holográfico" loading="lazy" decoding="async">
+          <div class="stock-pill"><span class="blip"></span>DISPONÍVEL</div>
+        </div>
+        <div class="info">
+          <div class="pname">Nike Air Max Plus (TN)</div>
+          <div class="psize mono">HOLOGRÁFICO</div>
+          <div class="price-row">
+            <span class="price-inquire">consultar no direct</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="product-more" href="#contato">ver catálogo completo no direct →</a>
+  </section>
+
+  <!-- DIFERENCIAIS -->
+  <section id="diferenciais">
+    <div class="kicker">POR QUE A WELL</div>
+    <h2 class="display">Diferenciais</h2>
+    <div class="badge-row" style="margin-top:22px;">
+      <div class="badge">
+        <div class="ic">🔁</div>
+        <div><h5>Aceita permuta</h5><p>Troca seu tênis usado por um novo modelo.</p></div>
+      </div>
+      <div class="badge">
+        <div class="ic">💳</div>
+        <div><h5>Até 3x sem juros</h5><p>Parcelamento facilitado, sem taxa extra.</p></div>
+      </div>
+      <div class="badge">
+        <div class="ic">⚡</div>
+        <div><h5>Atendimento rápido</h5><p>Resposta no direct em minutos.</p></div>
+      </div>
+      <div class="badge">
+        <div class="ic">📍</div>
+        <div><h5>Base em Angra dos Reis</h5><p>Entrega local e envio pra região.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROVA SOCIAL -->
+  <section id="depoimentos">
+    <div class="kicker">QUEM JÁ COMPROU</div>
+    <h2 class="display">Confiança que se vê</h2>
+    <div class="testi" style="margin-top:20px;">
+      <p>"Achei o modelo que eu queria com preço bom e sem enrolação, recebi rapidinho aqui em Angra."</p>
+      <div class="who">— cliente WellCalçados</div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section id="contato" class="final">
+    <div class="kicker" style="justify-content:center;"><span></span></div>
+    <h2 class="display">Bora fechar o seu par?</h2>
+    <p class="sub">Manda uma mensagem e a gente te manda o catálogo completo, direto no seu tamanho.</p>
+    <a class="btn-primary" href="https://instagram.com/wellcalcados" target="_blank">Chamar no Instagram</a>
+  </section>
+
+</div>
+
+<footer>
+  WELLCALÇADOS © 2026 — ANGRA DOS REIS, RJ
+</footer>
+
+</body>
+</html>
