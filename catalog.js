@@ -44,7 +44,12 @@ window.WELL_PRODUCTS = [
   { brand:'Nike', name:'Nike Air Force 1 branco, roxo e amarelo', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-air-force-branco-roxo-amarelo.webp', category:'Nacionais', orderOnly:true },
   { brand:'Nike', name:'Nike Air Force 1 creme e azul', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-air-force-creme-azul.webp', category:'Nacionais', orderOnly:true },
   { brand:'Nike', name:'Nike Air Force 1 branco mesh', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-air-force-branco-mesh.webp', category:'Nacionais', orderOnly:true },
-  { brand:'Nike', name:'Nike Air Force 1 branco e marinho', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-air-force-branco-marinho.webp', category:'Nacionais', orderOnly:true }
+  { brand:'Nike', name:'Nike Air Force 1 branco e marinho', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-air-force-branco-marinho.webp', category:'Nacionais', orderOnly:true },
+  { brand:'New Balance', name:'New Balance 9060 marrom escuro', sizes:[], note:'Somente por encomenda', price:null, image:'img/nb9060-marrom-escuro.webp', category:'New Balance 9060', orderOnly:true },
+  { brand:'New Balance', name:'New Balance 9060 bege e cinza', sizes:[], note:'Somente por encomenda', price:null, image:'img/nb9060-bege-cinza.webp', category:'New Balance 9060', orderOnly:true },
+  { brand:'New Balance', name:'New Balance 9060 marrom e creme', sizes:[], note:'Somente por encomenda', price:null, image:'img/nb9060-marrom-creme.webp', category:'New Balance 9060', orderOnly:true },
+  { brand:'New Balance', name:'New Balance 9060 cinza e lilás', sizes:[], note:'Somente por encomenda', price:null, image:'img/nb9060-cinza-lilas.webp', category:'New Balance 9060', orderOnly:true },
+  { brand:'New Balance', name:'New Balance 9060 marinho', sizes:[], note:'Somente por encomenda', price:null, image:'img/nb9060-marinho.webp', category:'New Balance 9060', orderOnly:true }
 ];
 
 window.copyProductAndOpenDirect = async function(productName, sizeText, orderOnly = false) {

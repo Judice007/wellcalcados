@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vitrine de sneakers — WellCalçados</title>
-  <meta name="description" content="Veja sneakers disponíveis, nacionais, chuteiras e importados por encomenda na WellCalçados em Angra dos Reis.">
+  <meta name="description" content="Veja sneakers disponíveis, New Balance 9060, nacionais, chuteiras e importados por encomenda na WellCalçados em Angra dos Reis.">
   <meta name="theme-color" content="#FFFFFF">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -78,6 +78,7 @@
         <span><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16v13H4z"/><path d="M8 7a4 4 0 0 1 8 0M8 12h8"/></svg>Chuteiras por encomenda</span>
         <span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>Importados por encomenda</span>
         <span><svg class="icon" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 10 4-4 4 4 4-4 4 4"/></svg>Nacionais por encomenda</span>
+        <span><svg class="icon" viewBox="0 0 24 24"><path d="M4 17 9 7l3 10 3-10 5 10"/><path d="M6 13h12"/></svg>New Balance 9060 por encomenda</span>
       </div>
     </section>
 
@@ -135,7 +136,7 @@
     let viewerTrigger;
     let activeBrand = 'Todas';
 
-    const brands = ['Todas', 'Air Force', 'Chuteiras', 'Importados', 'Nacionais', ...new Set(products.map(product => product.brand).filter(brand => brand !== 'Nacional'))];
+    const brands = ['Todas', 'Air Force', 'New Balance 9060', 'Chuteiras', 'Importados', 'Nacionais', ...new Set(products.map(product => product.brand).filter(brand => !['Nacional','New Balance'].includes(brand)))];
     brands.forEach(brand => {
       const button = document.createElement('button');
       button.className = 'filter-chip' + (brand === 'Air Force' ? ' featured' : '') + (brand === activeBrand ? ' active' : '');
@@ -179,14 +180,14 @@
       const size = Number(sizeFilter.value);
       const filtered = products.filter(product => {
         const isAirForce = /air force|\baf1\b/i.test(product.name);
-        const matchesBrand = activeBrand === 'Todas' || (activeBrand === 'Air Force' ? isAirForce : ['Chuteiras','Importados','Nacionais'].includes(activeBrand) ? product.category === activeBrand : product.brand === activeBrand);
+        const matchesBrand = activeBrand === 'Todas' || (activeBrand === 'Air Force' ? isAirForce : ['New Balance 9060','Chuteiras','Importados','Nacionais'].includes(activeBrand) ? product.category === activeBrand : product.brand === activeBrand);
         const matchesSize = !size || product.sizes.includes(size);
         const haystack = `${product.brand} ${product.name} ${product.note}`.toLocaleLowerCase('pt-BR');
         return matchesBrand && matchesSize && (!term || haystack.includes(term));
       });
       visibleProducts = filtered;
       grid.innerHTML = filtered.map(productCard).join('');
-      catalogTitle.textContent = activeBrand === 'Air Force' ? 'Coleção Air Force' : activeBrand === 'Chuteiras' ? 'Chuteiras por encomenda' : activeBrand === 'Importados' ? 'Importados por encomenda' : activeBrand === 'Nacionais' ? 'Nacionais por encomenda' : activeBrand === 'Todas' ? 'Todos os modelos' : `Modelos ${activeBrand}`;
+      catalogTitle.textContent = activeBrand === 'Air Force' ? 'Coleção Air Force' : activeBrand === 'New Balance 9060' ? 'New Balance 9060 por encomenda' : activeBrand === 'Chuteiras' ? 'Chuteiras por encomenda' : activeBrand === 'Importados' ? 'Importados por encomenda' : activeBrand === 'Nacionais' ? 'Nacionais por encomenda' : activeBrand === 'Todas' ? 'Todos os modelos' : `Modelos ${activeBrand}`;
       count.textContent = `${filtered.length} ${filtered.length === 1 ? 'modelo' : 'modelos'}`;
       grid.classList.toggle('hidden', filtered.length === 0); empty.classList.toggle('show', filtered.length === 0);
       grid.querySelectorAll('.order').forEach(button => button.addEventListener('click', async () => {
