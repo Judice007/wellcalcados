@@ -24,7 +24,11 @@ window.WELL_PRODUCTS = [
   { brand:'Nike', name:'Chuteira Nike azul', sizes:[], note:'Society · somente por encomenda', price:null, image:'img/chuteira-nike-azul-society.webp', category:'Chuteiras', orderOnly:true },
   { brand:'Nike', name:'Chuteira Nike cinza society', sizes:[], note:'Society · somente por encomenda', price:null, image:'img/chuteira-nike-cinza-society.webp', category:'Chuteiras', orderOnly:true },
   { brand:'Nike', name:'Chuteira Nike branca e laranja', sizes:[], note:'Society · somente por encomenda', price:null, image:'img/chuteira-nike-branca-laranja-society.webp', category:'Chuteiras', orderOnly:true },
-  { brand:'Nike', name:'Chuteira Nike rosa', sizes:[], note:'Society · somente por encomenda', price:null, image:'img/chuteira-nike-rosa-society.webp', category:'Chuteiras', orderOnly:true }
+  { brand:'Nike', name:'Chuteira Nike rosa', sizes:[], note:'Society · somente por encomenda', price:null, image:'img/chuteira-nike-rosa-society.webp', category:'Chuteiras', orderOnly:true },
+  { brand:'Nike', name:'Nike Air Max Plus prata', sizes:[38,39,40,41,42,43], note:'Importado · somente por encomenda', price:null, image:'img/importado-nike-air-max-plus-prata.webp', category:'Importados', orderOnly:true },
+  { brand:'Adidas', name:'Adidas Adizero azul e coral', sizes:[38,39,40,41,42,43], note:'Importado · somente por encomenda', price:null, image:'img/importado-adidas-adizero-azul.webp', category:'Importados', orderOnly:true },
+  { brand:'Adidas', name:'Adidas Adizero neon', sizes:[38,39,40,41,42,43], note:'Importado · somente por encomenda', price:null, image:'img/importado-adidas-adizero-neon.webp', category:'Importados', orderOnly:true },
+  { brand:'Adidas', name:'Adidas Adizero azul e neon', sizes:[40,41,42,43], note:'Importado · somente por encomenda', price:null, image:'img/importado-adidas-adizero-azul-neon.webp', category:'Importados', orderOnly:true }
 ];
 
 window.copyProductAndOpenDirect = async function(productName, sizeText, orderOnly = false) {
