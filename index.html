@@ -49,15 +49,15 @@
     .hero{position:relative;min-height:650px;padding:74px 0 38px;overflow:hidden}
     .hero::before{content:"";position:absolute;width:490px;height:490px;border-radius:50%;background:linear-gradient(145deg,#f7f0fa,#efe5f6);left:53%;top:45%;transform:translate(-50%,-50%)}
     .hero::after{content:"WELL / 2026";position:absolute;right:24px;top:50%;transform:rotate(90deg) translateX(50%);transform-origin:right top;color:#aaa5ae;font-size:9px;letter-spacing:.25em}
-    .hero-grid{display:grid;grid-template-columns:.9fr 1.05fr .85fr;align-items:center;column-gap:18px;position:relative;z-index:2}
+    .hero-grid{display:grid;grid-template-columns:.92fr 1.16fr .72fr;align-items:center;column-gap:28px;position:relative;z-index:2}
     .hero-copy{padding-top:10px;position:relative;z-index:3}
     .eyebrow{display:flex;align-items:center;gap:10px;color:var(--purple);font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;margin-bottom:24px}
     .eyebrow::before{content:"";width:28px;height:2px;background:var(--purple)}
-    h1{font-family:"Manrope",sans-serif;font-size:clamp(62px,6.6vw,96px);line-height:.88;letter-spacing:-.075em;font-weight:500}
+    h1{font-family:"Manrope",sans-serif;font-size:clamp(60px,6.1vw,88px);line-height:.9;letter-spacing:-.07em;font-weight:500}
     h1 span{display:block;white-space:nowrap}
     h1 .outline{position:relative;color:var(--purple);font-weight:700;display:inline-block;padding:0 18px 8px 8px}
     h1 .outline::after{content:"";position:absolute;inset:7px -12px -2px -14px;border:4px solid var(--purple);border-radius:50%;transform:rotate(-2deg);z-index:-1}
-    .hero-copy p{max-width:310px;color:var(--muted);font-size:14px;line-height:1.65;margin:32px 0 24px}
+    .hero-copy p{max-width:285px;color:var(--muted);font-size:14px;line-height:1.6;margin:28px 0 24px}
     .btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:0 22px;border-radius:999px;text-decoration:none;font-size:13px;font-weight:700;border:1px solid transparent;transition:.2s}
     .btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
     .btn-primary{background:var(--purple);color:#fff;box-shadow:0 12px 25px rgba(109,54,167,.22)}
@@ -78,13 +78,11 @@
     .shoe-dot.is-active{width:24px;border-radius:999px;background:var(--purple)}
     .feature-tag{position:absolute;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:999px;padding:9px 13px;box-shadow:0 10px 30px rgba(25,20,31,.08);font-size:10px;font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:7px;backdrop-filter:blur(8px)}
     .feature-tag i{width:8px;height:8px;background:var(--purple);border:2px solid #e3d4ef;border-radius:50%;box-sizing:content-box}
-    .tag-one{left:0;top:20%}.tag-two{right:0;top:36%}.tag-three{left:16%;bottom:12%}
-    .hero-side{align-self:end;padding:0 0 44px 10px;position:relative;z-index:6}
-    .hero-side::before{content:"";position:absolute;z-index:-1;inset:-22px -12px -28px -22px;background:linear-gradient(90deg,rgba(255,255,255,.82),#fff 28%);border-radius:24px;filter:blur(1px)}
-    .side-count{font:700 11px "Manrope",sans-serif;color:var(--purple);margin-bottom:14px}
-    .hero-side h2{font:700 18px/1.2 "Manrope",sans-serif;letter-spacing:-.03em;margin-bottom:10px}
-    .hero-side p{font-size:12px;line-height:1.55;color:var(--muted);margin-bottom:16px}
-    .text-link{font-size:12px;font-weight:700;text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:3px}
+    .tag-one{left:0;top:21%}.tag-two{right:0;top:38%}
+    .hero-side{align-self:center;padding-left:4px;position:relative;z-index:6}
+    .hero-side::before{content:"";position:absolute;z-index:-1;inset:-28px -14px -28px -30px;background:linear-gradient(90deg,rgba(255,255,255,.68),#fff 32%);border-radius:24px}
+    .side-count{font:700 10px "Manrope",sans-serif;color:var(--purple);margin-bottom:12px;letter-spacing:.04em}
+    .hero-side h2{font:700 22px/1.08 "Manrope",sans-serif;letter-spacing:-.045em;max-width:220px}
     .trust-row{position:relative;z-index:4;display:flex;align-items:center;justify-content:space-between;margin-top:6px;padding-top:22px;border-top:1px solid var(--line)}
     .trust-group{display:flex;align-items:center;gap:11px;color:#53555b;font-size:11px}
     .trust-icon{width:34px;height:34px;border-radius:50%;background:var(--lilac);display:grid;place-items:center;color:var(--purple)}
@@ -190,7 +188,7 @@
         <div class="hero-copy">
           <div class="eyebrow">Pronta entrega em Angra</div>
           <h1><span>ENCONTRE</span><span>O SEU <b class="outline">PAR</b></span></h1>
-          <p>Sneakers selecionados para acompanhar seu ritmo — com atendimento direto, preço justo e estilo de sobra.</p>
+          <p>Modelos selecionados, pronta entrega e atendimento direto em Angra.</p>
           <a class="btn btn-primary" href="vitrine.html">Explorar vitrine <svg viewBox="0 0 24 24"><path d="m5 12 14 0m-5-5 5 5-5 5"/></svg></a>
         </div>
         <div class="hero-product" aria-label="Tênis em destaque">
@@ -201,14 +199,11 @@
           </div>
           <span class="feature-tag tag-one"><i></i> Pronta entrega</span>
           <span class="feature-tag tag-two"><i></i> Até 3x sem juros</span>
-          <span class="feature-tag tag-three"><i></i> Aceitamos permuta</span>
           <div class="shoe-dots" aria-label="Selecionar tênis em destaque"><button class="shoe-dot is-active" type="button" aria-label="Mostrar Nike Air Force 1"></button><button class="shoe-dot" type="button" aria-label="Mostrar Adidas Samba"></button><button class="shoe-dot" type="button" aria-label="Mostrar On Cloud"></button></div>
         </div>
         <aside class="hero-side">
           <div class="side-count" id="heroCount">01 / 03 · NIKE</div>
-          <h2 id="heroProductName">Air Force 1 para acompanhar o seu corre.</h2>
-          <p id="heroProductMeta">Pronta entrega, tamanhos 38 e atendimento humano pelo direct.</p>
-          <a class="text-link" href="#diferenciais">Por que escolher a Well?</a>
+          <h2 id="heroProductName">Nike Air Force 1</h2>
         </aside>
       </div>
       <div class="trust-row">
@@ -287,9 +282,9 @@
     const shoeSlides = [...document.querySelectorAll('.shoe-slide')];
     const shoeDots = [...document.querySelectorAll('.shoe-dot')];
     const heroModels = [
-      {count:'01 / 03 · NIKE',name:'Air Force 1 para acompanhar o seu corre.',meta:'Pronta entrega, tamanhos disponíveis e atendimento humano pelo direct.'},
-      {count:'02 / 03 · ADIDAS',name:'Samba: um clássico que atravessa estilos.',meta:'Visual retrô, dois cadarços e pronta entrega na vitrine Well.'},
-      {count:'03 / 03 · ON CLOUD',name:'Leveza e presença para a rotina inteira.',meta:'Conforto esportivo em um modelo preto fácil de combinar.'}
+      {count:'01 / 03 · NIKE',name:'Nike Air Force 1'},
+      {count:'02 / 03 · ADIDAS',name:'Adidas Samba'},
+      {count:'03 / 03 · ON CLOUD',name:'On Cloud preto'}
     ];
     let activeShoe = 0;
     let shoeTimer;
@@ -305,7 +300,6 @@
       const model = heroModels[activeShoe];
       document.getElementById('heroCount').textContent = model.count;
       document.getElementById('heroProductName').textContent = model.name;
-      document.getElementById('heroProductMeta').textContent = model.meta;
     };
     const startShoes = () => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
