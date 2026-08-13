@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#ffffff">
   <meta property="og:type" content="website">
   <meta property="og:title" content="WellCalçados — Encontre o seu par">
-  <meta property="og:description" content="Modelos Nike, Adidas e On Cloud. Atendimento rápido pelo Instagram.">
+  <meta property="og:description" content="Modelos Nike, Adidas e On Cloud. Atendimento rápido pelo WhatsApp.">
   <meta property="og:image" content="img/produto-af1-panda.jpg">
   <link rel="icon" href="img/logo-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -141,6 +141,8 @@
     .footer-links{display:flex;gap:22px}.footer-links a{font-size:11px;text-decoration:none;font-weight:600}
     .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#16131a;color:#fff;border-radius:999px;padding:12px 18px;font-size:12px;z-index:20;transition:.25s;box-shadow:0 12px 30px rgba(0,0,0,.2)}
     .toast.show{opacity:1;transform:translate(-50%,0)}
+    .whatsapp-float{display:none;position:fixed;right:16px;bottom:18px;z-index:30;align-items:center;gap:9px;min-height:48px;padding:0 17px;border-radius:999px;background:#20102f;color:#fff;text-decoration:none;font-size:12px;font-weight:800;box-shadow:0 14px 34px rgba(32,16,47,.3)}
+    .whatsapp-float svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
     @media(max-width:980px){
       .page{width:calc(100% - 24px);margin:12px auto}.shell{width:calc(100% - 40px)}
@@ -165,6 +167,7 @@
       .story{padding:56px 0}.story-grid{display:flex;flex-direction:column;gap:40px}.story-visual{width:100%;height:360px;gap:10px}.story-photo{border-radius:18px}.story-photo:first-child{margin-top:44px}.story-copy h2{font-size:34px}.benefits{grid-template-columns:1fr}
       .trade{padding:48px 0}.trade-card{display:block;padding:36px 28px 190px;border-radius:24px}.trade-copy h2{font-size:34px}.trade-shoe{width:310px;right:-20px;bottom:-38px}
       .footer-row{align-items:flex-start;flex-direction:column}.footer-links{flex-wrap:wrap}
+      .whatsapp-float{display:inline-flex}.toast{bottom:78px}
     }
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.shoe-slide.is-active img,.product-rail{animation:none}*{transition:none!important}}
   </style>
@@ -178,7 +181,7 @@
       </nav>
       <div class="head-actions">
         <a class="icon-btn" href="vitrine.html" aria-label="Buscar na vitrine"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></a>
-        <a class="icon-btn" href="https://instagram.com/wellcalcados" target="_blank" rel="noopener" aria-label="Falar com a WellCalçados"><svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-9 8 9 9 0 0 1-4 1l1-3a8 8 0 1 1 12-6Z"/></svg></a>
+        <a class="icon-btn" href="https://wa.me/5524999485839?text=Ol%C3%A1%21%20Gostaria%20de%20conhecer%20os%20t%C3%AAnis%20dispon%C3%ADveis." target="_blank" rel="noopener" aria-label="Falar com a WellCalçados pelo WhatsApp"><svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-9 8 9 9 0 0 1-4 1l1-3a8 8 0 1 1 12-6Z"/></svg></a>
         <a class="icon-btn menu-btn" href="vitrine.html" aria-label="Abrir vitrine"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></a>
       </div>
     </header>
@@ -208,7 +211,7 @@
         </aside>
       </div>
       <div class="trust-row">
-        <div class="trust-group"><span class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-4 7-10V5l-7-3-7 3v6c0 6 7 10 7 10Z"/><path d="m9 12 2 2 4-5"/></svg></span><span><strong>Compra direta e segura</strong><br>Atendimento rápido pelo Instagram</span></div>
+        <div class="trust-group"><span class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-4 7-10V5l-7-3-7 3v6c0 6 7 10 7 10Z"/><path d="m9 12 2 2 4-5"/></svg></span><span><strong>Compra direta e segura</strong><br>Atendimento rápido pelo WhatsApp</span></div>
         <div class="trust-group"><span class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z"/><circle cx="12" cy="10" r="2"/></svg></span><span>Base em<br><strong>Angra dos Reis, RJ</strong></span></div>
         <div class="brand-list" aria-label="Marcas disponíveis"><span>NIKE</span><span>ADIDAS</span><span>ON CLOUD</span><span>NEW BALANCE</span><span>LACOSTE</span></div>
       </div>
@@ -232,23 +235,24 @@
             <div class="benefit"><strong>Pronta entrega</strong><span>Modelos disponíveis em Angra dos Reis.</span></div>
             <div class="benefit"><strong>Até 3x sem juros</strong><span>Facilidade para levar o seu novo par.</span></div>
             <div class="benefit"><strong>Encomendas</strong><span>Importados chegam entre 7 e 10 dias.</span></div>
-            <div class="benefit"><strong>Atendimento humano</strong><span>Resposta rápida e direta pelo Instagram.</span></div>
+            <div class="benefit"><strong>Atendimento humano</strong><span>Resposta rápida e direta pelo WhatsApp.</span></div>
           </div>
-          <a class="btn btn-primary" href="https://instagram.com/wellcalcados" target="_blank" rel="noopener">Falar com a Well <svg viewBox="0 0 24 24"><path d="m5 12 14 0m-5-5 5 5-5 5"/></svg></a>
+          <a class="btn btn-primary" href="https://wa.me/5524999485839?text=Ol%C3%A1%21%20Gostaria%20de%20conhecer%20os%20t%C3%AAnis%20dispon%C3%ADveis." target="_blank" rel="noopener">Falar pelo WhatsApp <svg viewBox="0 0 24 24"><path d="m5 12 14 0m-5-5 5 5-5 5"/></svg></a>
         </div>
       </div>
     </section>
 
     <section class="trade shell" id="permuta">
       <div class="trade-card">
-        <div class="trade-copy"><div class="eyebrow">Diferencial Well</div><h2>Seu tênis usado pode virar um novo.</h2><p>Se o seu par estiver em bom estado, envie fotos pelo direct. A gente avalia e explica como funciona a permuta, sem burocracia.</p><a class="btn" href="https://instagram.com/wellcalcados" target="_blank" rel="noopener">Avaliar meu tênis →</a></div>
+        <div class="trade-copy"><div class="eyebrow">Diferencial Well</div><h2>Seu tênis usado pode virar um novo.</h2><p>Se o seu par estiver em bom estado, envie fotos pelo WhatsApp. A gente avalia e explica como funciona a permuta, sem burocracia.</p><a class="btn" href="https://wa.me/5524999485839?text=Ol%C3%A1%21%20Gostaria%20de%20avaliar%20meu%20t%C3%AAnis%20para%20permuta." target="_blank" rel="noopener">Avaliar meu tênis →</a></div>
         <img class="trade-shoe" src="img/hero-af1-cutout.png" alt="Tênis em destaque na permuta" loading="lazy">
       </div>
     </section>
 
-    <footer><div class="shell footer-row"><a class="logo" href="#inicio"><img src="img/logo-header-transparent.png" alt="WellCalçados"></a><p class="footer-note">Sneakers selecionados em Angra dos Reis, RJ.</p><div class="footer-links"><a href="vitrine.html">Vitrine</a><a href="https://instagram.com/wellcalcados" target="_blank" rel="noopener">Instagram</a></div></div></footer>
+    <footer><div class="shell footer-row"><a class="logo" href="#inicio"><img src="img/logo-header-transparent.png" alt="WellCalçados"></a><p class="footer-note">Sneakers selecionados em Angra dos Reis, RJ.</p><div class="footer-links"><a href="vitrine.html">Vitrine</a><a href="https://wa.me/5524999485839" target="_blank" rel="noopener">WhatsApp: (24) 99948-5839</a><a href="https://instagram.com/wellcalcados" target="_blank" rel="noopener">Instagram</a></div></div></footer>
   </main>
-  <div class="toast" id="toast" role="status" aria-live="polite">Mensagem copiada. Agora é só colar no direct.</div>
+  <a class="whatsapp-float" href="https://wa.me/5524999485839?text=Ol%C3%A1%21%20Gostaria%20de%20conhecer%20os%20t%C3%AAnis%20dispon%C3%ADveis." target="_blank" rel="noopener" aria-label="Conversar com a WellCalçados pelo WhatsApp"><svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-9 8 9 9 0 0 1-4 1l1-3a8 8 0 1 1 12-6Z"/><path d="M9.5 8.5c.5 2.5 1.5 3.5 4 4"/></svg>WhatsApp</a>
+  <div class="toast" id="toast" role="status" aria-live="polite">WhatsApp aberto com a mensagem do produto.</div>
   <script src="catalog.js"></script>
   <script>
     const productsRoot = document.getElementById('homeProducts');
@@ -257,7 +261,7 @@
     const renderProducts = (hidden = false) => `<div class="product-set"${hidden ? ' aria-hidden="true"' : ''}>${featured.map((product, index) => {
       const sizes = product.sizes.length ? `Tam. ${product.sizes.join(' · ')}` : product.note;
       const price = product.price ? `R$ ${product.price}` : 'Consultar valor';
-      return `<article class="product-card"><div class="product-photo"><img src="${product.image}" alt="${product.name}" ${index > 1 ? 'loading="lazy"' : ''}><span class="product-brand">${product.brand}</span><a class="product-order" href="https://instagram.com/wellcalcados" data-index="${index}" aria-label="Pedir ${product.name}">${arrow}</a></div><div class="product-info"><h3>${product.name}</h3><div class="meta">${sizes}</div><div class="price">${price}</div></div></article>`;
+      return `<article class="product-card"><div class="product-photo"><img src="${product.image}" alt="${product.name}" ${index > 1 ? 'loading="lazy"' : ''}><span class="product-brand">${product.brand}</span><a class="product-order" href="https://wa.me/5524999485839" data-index="${index}" aria-label="Pedir ${product.name} pelo WhatsApp">${arrow}</a></div><div class="product-info"><h3>${product.name}</h3><div class="meta">${sizes}</div><div class="price">${price}</div></div></article>`;
     }).join('')}</div>`;
     productsRoot.innerHTML = renderProducts() + renderProducts(true);
     const toast = document.getElementById('toast');
