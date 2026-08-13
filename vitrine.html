@@ -34,7 +34,8 @@
     .search input,.size-select{width:100%;height:46px;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--navy);font:13px Inter,sans-serif;outline:none}
     .search input{padding:0 15px 0 43px}.search input:focus,.size-select:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(91,46,147,.1)}
     .size-select{min-width:150px;padding:0 36px 0 13px}
-    .brand-filters{grid-column:1/-1;display:flex;gap:8px;overflow:auto;padding-bottom:2px;scrollbar-width:none}.brand-filters::-webkit-scrollbar{display:none}
+    .filter-groups{grid-column:1/-1;display:grid;gap:9px}.filter-group{display:grid;grid-template-columns:92px minmax(0,1fr);align-items:center;gap:10px}.filter-label{font:700 9px 'Space Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .brand-filters{display:flex;gap:8px;overflow:auto;padding-bottom:2px;scrollbar-width:none}.brand-filters::-webkit-scrollbar{display:none}
     .filter-chip{min-height:38px;padding:0 15px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--navy);font:700 12px Inter,sans-serif;white-space:nowrap;cursor:pointer}
     .filter-chip.featured{border-color:rgba(91,46,147,.35);color:var(--purple)}.filter-chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}.filter-chip.featured.active{background:var(--purple);border-color:var(--purple);color:#fff}
     .catalog-head{display:flex;align-items:end;justify-content:space-between;gap:20px;padding:40px 0 20px}.catalog-head h2{font:28px 'Archivo Black',sans-serif;text-transform:uppercase}.count{font:10px 'Space Mono',monospace;color:var(--muted)}
@@ -49,11 +50,12 @@
     .empty.show{display:block}.grid.hidden{display:none}
     .toast{position:fixed;left:50%;bottom:22px;z-index:20;transform:translate(-50%,30px);opacity:0;pointer-events:none;width:min(360px,calc(100% - 32px));padding:13px 16px;border-radius:13px;background:var(--navy);color:#fff;text-align:center;font-size:12px;box-shadow:0 18px 38px -16px rgba(8,20,41,.6);transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
     .whatsapp-float{display:inline-flex;position:fixed;right:24px;bottom:24px;z-index:30;align-items:center;gap:9px;min-height:48px;padding:0 17px;border-radius:999px;background:var(--purple);color:#fff;text-decoration:none;font-size:12px;font-weight:800;box-shadow:0 14px 34px rgba(91,46,147,.3);transition:transform .2s ease,box-shadow .2s ease}.whatsapp-float:hover{transform:translateY(-3px);box-shadow:0 18px 38px rgba(91,46,147,.36)}.whatsapp-float .icon{width:19px;height:19px}
-    .viewer[hidden]{display:none}.viewer{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:rgba(4,8,17,.78);backdrop-filter:blur(10px);animation:viewerIn .22s ease}.viewer-panel{position:relative;width:min(1020px,100%);max-height:calc(100vh - 40px);display:grid;grid-template-columns:minmax(0,1fr) 290px;overflow:hidden;border-radius:24px;background:#fff;box-shadow:0 35px 90px rgba(0,0,0,.38)}.viewer-stage{position:relative;min-height:min(72vh,720px);display:grid;place-items:center;background:var(--soft);overflow:hidden}.viewer-image{width:100%;height:100%;max-height:calc(100vh - 40px);object-fit:contain}.viewer-info{padding:64px 28px 28px;display:flex;flex-direction:column}.viewer-brand{font:10px 'Space Mono',monospace;color:var(--purple);letter-spacing:.12em;text-transform:uppercase}.viewer-info h2{margin-top:10px;font-size:25px;line-height:1.15}.viewer-detail{margin-top:12px;font:11px/1.6 'Space Mono',monospace;color:var(--muted);text-transform:uppercase}.viewer-price{margin-top:20px;font:700 23px 'Space Mono',monospace}.viewer-price small{font-size:11px;color:var(--muted)}.viewer-order{margin-top:auto;min-height:48px;border:0;border-radius:999px;background:var(--purple);color:#fff;font-weight:700;cursor:pointer}.viewer-close{position:absolute;z-index:3;right:16px;top:16px;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:22px;cursor:pointer}.viewer-nav{position:absolute;z-index:2;top:50%;transform:translateY(-50%);width:46px;height:46px;border:1px solid rgba(8,20,41,.12);border-radius:50%;background:rgba(255,255,255,.92);color:var(--navy);font-size:22px;cursor:pointer;box-shadow:0 10px 24px rgba(8,20,41,.12)}.viewer-prev{left:16px}.viewer-next{right:16px}@keyframes viewerIn{from{opacity:0}to{opacity:1}}
+    .viewer[hidden]{display:none}.viewer{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:rgba(4,8,17,.78);backdrop-filter:blur(10px);animation:viewerIn .22s ease}.viewer-panel{position:relative;width:min(1020px,100%);max-height:calc(100vh - 40px);display:grid;grid-template-columns:minmax(0,1fr) 290px;overflow:hidden;border-radius:24px;background:#fff;box-shadow:0 35px 90px rgba(0,0,0,.38)}.viewer-stage{position:relative;min-height:min(72vh,720px);display:grid;place-items:center;background:var(--soft);overflow:hidden}.viewer-image{width:100%;height:100%;max-height:calc(100vh - 40px);object-fit:contain}.viewer-info{padding:64px 28px 28px;display:flex;flex-direction:column}.viewer-brand{font:10px 'Space Mono',monospace;color:var(--purple);letter-spacing:.12em;text-transform:uppercase}.viewer-info h2{margin-top:10px;font-size:25px;line-height:1.15}.viewer-detail{margin-top:12px;font:11px/1.6 'Space Mono',monospace;color:var(--muted);text-transform:uppercase}.viewer-price{margin-top:20px;font:700 23px 'Space Mono',monospace}.viewer-price small{font-size:11px;color:var(--muted)}.viewer-actions{margin-top:auto;display:grid;gap:9px}.viewer-order,.viewer-share{min-height:48px;border:0;border-radius:999px;font-weight:700;cursor:pointer}.viewer-order{background:var(--purple);color:#fff}.viewer-share{display:flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:var(--navy);border:1px solid var(--line)}.viewer-share .icon{width:16px}.viewer-close{position:absolute;z-index:3;right:16px;top:16px;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:22px;cursor:pointer}.viewer-nav{position:absolute;z-index:2;top:50%;transform:translateY(-50%);width:46px;height:46px;border:1px solid rgba(8,20,41,.12);border-radius:50%;background:rgba(255,255,255,.92);color:var(--navy);font-size:22px;cursor:pointer;box-shadow:0 10px 24px rgba(8,20,41,.12)}.viewer-prev{left:16px}.viewer-next{right:16px}@keyframes viewerIn{from{opacity:0}to{opacity:1}}
+    .how-order{padding:12px 0 70px}.how-order-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:20px}.how-order h2{font:24px 'Archivo Black',sans-serif;text-transform:uppercase}.how-order-head p{max-width:420px;color:var(--muted);font-size:12px;line-height:1.55}.how-order-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.how-step{padding:20px;border:1px solid var(--line);border-radius:18px;background:#fff}.how-step b{display:grid;place-items:center;width:30px;height:30px;margin-bottom:18px;border-radius:50%;background:var(--soft);color:var(--purple);font:700 11px 'Space Mono',monospace}.how-step strong{display:block;font-size:13px}.how-step p{margin-top:7px;color:var(--muted);font-size:11px;line-height:1.55}
     footer{border-top:1px solid var(--line);padding:28px 0 34px;color:var(--muted);font-size:11px}.footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-row a{color:var(--purple);text-decoration:none;font-weight:700}
-    @media(min-width:700px){.filter-row{grid-template-columns:minmax(260px,1fr) 180px}.brand-filters{grid-column:auto;grid-row:1;grid-column:2/3;display:none}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.info{padding:16px}.name{font-size:15px}.intro{padding-top:84px}}
-    @media(min-width:980px){.filter-row{grid-template-columns:minmax(260px,1fr) auto 170px}.brand-filters{display:flex;grid-column:auto;grid-row:auto}.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}.top-link{padding-inline:18px}}
-    @media(max-width:700px){.viewer{padding:0}.viewer-panel{width:100%;height:100%;max-height:none;border-radius:0;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}.viewer-stage{min-height:0}.viewer-image{max-height:none}.viewer-info{padding:18px 20px 22px}.viewer-info h2{font-size:19px}.viewer-detail{margin-top:7px}.viewer-price{margin-top:10px;font-size:18px}.viewer-order{margin-top:16px}.viewer-nav{top:44%;width:44px;height:44px}.viewer-close{right:12px;top:12px}}
+    @media(min-width:700px){.filter-row{grid-template-columns:minmax(260px,1fr) 180px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.info{padding:16px}.name{font-size:15px}.intro{padding-top:84px}}
+    @media(min-width:980px){.filter-row{grid-template-columns:minmax(260px,1fr) 170px}.filter-groups{grid-template-columns:.8fr 1.65fr 1fr;gap:14px}.filter-group{grid-template-columns:1fr;align-content:start;gap:6px}.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}.top-link{padding-inline:18px}}
+    @media(max-width:700px){.filter-group{grid-template-columns:1fr;gap:6px}.viewer{padding:0}.viewer-panel{width:100%;height:100%;max-height:none;border-radius:0;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}.viewer-stage{min-height:0}.viewer-image{max-height:none}.viewer-info{padding:18px 20px 22px}.viewer-info h2{font-size:19px}.viewer-detail{margin-top:7px}.viewer-price{margin-top:10px;font-size:18px}.viewer-actions{margin-top:16px;grid-template-columns:1fr 1fr}.viewer-nav{top:44%;width:44px;height:44px}.viewer-close{right:12px;top:12px}.how-order-head{display:block}.how-order-head p{margin-top:8px}.how-order-grid{grid-template-columns:1fr}.how-step{display:grid;grid-template-columns:36px 1fr;column-gap:10px}.how-step b{grid-row:1/3;margin:0}.how-step p{margin-top:4px}}
     @media(max-width:520px){.top{height:82px}.brand img{width:106px;max-height:68px}.top-link:not(.primary){display:none}.intro{padding-top:48px}.catalog-head{padding-top:30px}.grid{gap:10px}.info{padding:11px}.order{width:44px;padding:0}.order span{display:none}.price{font-size:14px}.sizes{font-size:8px}.zoom-hint{width:34px;height:34px}.whatsapp-float{right:16px;bottom:18px;width:50px;padding:0;justify-content:center;font-size:0}.toast{bottom:78px}}
   </style>
 </head>
@@ -85,7 +87,11 @@
     <section class="filter-panel" aria-label="Filtros da vitrine">
       <div class="shell filter-row">
         <label class="search"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="search" type="search" placeholder="Buscar por modelo ou marca" autocomplete="off"></label>
-        <div class="brand-filters" id="brandFilters" aria-label="Filtrar por marca"></div>
+        <div class="filter-groups">
+          <div class="filter-group"><span class="filter-label">Disponibilidade</span><div class="brand-filters" id="availabilityFilters" aria-label="Filtrar por disponibilidade"></div></div>
+          <div class="filter-group"><span class="filter-label">Coleções</span><div class="brand-filters" id="collectionFilters" aria-label="Filtrar por coleção"></div></div>
+          <div class="filter-group"><span class="filter-label">Marcas</span><div class="brand-filters" id="brandFilters" aria-label="Filtrar por marca"></div></div>
+        </div>
         <select class="size-select" id="sizeFilter" aria-label="Filtrar por tamanho"><option value="">Todos os tamanhos</option></select>
       </div>
     </section>
@@ -94,6 +100,14 @@
       <div class="catalog-head"><h2 id="catalogTitle">Todos os modelos</h2><div class="count" id="count" aria-live="polite"></div></div>
       <div class="grid" id="productGrid"></div>
       <div class="empty" id="empty"><strong>Nenhum modelo encontrado.</strong><br>Ajuste os filtros ou fale com a Well para encomendar.</div>
+    </section>
+    <section class="shell how-order" aria-labelledby="howOrderTitle">
+      <div class="how-order-head"><h2 id="howOrderTitle">Como encomendar</h2><p>Escolha o modelo e fale direto com a Well para confirmar numeração, valor e prazo.</p></div>
+      <div class="how-order-grid">
+        <article class="how-step"><b>01</b><strong>Escolha o seu par</strong><p>Navegue pelas coleções ou abra a foto para ver os detalhes.</p></article>
+        <article class="how-step"><b>02</b><strong>Consulte no WhatsApp</strong><p>Envie o modelo escolhido e confirme numeração, valor e disponibilidade.</p></article>
+        <article class="how-step"><b>03</b><strong>Combine a encomenda</strong><p>A Well informa as condições e o prazo específico daquele produto.</p></article>
+      </div>
     </section>
   </main>
 
@@ -108,7 +122,7 @@
         <button class="viewer-nav viewer-prev" id="viewerPrev" type="button" aria-label="Produto anterior">‹</button>
         <button class="viewer-nav viewer-next" id="viewerNext" type="button" aria-label="Próximo produto">›</button>
       </div>
-      <div class="viewer-info"><span class="viewer-brand" id="viewerBrand"></span><h2 id="viewerName"></h2><p class="viewer-detail" id="viewerDetail"></p><div class="viewer-price" id="viewerPrice"></div><button class="viewer-order" id="viewerOrder" type="button">Pedir este modelo</button></div>
+      <div class="viewer-info"><span class="viewer-brand" id="viewerBrand"></span><h2 id="viewerName"></h2><p class="viewer-detail" id="viewerDetail"></p><div class="viewer-price" id="viewerPrice"></div><div class="viewer-actions"><button class="viewer-order" id="viewerOrder" type="button">Pedir este modelo</button><button class="viewer-share" id="viewerShare" type="button"><svg class="icon" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5M8.2 13.2l7.6 4.5"/></svg>Compartilhar</button></div></div>
     </div>
   </div>
 
@@ -119,6 +133,8 @@
     const search = document.getElementById('search');
     const sizeFilter = document.getElementById('sizeFilter');
     const brandFilters = document.getElementById('brandFilters');
+    const availabilityFilters = document.getElementById('availabilityFilters');
+    const collectionFilters = document.getElementById('collectionFilters');
     const count = document.getElementById('count');
     const catalogTitle = document.getElementById('catalogTitle');
     const empty = document.getElementById('empty');
@@ -131,14 +147,16 @@
     const viewerPrice = document.getElementById('viewerPrice');
     const viewerClose = document.getElementById('viewerClose');
     const viewerOrder = document.getElementById('viewerOrder');
+    const viewerShare = document.getElementById('viewerShare');
     let visibleProducts = products;
     let viewerIndex = 0;
     let viewerTrigger;
     let activeBrand = 'Todas';
 
-    const categoryFilters = ['Pronta entrega', 'Sob encomenda', 'Air Force', 'Adidas Samba', 'New Balance 9060', 'Chuteiras', 'Importados', 'Nacionais'];
-    const brands = ['Todas', ...categoryFilters, ...new Set(products.map(product => product.brand).filter(brand => !['Nacional','New Balance'].includes(brand)))];
-    brands.forEach(brand => {
+    const availability = ['Todas', 'Pronta entrega', 'Sob encomenda'];
+    const collections = ['Air Force', 'Adidas Samba', 'New Balance 9060', 'Chuteiras', 'Importados', 'Nacionais'];
+    const brands = [...new Set(products.map(product => product.brand).filter(brand => !['Nacional','New Balance'].includes(brand)))];
+    [...availability.map(filter => [filter, availabilityFilters]), ...collections.map(filter => [filter, collectionFilters]), ...brands.map(filter => [filter, brandFilters])].forEach(([brand, target]) => {
       const button = document.createElement('button');
       button.className = 'filter-chip' + (brand === 'Air Force' ? ' featured' : '') + (brand === activeBrand ? ' active' : '');
       button.type = 'button'; button.dataset.filter = brand; button.textContent = brand === 'Air Force' ? '★ Air Force' : brand; button.setAttribute('aria-pressed', brand === activeBrand);
@@ -147,8 +165,19 @@
         document.querySelectorAll('.filter-chip').forEach(chip => { const selected = chip.dataset.filter === brand; chip.classList.toggle('active', selected); chip.setAttribute('aria-pressed', selected); });
         render();
       });
-      brandFilters.appendChild(button);
+      target.appendChild(button);
     });
+
+    function productSlug(product) { return product.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
+    function productUrl(product) { const url = new URL(location.href); url.search = ''; url.hash = productSlug(product); return url.toString(); }
+    async function shareProduct(product) {
+      const url = productUrl(product);
+      const data = {title:product.name,text:`Veja este modelo na vitrine da WellCalçados: ${product.name}`,url};
+      if (navigator.share) { try { await navigator.share(data); return; } catch (error) { if (error.name === 'AbortError') return; } }
+      try { await navigator.clipboard.writeText(url); toast.textContent = 'Link do produto copiado.'; }
+      catch (_) { toast.textContent = 'Copie o link deste produto na barra do navegador.'; }
+      toast.classList.add('show'); setTimeout(() => { toast.classList.remove('show'); toast.textContent = 'WhatsApp aberto com a mensagem do produto.'; }, 3500);
+    }
 
     [...new Set(products.flatMap(product => product.sizes))].sort((a,b) => a-b).forEach(size => {
       const option = document.createElement('option'); option.value = size; option.textContent = `Tamanho ${size}`; sizeFilter.appendChild(option);
@@ -172,9 +201,9 @@
       viewerPrice.innerHTML = product.price ? `<small>R$</small> ${product.price}` : '<small>CONSULTAR VALOR</small>';
       viewerOrder.textContent = product.orderOnly ? 'Encomendar este modelo' : 'Pedir este modelo';
     }
-    function openViewer(index, trigger) { viewerIndex = index; viewerTrigger = trigger; updateViewer(); viewer.hidden = false; document.body.classList.add('viewer-open'); viewerClose.focus(); }
-    function closeViewer() { viewer.hidden = true; document.body.classList.remove('viewer-open'); if (viewerTrigger) viewerTrigger.focus(); }
-    function moveViewer(direction) { viewerIndex = (viewerIndex + direction + visibleProducts.length) % visibleProducts.length; updateViewer(); }
+    function openViewer(index, trigger, updateHash = true) { viewerIndex = index; viewerTrigger = trigger; updateViewer(); viewer.hidden = false; document.body.classList.add('viewer-open'); if (updateHash) history.replaceState(null,'',`#${productSlug(visibleProducts[index])}`); viewerClose.focus(); }
+    function closeViewer() { viewer.hidden = true; document.body.classList.remove('viewer-open'); history.replaceState(null,'',location.pathname + location.search); if (viewerTrigger) viewerTrigger.focus(); }
+    function moveViewer(direction) { viewerIndex = (viewerIndex + direction + visibleProducts.length) % visibleProducts.length; updateViewer(); history.replaceState(null,'',`#${productSlug(visibleProducts[viewerIndex])}`); }
 
     function render() {
       const term = search.value.trim().toLocaleLowerCase('pt-BR');
@@ -211,9 +240,12 @@
     document.getElementById('viewerNext').addEventListener('click', () => moveViewer(1));
     viewer.addEventListener('click', event => { if (event.target === viewer) closeViewer(); });
     viewerOrder.addEventListener('click', async () => { const product = visibleProducts[viewerIndex]; await window.copyProductAndOpenDirect(product.name, product.sizes.join('/'), Boolean(product.orderOnly)); toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3500); });
+    viewerShare.addEventListener('click', () => shareProduct(visibleProducts[viewerIndex]));
     document.addEventListener('keydown', event => { if (viewer.hidden) return; if (event.key === 'Escape') closeViewer(); if (event.key === 'ArrowLeft') moveViewer(-1); if (event.key === 'ArrowRight') moveViewer(1); });
 
     search.addEventListener('input', render); sizeFilter.addEventListener('change', render); render();
+    const linkedProduct = products.find(product => productSlug(product) === location.hash.slice(1));
+    if (linkedProduct) { activeBrand = 'Todas'; render(); openViewer(products.indexOf(linkedProduct), null, false); }
   </script>
 </body>
 </html>
