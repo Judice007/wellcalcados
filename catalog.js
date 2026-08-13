@@ -36,7 +36,15 @@ window.WELL_PRODUCTS = [
   { brand:'Adidas', name:'Adidas Samba branco e verde', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-adidas-samba-branco-verde.webp', category:'Nacionais', orderOnly:true },
   { brand:'Adidas', name:'Adidas Samba branco e vermelho', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-adidas-samba-branco-vermelho.webp', category:'Nacionais', orderOnly:true },
   { brand:'Adidas', name:'Adidas Samba preto', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-adidas-samba-preto.webp', category:'Nacionais', orderOnly:true },
-  { brand:'Adidas', name:'Adidas Samba off-white', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-adidas-samba-off-white.webp', category:'Nacionais', orderOnly:true }
+  { brand:'Adidas', name:'Adidas Samba off-white', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-adidas-samba-off-white.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Nike', name:'Nike Air Force 1 cinza e grafite', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-air-force-cinza-grafite.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Nike', name:'Nike Air Force 1 off-white e azul', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-air-force-off-white-azul.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Nike', name:'Nike Air Force 1 cinza e branco', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-air-force-cinza-branco.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Nike', name:'Nike Air Force 1 bege e marrom', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-air-force-bege-marrom.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Nike', name:'Nike Air Force 1 branco, roxo e amarelo', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-air-force-branco-roxo-amarelo.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Nike', name:'Nike Air Force 1 creme e azul', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-air-force-creme-azul.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Nike', name:'Nike Air Force 1 branco mesh', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-air-force-branco-mesh.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Nike', name:'Nike Air Force 1 branco e marinho', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-air-force-branco-marinho.webp', category:'Nacionais', orderOnly:true }
 ];
 
 window.copyProductAndOpenDirect = async function(productName, sizeText, orderOnly = false) {
