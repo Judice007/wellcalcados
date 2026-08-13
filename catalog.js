@@ -29,7 +29,7 @@ window.WELL_PRODUCTS = [
   { brand:'Adidas', name:'Adidas Adizero azul e coral', sizes:[38,39,40,41,42,43], note:'Importado · somente por encomenda', price:null, image:'img/importado-adidas-adizero-azul.webp', category:'Importados', orderOnly:true },
   { brand:'Adidas', name:'Adidas Adizero neon', sizes:[38,39,40,41,42,43], note:'Importado · somente por encomenda', price:null, image:'img/importado-adidas-adizero-neon.webp', category:'Importados', orderOnly:true },
   { brand:'Adidas', name:'Adidas Adizero azul e neon', sizes:[40,41,42,43], note:'Importado · somente por encomenda', price:null, image:'img/importado-adidas-adizero-azul-neon.webp', category:'Importados', orderOnly:true },
-  { brand:'Nacional', name:'Tênis casual branco e preto', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-casual-branco-preto.webp', category:'Nacionais', orderOnly:true },
+  { brand:'Louis Vuitton', name:'Tênis Louis Vuitton branco e preto', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-casual-branco-preto.webp', category:'Nacionais', orderOnly:true },
   { brand:'Gucci', name:'Tênis Gucci preto', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-casual-preto-verde-vermelho.webp', category:'Nacionais', orderOnly:true },
   { brand:'Gucci', name:'Tênis Gucci branco', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-casual-branco-verde-vermelho.webp', category:'Nacionais', orderOnly:true },
   { brand:'Adidas', name:'Adidas Samba marrom', sizes:[], note:'Nacional · somente por encomenda', price:null, image:'img/nacional-adidas-samba-marrom.webp', category:'Nacionais', orderOnly:true },
