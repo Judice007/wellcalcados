@@ -168,7 +168,7 @@
       .story{padding:56px 0}.story-grid{display:flex;flex-direction:column;gap:40px}.story-visual{width:100%;height:360px;gap:10px}.story-photo{border-radius:18px}.story-photo:first-child{margin-top:44px}.story-copy h2{font-size:34px}.benefits{grid-template-columns:1fr}
       .trade{padding:48px 0}.trade-card{display:block;padding:36px 28px 190px;border-radius:24px}.trade-copy h2{font-size:34px}.trade-shoe{width:310px;right:-20px;bottom:-38px}
       .footer-row{align-items:flex-start;flex-direction:column}.footer-links{flex-wrap:wrap}
-      .whatsapp-float{right:16px;bottom:18px}.toast{bottom:78px}
+      .whatsapp-float{right:16px;bottom:18px;width:50px;padding:0;justify-content:center;font-size:0}.toast{bottom:78px}
     }
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.shoe-slide.is-active img,.product-rail{animation:none}*{transition:none!important}}
   </style>
@@ -257,7 +257,7 @@
   <script src="catalog.js"></script>
   <script>
     const productsRoot = document.getElementById('homeProducts');
-    const featured = window.WELL_PRODUCTS;
+    const featured = window.WELL_PRODUCTS.filter(product => !product.orderOnly);
     const arrow = '<svg viewBox="0 0 24 24"><path d="m7 17 10-10M8 7h9v9"/></svg>';
     const renderProducts = (hidden = false) => `<div class="product-set"${hidden ? ' aria-hidden="true"' : ''}>${featured.map((product, index) => {
       const sizes = product.sizes.length ? `Tam. ${product.sizes.join(' · ')}` : product.note;
