@@ -15,11 +15,22 @@ window.WELL_PRODUCTS = [
   { brand:'Adidas', name:'Adidas SL72 bordô', sizes:[38], note:'feminino', price:250, image:'img/produto-adidas-sl72-bordo.jpg' },
   { brand:'Adidas', name:'Adidas feminino branco', sizes:[37,39], note:'', price:170, image:'img/produto-adidas-feminino-branco.jpg' },
   { brand:'On Cloud', name:'On Cloud preto', sizes:[36,37], note:'', price:null, image:'img/produto-on-cloud-preto.jpg' },
-  { brand:'Nike', name:'Nike Air Max Plus (TN)', sizes:[], note:'holográfico', price:null, image:'img/produto-air-max-plus-tn.jpg' }
+  { brand:'Nike', name:'Nike Air Max Plus (TN)', sizes:[], note:'holográfico', price:null, image:'img/produto-air-max-plus-tn.jpg' },
+  { brand:'Nike', name:'Chuteira Nike laranja', sizes:[], note:'Campo · somente por encomenda', price:null, image:'img/chuteira-nike-laranja-campo.webp', category:'Chuteiras', orderOnly:true },
+  { brand:'Nike', name:'Chuteira Nike cinza', sizes:[], note:'Campo · somente por encomenda', price:null, image:'img/chuteira-nike-cinza-campo.webp', category:'Chuteiras', orderOnly:true },
+  { brand:'Adidas', name:'Chuteira Adidas branca e laranja', sizes:[], note:'Campo · somente por encomenda', price:null, image:'img/chuteira-adidas-branca-laranja-campo.webp', category:'Chuteiras', orderOnly:true },
+  { brand:'Adidas', name:'Chuteira Adidas branca e verde', sizes:[], note:'Campo · somente por encomenda', price:null, image:'img/chuteira-adidas-branca-verde-campo.webp', category:'Chuteiras', orderOnly:true },
+  { brand:'Adidas', name:'Chuteira Adidas preta', sizes:[], note:'Society · somente por encomenda', price:null, image:'img/chuteira-adidas-preta-society.webp', category:'Chuteiras', orderOnly:true },
+  { brand:'Nike', name:'Chuteira Nike azul', sizes:[], note:'Society · somente por encomenda', price:null, image:'img/chuteira-nike-azul-society.webp', category:'Chuteiras', orderOnly:true },
+  { brand:'Nike', name:'Chuteira Nike cinza society', sizes:[], note:'Society · somente por encomenda', price:null, image:'img/chuteira-nike-cinza-society.webp', category:'Chuteiras', orderOnly:true },
+  { brand:'Nike', name:'Chuteira Nike branca e laranja', sizes:[], note:'Society · somente por encomenda', price:null, image:'img/chuteira-nike-branca-laranja-society.webp', category:'Chuteiras', orderOnly:true },
+  { brand:'Nike', name:'Chuteira Nike rosa', sizes:[], note:'Society · somente por encomenda', price:null, image:'img/chuteira-nike-rosa-society.webp', category:'Chuteiras', orderOnly:true }
 ];
 
-window.copyProductAndOpenDirect = async function(productName, sizeText) {
-  const message = `Olá! Tenho interesse no ${productName}${sizeText ? `, tamanho ${sizeText}` : ''}. Pode me passar mais informações?`;
+window.copyProductAndOpenDirect = async function(productName, sizeText, orderOnly = false) {
+  const message = orderOnly
+    ? `Olá! Tenho interesse em encomendar a ${productName}. Pode me passar os tamanhos disponíveis, valor e prazo?`
+    : `Olá! Tenho interesse no ${productName}${sizeText ? `, tamanho ${sizeText}` : ''}. Pode me passar mais informações?`;
   window.open(`https://wa.me/5524999485839?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
   try { await navigator.clipboard.writeText(message); } catch (_) {}
   return message;
