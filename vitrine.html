@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vitrine de sneakers — WellCalçados</title>
-  <meta name="description" content="Veja sneakers disponíveis, New Balance 9060, nacionais, chuteiras e importados por encomenda na WellCalçados em Angra dos Reis.">
+  <title>Vitrine de Tênis em Angra dos Reis — WellCalçados</title>
+  <meta name="description" content="Veja tênis em Angra dos Reis: Nike, Adidas, New Balance 9060, chuteiras, nacionais e importados disponíveis por encomenda na WellCalçados.">
   <meta name="theme-color" content="#FFFFFF">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -197,7 +197,7 @@
       const price = product.price ? `<span class="price"><small>R$</small> ${product.price}</span>` : '<span class="price"><small>CONSULTAR</small></span>';
       const availability = product.orderOnly ? 'SOB ENCOMENDA' : 'DISPONÍVEL';
       const orderLabel = product.orderOnly ? 'Encomendar' : 'Pedir este';
-      return `<article class="card"><button class="photo photo-open" type="button" data-index="${index}" aria-label="Ampliar foto de ${product.name}"><img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async">${colorCount}<span class="available${product.orderOnly ? ' order-only' : ''}">${availability}</span><span class="zoom-hint" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4M11 8v6M8 11h6"/></svg></span></button><div class="info"><span class="brand-name">${product.brand}</span><h3 class="name">${product.name}</h3><p class="sizes">${detail}</p><div class="bottom">${price}<button class="order" type="button" data-name="${product.name}" data-size="${product.sizes.join('/')}" data-order-only="${Boolean(product.orderOnly)}"><span>${orderLabel}</span><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></button></div></div></article>`;
+      return `<article class="card"><button class="photo photo-open" type="button" data-index="${index}" aria-label="Ampliar foto de ${product.name}"><img src="${product.image}" alt="Tênis ${product.name} à venda em Angra dos Reis" loading="lazy" decoding="async">${colorCount}<span class="available${product.orderOnly ? ' order-only' : ''}">${availability}</span><span class="zoom-hint" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4M11 8v6M8 11h6"/></svg></span></button><div class="info"><span class="brand-name">${product.brand}</span><h3 class="name">${product.name}</h3><p class="sizes">${detail}</p><div class="bottom">${price}<button class="order" type="button" data-name="${product.name}" data-size="${product.sizes.join('/')}" data-order-only="${Boolean(product.orderOnly)}"><span>${orderLabel}</span><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></button></div></div></article>`;
     }
 
     function productImages(product) { return product.images?.length ? product.images : [product.image]; }
@@ -207,7 +207,7 @@
       if (resetImage) viewerImageIndex = 0;
       viewerImageIndex = (viewerImageIndex + images.length) % images.length;
       const sizes = product.sizes.length ? `Tamanhos ${product.sizes.join(' e ')}` : 'Consulte a numeração';
-      viewerImage.src = images[viewerImageIndex]; viewerImage.alt = `Foto ${viewerImageIndex + 1} de ${images.length} de ${product.name}`;
+      viewerImage.src = images[viewerImageIndex]; viewerImage.alt = `Tênis ${product.name} à venda em Angra dos Reis — foto ${viewerImageIndex + 1} de ${images.length}`;
       const hasGallery = images.length > 1;
       viewerPrev.hidden = !hasGallery; viewerNext.hidden = !hasGallery; viewerGalleryCount.hidden = !hasGallery;
       viewerGalleryCount.textContent = hasGallery ? `${viewerImageIndex + 1} / ${images.length} CORES` : '';

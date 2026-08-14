@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WellCalçados — Sneakers em Angra dos Reis</title>
-  <meta name="description" content="Tênis novos e selecionados, pronta entrega em Angra dos Reis, encomendas, permuta e até 3x sem juros.">
+  <title>WellCalçados — Tênis em Angra dos Reis</title>
+  <meta name="description" content="Tênis novos em Angra dos Reis: Nike, Adidas, On Cloud e mais. Pronta entrega, encomendas, permuta e até 3x sem juros na WellCalçados.">
   <meta name="theme-color" content="#ffffff">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="WellCalçados — Encontre o seu par">
-  <meta property="og:description" content="Modelos Nike, Adidas e On Cloud. Atendimento rápido pelo WhatsApp.">
+  <meta property="og:title" content="WellCalçados — Tênis em Angra dos Reis">
+  <meta property="og:description" content="Tênis Nike, Adidas, On Cloud e mais em Angra dos Reis. Pronta entrega e encomendas com atendimento pelo WhatsApp.">
   <meta property="og:image" content="img/produto-af1-panda.jpg">
   <link rel="icon" href="img/logo-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -278,7 +278,7 @@
     const renderProducts = (hidden = false) => `<div class="product-set"${hidden ? ' aria-hidden="true"' : ''}>${featured.map((product, index) => {
       const sizes = product.sizes.length ? `Tam. ${product.sizes.join(' · ')}` : product.note;
       const price = product.price ? `R$ ${product.price}` : 'Consultar valor';
-      return `<article class="product-card"><div class="product-photo"><a class="product-view" href="vitrine.html#${productSlug(product)}" aria-label="Ver detalhes de ${product.name}"><img src="${product.image}" alt="${product.name}" ${index > 1 ? 'loading="lazy"' : ''}></a><span class="product-brand">${product.brand}</span><a class="product-order" href="https://wa.me/5524999485839" data-index="${index}" aria-label="Pedir ${product.name} pelo WhatsApp">${arrow}</a></div><div class="product-info"><h3>${product.name}</h3><div class="meta">${sizes}</div><div class="price">${price}</div></div></article>`;
+      return `<article class="product-card"><div class="product-photo"><a class="product-view" href="vitrine.html#${productSlug(product)}" aria-label="Ver detalhes de ${product.name}"><img src="${product.image}" alt="Tênis ${product.name} à venda em Angra dos Reis" ${index > 1 ? 'loading="lazy"' : ''}></a><span class="product-brand">${product.brand}</span><a class="product-order" href="https://wa.me/5524999485839" data-index="${index}" aria-label="Pedir ${product.name} pelo WhatsApp">${arrow}</a></div><div class="product-info"><h3>${product.name}</h3><div class="meta">${sizes}</div><div class="price">${price}</div></div></article>`;
     }).join('')}</div>`;
     productsRoot.innerHTML = renderProducts() + renderProducts(true);
     const toast = document.getElementById('toast');
