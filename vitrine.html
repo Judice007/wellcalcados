@@ -239,7 +239,7 @@
       });
       visibleProducts = filtered;
       grid.innerHTML = filtered.map(productCard).join('');
-      const catalogTitles = {'Todas':'Todos os modelos','Pronta entrega':'Modelos à pronta entrega','Sob encomenda':'Todos os modelos sob encomenda','Air Force':'Coleção Air Force','Adidas Samba':'Coleção Adidas Samba','New Balance 9060':'New Balance 9060 por encomenda','Nike TN':'Nike Air Max Plus/TN','Nike Shox':'Nike Shox por encomenda','Nike VaporMax':'Nike VaporMax por encomenda','Nike Running':'Nike corrida por encomenda','Chuteiras':'Chuteiras por encomenda','Importados':'Importados por encomenda','Nacionais':'Nacionais por encomenda'};
+      const catalogTitles = {'Todas':'Todos os modelos','Pronta entrega':'Modelos à pronta entrega','Sob encomenda':'Todos os modelos sob encomenda','Air Force':'Coleção Air Force','Adidas Samba':'Coleção Adidas Samba','New Balance 9060':'New Balance 9060 por encomenda','Nike TN':'Nike Air Max Plus/TN','Nike Shox':'Nike Shox TL por encomenda','Nike VaporMax':'Nike Air VaporMax 2023 Flyknit','Nike Running':'Nike performance running','Chuteiras':'Chuteiras por encomenda','Importados':'Importados por encomenda','Nacionais':'Nacionais por encomenda'};
       catalogTitle.textContent = catalogTitles[activeBrand] || `Modelos ${activeBrand}`;
       count.textContent = `${filtered.length} ${filtered.length === 1 ? 'modelo' : 'modelos'}`;
       grid.classList.toggle('hidden', filtered.length === 0); empty.classList.toggle('show', filtered.length === 0);
