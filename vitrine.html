@@ -195,9 +195,9 @@
 
     function productCard(product, index) {
       const sizes = product.sizes.length ? `Tam. ${product.sizes.join(' e ')}` : 'Consulte a numeração';
-      const detail = [sizes, product.note].filter(Boolean).join(' · ');
-      const imageCount = product.images?.length || 1;
-      const colorCount = imageCount > 1 ? `<span class="color-count">${imageCount} CORES</span>` : '';
+      const detail = [sizes, product.cardNote || product.note].filter(Boolean).join(' · ');
+      const colorCountValue = product.colorOptions?.length || 0;
+      const colorCount = colorCountValue > 1 ? `<span class="color-count">${colorCountValue} CORES</span>` : '';
       const price = product.price ? `<span class="price"><small>R$</small> ${product.price}</span>` : '<span class="price"><small>CONSULTAR</small></span>';
       const availability = product.orderOnly ? 'SOB ENCOMENDA' : 'DISPONÍVEL';
       const orderLabel = product.orderOnly ? 'Encomendar' : 'Pedir este';
@@ -216,7 +216,7 @@
       viewerImage.src = images[viewerImageIndex]; viewerImage.alt = `Tênis ${product.name} à venda em Angra dos Reis — foto ${viewerImageIndex + 1} de ${images.length}`;
       const hasGallery = images.length > 1;
       viewerPrev.hidden = !hasGallery; viewerNext.hidden = !hasGallery; viewerGalleryCount.hidden = !hasGallery;
-      viewerGalleryCount.textContent = hasGallery ? `${viewerImageIndex + 1} / ${images.length} CORES` : '';
+      viewerGalleryCount.textContent = hasGallery ? `${viewerImageIndex + 1} / ${images.length} ${colors.length ? 'CORES' : 'FOTOS'}` : '';
       viewerColors.hidden = colors.length === 0;
       viewerColorName.textContent = colors[viewerImageIndex]?.name || '';
       viewerColorList.innerHTML = colors.map((color, index) => `<button class="color-option${index === viewerImageIndex ? ' active' : ''}" style="--swatch:${color.swatch}" type="button" data-color-index="${index}" aria-label="Selecionar cor ${color.name}" aria-pressed="${index === viewerImageIndex}" title="${color.name}"></button>`).join('');
