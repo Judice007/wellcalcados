@@ -118,10 +118,12 @@
     .story{background:var(--surface);padding:84px 0}
     .story-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:68px;align-items:center}
     .story-visual{display:grid;grid-template-columns:.92fr 1.08fr;gap:14px;height:490px}
-    .story-photo{overflow:hidden;border-radius:24px;background:#ddd}
+    .story-photo{position:relative;overflow:hidden;border-radius:24px;background:#ddd}
     .story-photo:first-child{margin-top:62px}
     .story-photo img,.story-photo video{display:block;width:100%;height:100%;object-fit:cover}
     .story-photo video{object-position:center}
+    .story-slide{position:absolute;inset:0;opacity:0;transform:scale(1.04);transition:opacity .55s ease,transform .8s ease}.story-slide.is-active{opacity:1;transform:scale(1)}
+    .story-dots{position:absolute;left:50%;bottom:12px;z-index:2;display:flex;gap:6px;transform:translateX(-50%);padding:7px 9px;border-radius:999px;background:rgba(8,20,41,.38);backdrop-filter:blur(7px)}.story-dot{width:6px;height:6px;border:0;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer}.story-dot.is-active{width:18px;border-radius:999px;background:#fff}
     .story-copy .eyebrow{margin-bottom:18px}
     .story-copy>p{color:var(--muted);font-size:14px;line-height:1.7;margin:20px 0 28px;max-width:460px}
     .benefits{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:30px}
@@ -228,7 +230,18 @@
     <section class="story" id="diferenciais">
       <div class="shell story-grid">
         <div class="story-visual">
-          <div class="story-photo"><img src="img/cat-adidas-refined.webp" alt="Tênis Adidas da seleção WellCalçados" loading="lazy"></div>
+          <div class="story-photo" id="storyCarousel" aria-label="Modelos disponíveis por encomenda">
+            <img class="story-slide is-active" src="img/home-carousel-chuteiras.webp" alt="Seleção de chuteiras disponíveis por encomenda" loading="lazy">
+            <img class="story-slide" src="img/home-carousel-new-balance.webp" alt="Seleção de tênis New Balance disponíveis por encomenda" loading="lazy">
+            <img class="story-slide" src="img/home-carousel-adidas-01.webp" alt="Seleção de tênis Adidas disponíveis por encomenda" loading="lazy">
+            <img class="story-slide" src="img/home-carousel-adidas-02.webp" alt="Modelos Adidas em várias cores" loading="lazy">
+            <img class="story-slide" src="img/home-carousel-adidas-03.webp" alt="Tênis Adidas de corrida em várias cores" loading="lazy">
+            <img class="story-slide" src="img/home-carousel-adidas-04.webp" alt="Coleção Adidas disponível por encomenda" loading="lazy">
+            <img class="story-slide" src="img/home-carousel-adidas-05.webp" alt="Modelos Adidas esportivos disponíveis por encomenda" loading="lazy">
+            <div class="story-dots" aria-label="Escolher foto do carrossel">
+              <button class="story-dot is-active" type="button" aria-label="Foto 1"></button><button class="story-dot" type="button" aria-label="Foto 2"></button><button class="story-dot" type="button" aria-label="Foto 3"></button><button class="story-dot" type="button" aria-label="Foto 4"></button><button class="story-dot" type="button" aria-label="Foto 5"></button><button class="story-dot" type="button" aria-label="Foto 6"></button><button class="story-dot" type="button" aria-label="Foto 7"></button>
+            </div>
+          </div>
           <div class="story-photo"><video id="storyVideo" src="img/unboxing-well.mp4" poster="img/unboxing-well-poster.jpg" aria-label="Abertura de uma caixa e apresentação de um tênis Nike azul" autoplay muted loop playsinline preload="metadata"></video></div>
         </div>
         <div class="story-copy">
@@ -296,6 +309,27 @@
         new IntersectionObserver(([entry]) => entry.isIntersecting ? storyVideo.play().catch(() => {}) : storyVideo.pause(), {threshold:.25}).observe(storyVideo);
       }
     }
+
+    const storyCarousel = document.getElementById('storyCarousel');
+    const storySlides = [...document.querySelectorAll('.story-slide')];
+    const storyDots = [...document.querySelectorAll('.story-dot')];
+    let activeStorySlide = 0;
+    let storyTimer;
+    const showStorySlide = index => {
+      activeStorySlide = (index + storySlides.length) % storySlides.length;
+      storySlides.forEach((slide, slideIndex) => slide.classList.toggle('is-active', slideIndex === activeStorySlide));
+      storyDots.forEach((dot, dotIndex) => { dot.classList.toggle('is-active', dotIndex === activeStorySlide); dot.setAttribute('aria-pressed', dotIndex === activeStorySlide); });
+    };
+    const startStoryCarousel = () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      window.clearInterval(storyTimer);
+      storyTimer = window.setInterval(() => showStorySlide(activeStorySlide + 1), 3600);
+    };
+    storyDots.forEach((dot, index) => dot.addEventListener('click', () => { showStorySlide(index); startStoryCarousel(); }));
+    storyCarousel?.addEventListener('pointerenter', () => window.clearInterval(storyTimer));
+    storyCarousel?.addEventListener('pointerleave', startStoryCarousel);
+    showStorySlide(0);
+    startStoryCarousel();
 
     const shoeSlides = [...document.querySelectorAll('.shoe-slide')];
     const shoeDots = [...document.querySelectorAll('.shoe-dot')];

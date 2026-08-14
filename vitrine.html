@@ -43,6 +43,7 @@
     .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 20px 40px -32px rgba(8,20,41,.42);display:flex;flex-direction:column}
     .photo{position:relative;display:block;width:100%;aspect-ratio:1/1;overflow:hidden;border:0;background:var(--soft);text-align:left;cursor:zoom-in}.photo img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}.card:hover .photo img{transform:scale(1.035)}
     .available{position:absolute;left:10px;bottom:10px;display:flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;background:rgba(8,20,41,.88);color:#fff;font:8px 'Space Mono',monospace}.available::before{content:"";width:5px;height:5px;border-radius:50%;background:#B59AE0;box-shadow:0 0 6px #B59AE0}.available.order-only{background:rgba(91,46,147,.92)}
+    .color-count{position:absolute;left:10px;top:10px;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.94);color:var(--purple);font:700 8px 'Space Mono',monospace;box-shadow:0 8px 18px rgba(8,20,41,.1)}
     .zoom-hint{position:absolute;right:10px;top:10px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.92);color:var(--navy);box-shadow:0 8px 20px rgba(8,20,41,.14);transition:.2s}.zoom-hint .icon{width:16px}.photo:hover .zoom-hint{background:var(--purple);color:#fff;transform:scale(1.06)}
     .info{padding:14px;display:flex;flex:1;flex-direction:column}.brand-name{font:9px 'Space Mono',monospace;color:var(--purple);letter-spacing:.08em;text-transform:uppercase}.name{margin-top:6px;font-size:14px;font-weight:700;line-height:1.3}.sizes{margin-top:5px;min-height:28px;font:9px/1.4 'Space Mono',monospace;color:var(--muted);text-transform:uppercase}.bottom{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}.price{font:700 16px 'Space Mono',monospace}.price small{font-size:9px;color:var(--muted)}
     .order{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 12px;border:0;border-radius:999px;background:var(--navy);color:#fff;font:700 11px Inter,sans-serif;cursor:pointer}.order .icon{width:15px}
@@ -50,7 +51,7 @@
     .empty.show{display:block}.grid.hidden{display:none}
     .toast{position:fixed;left:50%;bottom:22px;z-index:20;transform:translate(-50%,30px);opacity:0;pointer-events:none;width:min(360px,calc(100% - 32px));padding:13px 16px;border-radius:13px;background:var(--navy);color:#fff;text-align:center;font-size:12px;box-shadow:0 18px 38px -16px rgba(8,20,41,.6);transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
     .whatsapp-float{display:inline-flex;position:fixed;right:24px;bottom:24px;z-index:30;align-items:center;gap:9px;min-height:48px;padding:0 17px;border-radius:999px;background:var(--purple);color:#fff;text-decoration:none;font-size:12px;font-weight:800;box-shadow:0 14px 34px rgba(91,46,147,.3);transition:transform .2s ease,box-shadow .2s ease}.whatsapp-float:hover{transform:translateY(-3px);box-shadow:0 18px 38px rgba(91,46,147,.36)}.whatsapp-float .icon{width:19px;height:19px}
-    .viewer[hidden]{display:none}.viewer{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:rgba(4,8,17,.78);backdrop-filter:blur(10px);animation:viewerIn .22s ease}.viewer-panel{position:relative;width:min(1020px,100%);max-height:calc(100vh - 40px);display:grid;grid-template-columns:minmax(0,1fr) 290px;overflow:hidden;border-radius:24px;background:#fff;box-shadow:0 35px 90px rgba(0,0,0,.38)}.viewer-stage{position:relative;min-height:min(72vh,720px);display:grid;place-items:center;background:var(--soft);overflow:hidden}.viewer-image{width:100%;height:100%;max-height:calc(100vh - 40px);object-fit:contain}.viewer-info{padding:64px 28px 28px;display:flex;flex-direction:column}.viewer-brand{font:10px 'Space Mono',monospace;color:var(--purple);letter-spacing:.12em;text-transform:uppercase}.viewer-info h2{margin-top:10px;font-size:25px;line-height:1.15}.viewer-detail{margin-top:12px;font:11px/1.6 'Space Mono',monospace;color:var(--muted);text-transform:uppercase}.viewer-price{margin-top:20px;font:700 23px 'Space Mono',monospace}.viewer-price small{font-size:11px;color:var(--muted)}.viewer-actions{margin-top:auto;display:grid;gap:9px}.viewer-order,.viewer-share{min-height:48px;border:0;border-radius:999px;font-weight:700;cursor:pointer}.viewer-order{background:var(--purple);color:#fff}.viewer-share{display:flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:var(--navy);border:1px solid var(--line)}.viewer-share .icon{width:16px}.viewer-close{position:absolute;z-index:3;right:16px;top:16px;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:22px;cursor:pointer}.viewer-nav{position:absolute;z-index:2;top:50%;transform:translateY(-50%);width:46px;height:46px;border:1px solid rgba(8,20,41,.12);border-radius:50%;background:rgba(255,255,255,.92);color:var(--navy);font-size:22px;cursor:pointer;box-shadow:0 10px 24px rgba(8,20,41,.12)}.viewer-prev{left:16px}.viewer-next{right:16px}@keyframes viewerIn{from{opacity:0}to{opacity:1}}
+    .viewer[hidden]{display:none}.viewer{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:rgba(4,8,17,.78);backdrop-filter:blur(10px);animation:viewerIn .22s ease}.viewer-panel{position:relative;width:min(1020px,100%);max-height:calc(100vh - 40px);display:grid;grid-template-columns:minmax(0,1fr) 290px;overflow:hidden;border-radius:24px;background:#fff;box-shadow:0 35px 90px rgba(0,0,0,.38)}.viewer-stage{position:relative;min-height:min(72vh,720px);display:grid;place-items:center;background:var(--soft);overflow:hidden}.viewer-image{width:100%;height:100%;max-height:calc(100vh - 40px);object-fit:contain}.viewer-gallery-count{position:absolute;left:50%;bottom:18px;z-index:2;transform:translateX(-50%);padding:7px 11px;border-radius:999px;background:rgba(8,20,41,.82);color:#fff;font:8px 'Space Mono',monospace;letter-spacing:.08em}.viewer-info{padding:64px 28px 28px;display:flex;flex-direction:column}.viewer-brand{font:10px 'Space Mono',monospace;color:var(--purple);letter-spacing:.12em;text-transform:uppercase}.viewer-info h2{margin-top:10px;font-size:25px;line-height:1.15}.viewer-detail{margin-top:12px;font:11px/1.6 'Space Mono',monospace;color:var(--muted);text-transform:uppercase}.viewer-price{margin-top:20px;font:700 23px 'Space Mono',monospace}.viewer-price small{font-size:11px;color:var(--muted)}.viewer-actions{margin-top:auto;display:grid;gap:9px}.viewer-order,.viewer-share{min-height:48px;border:0;border-radius:999px;font-weight:700;cursor:pointer}.viewer-order{background:var(--purple);color:#fff}.viewer-share{display:flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:var(--navy);border:1px solid var(--line)}.viewer-share .icon{width:16px}.viewer-close{position:absolute;z-index:3;right:16px;top:16px;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:22px;cursor:pointer}.viewer-nav{position:absolute;z-index:2;top:50%;transform:translateY(-50%);width:46px;height:46px;border:1px solid rgba(8,20,41,.12);border-radius:50%;background:rgba(255,255,255,.92);color:var(--navy);font-size:22px;cursor:pointer;box-shadow:0 10px 24px rgba(8,20,41,.12)}.viewer-prev{left:16px}.viewer-next{right:16px}@keyframes viewerIn{from{opacity:0}to{opacity:1}}
     .how-order{padding:12px 0 70px}.how-order-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:20px}.how-order h2{font:24px 'Archivo Black',sans-serif;text-transform:uppercase}.how-order-head p{max-width:420px;color:var(--muted);font-size:12px;line-height:1.55}.how-order-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.how-step{padding:20px;border:1px solid var(--line);border-radius:18px;background:#fff}.how-step b{display:grid;place-items:center;width:30px;height:30px;margin-bottom:18px;border-radius:50%;background:var(--soft);color:var(--purple);font:700 11px 'Space Mono',monospace}.how-step strong{display:block;font-size:13px}.how-step p{margin-top:7px;color:var(--muted);font-size:11px;line-height:1.55}
     footer{border-top:1px solid var(--line);padding:28px 0 34px;color:var(--muted);font-size:11px}.footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-row a{color:var(--purple);text-decoration:none;font-weight:700}
     @media(min-width:700px){.filter-row{grid-template-columns:minmax(260px,1fr) 180px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.info{padding:16px}.name{font-size:15px}.intro{padding-top:84px}}
@@ -119,8 +120,9 @@
       <button class="viewer-close" id="viewerClose" type="button" aria-label="Fechar imagem ampliada">×</button>
       <div class="viewer-stage">
         <img class="viewer-image" id="viewerImage" src="" alt="">
-        <button class="viewer-nav viewer-prev" id="viewerPrev" type="button" aria-label="Produto anterior">‹</button>
-        <button class="viewer-nav viewer-next" id="viewerNext" type="button" aria-label="Próximo produto">›</button>
+        <button class="viewer-nav viewer-prev" id="viewerPrev" type="button" aria-label="Cor anterior">‹</button>
+        <button class="viewer-nav viewer-next" id="viewerNext" type="button" aria-label="Próxima cor">›</button>
+        <span class="viewer-gallery-count" id="viewerGalleryCount" hidden></span>
       </div>
       <div class="viewer-info"><span class="viewer-brand" id="viewerBrand"></span><h2 id="viewerName"></h2><p class="viewer-detail" id="viewerDetail"></p><div class="viewer-price" id="viewerPrice"></div><div class="viewer-actions"><button class="viewer-order" id="viewerOrder" type="button">Pedir este modelo</button><button class="viewer-share" id="viewerShare" type="button"><svg class="icon" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5M8.2 13.2l7.6 4.5"/></svg>Compartilhar</button></div></div>
     </div>
@@ -148,13 +150,17 @@
     const viewerClose = document.getElementById('viewerClose');
     const viewerOrder = document.getElementById('viewerOrder');
     const viewerShare = document.getElementById('viewerShare');
+    const viewerGalleryCount = document.getElementById('viewerGalleryCount');
+    const viewerPrev = document.getElementById('viewerPrev');
+    const viewerNext = document.getElementById('viewerNext');
     let visibleProducts = products;
     let viewerIndex = 0;
+    let viewerImageIndex = 0;
     let viewerTrigger;
     let activeBrand = 'Todas';
 
     const availability = ['Todas', 'Pronta entrega', 'Sob encomenda'];
-    const collections = ['Air Force', 'Adidas Samba', 'New Balance 9060', 'Chuteiras', 'Importados', 'Nacionais'];
+    const collections = ['Air Force', 'Adidas Samba', 'New Balance 9060', 'Nike TN', 'Nike Shox', 'Nike VaporMax', 'Nike Running', 'Chuteiras', 'Importados', 'Nacionais'];
     const brands = [...new Set(products.map(product => product.brand).filter(brand => !['Nacional','New Balance'].includes(brand)))];
     [...availability.map(filter => [filter, availabilityFilters]), ...collections.map(filter => [filter, collectionFilters]), ...brands.map(filter => [filter, brandFilters])].forEach(([brand, target]) => {
       const button = document.createElement('button');
@@ -186,24 +192,33 @@
     function productCard(product, index) {
       const sizes = product.sizes.length ? `Tam. ${product.sizes.join(' e ')}` : 'Consulte a numeração';
       const detail = [sizes, product.note].filter(Boolean).join(' · ');
+      const imageCount = product.images?.length || 1;
+      const colorCount = imageCount > 1 ? `<span class="color-count">${imageCount} CORES</span>` : '';
       const price = product.price ? `<span class="price"><small>R$</small> ${product.price}</span>` : '<span class="price"><small>CONSULTAR</small></span>';
       const availability = product.orderOnly ? 'SOB ENCOMENDA' : 'DISPONÍVEL';
       const orderLabel = product.orderOnly ? 'Encomendar' : 'Pedir este';
-      return `<article class="card"><button class="photo photo-open" type="button" data-index="${index}" aria-label="Ampliar foto de ${product.name}"><img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async"><span class="available${product.orderOnly ? ' order-only' : ''}">${availability}</span><span class="zoom-hint" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4M11 8v6M8 11h6"/></svg></span></button><div class="info"><span class="brand-name">${product.brand}</span><h3 class="name">${product.name}</h3><p class="sizes">${detail}</p><div class="bottom">${price}<button class="order" type="button" data-name="${product.name}" data-size="${product.sizes.join('/')}" data-order-only="${Boolean(product.orderOnly)}"><span>${orderLabel}</span><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></button></div></div></article>`;
+      return `<article class="card"><button class="photo photo-open" type="button" data-index="${index}" aria-label="Ampliar foto de ${product.name}"><img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async">${colorCount}<span class="available${product.orderOnly ? ' order-only' : ''}">${availability}</span><span class="zoom-hint" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4M11 8v6M8 11h6"/></svg></span></button><div class="info"><span class="brand-name">${product.brand}</span><h3 class="name">${product.name}</h3><p class="sizes">${detail}</p><div class="bottom">${price}<button class="order" type="button" data-name="${product.name}" data-size="${product.sizes.join('/')}" data-order-only="${Boolean(product.orderOnly)}"><span>${orderLabel}</span><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></button></div></div></article>`;
     }
 
-    function updateViewer() {
+    function productImages(product) { return product.images?.length ? product.images : [product.image]; }
+    function updateViewer(resetImage = false) {
       const product = visibleProducts[viewerIndex];
+      const images = productImages(product);
+      if (resetImage) viewerImageIndex = 0;
+      viewerImageIndex = (viewerImageIndex + images.length) % images.length;
       const sizes = product.sizes.length ? `Tamanhos ${product.sizes.join(' e ')}` : 'Consulte a numeração';
-      viewerImage.src = product.image; viewerImage.alt = `Foto ampliada de ${product.name}`;
+      viewerImage.src = images[viewerImageIndex]; viewerImage.alt = `Foto ${viewerImageIndex + 1} de ${images.length} de ${product.name}`;
+      const hasGallery = images.length > 1;
+      viewerPrev.hidden = !hasGallery; viewerNext.hidden = !hasGallery; viewerGalleryCount.hidden = !hasGallery;
+      viewerGalleryCount.textContent = hasGallery ? `${viewerImageIndex + 1} / ${images.length} CORES` : '';
       viewerBrand.textContent = product.brand; viewerName.textContent = product.name;
       viewerDetail.textContent = [sizes, product.note].filter(Boolean).join(' · ');
       viewerPrice.innerHTML = product.price ? `<small>R$</small> ${product.price}` : '<small>CONSULTAR VALOR</small>';
       viewerOrder.textContent = product.orderOnly ? 'Encomendar este modelo' : 'Pedir este modelo';
     }
-    function openViewer(index, trigger, updateHash = true) { viewerIndex = index; viewerTrigger = trigger; updateViewer(); viewer.hidden = false; document.body.classList.add('viewer-open'); if (updateHash) history.replaceState(null,'',`#${productSlug(visibleProducts[index])}`); viewerClose.focus(); }
+    function openViewer(index, trigger, updateHash = true) { viewerIndex = index; viewerTrigger = trigger; updateViewer(true); viewer.hidden = false; document.body.classList.add('viewer-open'); if (updateHash) history.replaceState(null,'',`#${productSlug(visibleProducts[index])}`); viewerClose.focus(); }
     function closeViewer() { viewer.hidden = true; document.body.classList.remove('viewer-open'); history.replaceState(null,'',location.pathname + location.search); if (viewerTrigger) viewerTrigger.focus(); }
-    function moveViewer(direction) { viewerIndex = (viewerIndex + direction + visibleProducts.length) % visibleProducts.length; updateViewer(); history.replaceState(null,'',`#${productSlug(visibleProducts[viewerIndex])}`); }
+    function moveViewer(direction) { viewerImageIndex += direction; updateViewer(); }
 
     function render() {
       const term = search.value.trim().toLocaleLowerCase('pt-BR');
@@ -216,7 +231,7 @@
           : activeBrand === 'Sob encomenda' ? product.orderOnly
           : activeBrand === 'Air Force' ? isAirForce
           : activeBrand === 'Adidas Samba' ? isSamba
-          : ['New Balance 9060','Chuteiras','Importados','Nacionais'].includes(activeBrand) ? product.category === activeBrand
+          : ['New Balance 9060','Nike TN','Nike Shox','Nike VaporMax','Nike Running','Chuteiras','Importados','Nacionais'].includes(activeBrand) ? product.category === activeBrand
           : product.brand === activeBrand);
         const matchesSize = !size || product.sizes.includes(size);
         const haystack = `${product.brand} ${product.name} ${product.note}`.toLocaleLowerCase('pt-BR');
@@ -224,7 +239,7 @@
       });
       visibleProducts = filtered;
       grid.innerHTML = filtered.map(productCard).join('');
-      const catalogTitles = {'Todas':'Todos os modelos','Pronta entrega':'Modelos à pronta entrega','Sob encomenda':'Todos os modelos sob encomenda','Air Force':'Coleção Air Force','Adidas Samba':'Coleção Adidas Samba','New Balance 9060':'New Balance 9060 por encomenda','Chuteiras':'Chuteiras por encomenda','Importados':'Importados por encomenda','Nacionais':'Nacionais por encomenda'};
+      const catalogTitles = {'Todas':'Todos os modelos','Pronta entrega':'Modelos à pronta entrega','Sob encomenda':'Todos os modelos sob encomenda','Air Force':'Coleção Air Force','Adidas Samba':'Coleção Adidas Samba','New Balance 9060':'New Balance 9060 por encomenda','Nike TN':'Nike Air Max Plus/TN','Nike Shox':'Nike Shox por encomenda','Nike VaporMax':'Nike VaporMax por encomenda','Nike Running':'Nike corrida por encomenda','Chuteiras':'Chuteiras por encomenda','Importados':'Importados por encomenda','Nacionais':'Nacionais por encomenda'};
       catalogTitle.textContent = catalogTitles[activeBrand] || `Modelos ${activeBrand}`;
       count.textContent = `${filtered.length} ${filtered.length === 1 ? 'modelo' : 'modelos'}`;
       grid.classList.toggle('hidden', filtered.length === 0); empty.classList.toggle('show', filtered.length === 0);
@@ -236,8 +251,8 @@
     }
 
     viewerClose.addEventListener('click', closeViewer);
-    document.getElementById('viewerPrev').addEventListener('click', () => moveViewer(-1));
-    document.getElementById('viewerNext').addEventListener('click', () => moveViewer(1));
+    viewerPrev.addEventListener('click', () => moveViewer(-1));
+    viewerNext.addEventListener('click', () => moveViewer(1));
     viewer.addEventListener('click', event => { if (event.target === viewer) closeViewer(); });
     viewerOrder.addEventListener('click', async () => { const product = visibleProducts[viewerIndex]; await window.copyProductAndOpenDirect(product.name, product.sizes.join('/'), Boolean(product.orderOnly)); toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3500); });
     viewerShare.addEventListener('click', () => shareProduct(visibleProducts[viewerIndex]));
