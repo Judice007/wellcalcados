@@ -1,6 +1,6 @@
 window.WELL_PRODUCTS = [
   { brand:'Nike', name:'Nike ZoomX preto', sizes:[36,37], cardNote:'4 pares disponíveis', note:'2 pares no tam. 36 · 2 pares no tam. 37', price:170, image:'img/ready-nike-zoomx-preto.jpg' },
-  { brand:'Nike', name:'Nike ZoomX bege/prata', sizes:[40], note:'', price:150, image:'img/produto-zoomx-bege-prata.jpg' },
+  { brand:'Nike', name:'Nike ZoomX bege/prata', sizes:[40], note:'', price:150, image:'img/ready-nike-zoomx-bege-prata.jpg' },
   { brand:'Nike', name:'Nike ZoomX Invincible Run 3 azul', sizes:[40,41], cardNote:'3 pares disponíveis', note:'1 par no tam. 40 · 2 pares no tam. 41', price:150, image:'img/ready-nike-zoomx-invincible-azul.jpg' },
   { brand:'Nike', name:'Nike Air Force 1 preto', sizes:[39,41], note:'', price:250, image:'img/ready-af1-preto.jpg' },
   { brand:'Nike', name:'Nike Air Force 1 branco', sizes:[37,41], cardNote:'cadarços extras', note:'Tam. 37: opções com cadarços branco trançado/normal ou cetim creme/branco · tam. 41: 2 cadarços brancos', price:250, image:'img/ready-af1-branco-37-trancado.jpg', images:['img/ready-af1-branco-37-trancado.jpg','img/ready-af1-branco-37.jpg','img/ready-af1-branco-41.jpg'] },
