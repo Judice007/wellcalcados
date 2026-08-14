@@ -193,8 +193,13 @@
       const option = document.createElement('option'); option.value = size; option.textContent = `Tamanho ${size}`; sizeFilter.appendChild(option);
     });
 
+    function formatSizes(sizes) {
+      if (sizes.length < 2) return sizes.join('');
+      return `${sizes.slice(0, -1).join(', ')} e ${sizes.at(-1)}`;
+    }
+
     function productCard(product, index) {
-      const sizes = product.sizes.length ? `Tam. ${product.sizes.join(' e ')}` : 'Consulte a numeração';
+      const sizes = product.sizes.length ? `Tam. ${formatSizes(product.sizes)}` : 'Consulte a numeração';
       const detail = [sizes, product.cardNote || product.note].filter(Boolean).join(' · ');
       const colorCountValue = product.colorOptions?.length || 0;
       const colorCount = colorCountValue > 1 ? `<span class="color-count">${colorCountValue} CORES</span>` : '';
@@ -212,7 +217,7 @@
       const colors = productColors(product);
       if (resetImage) viewerImageIndex = 0;
       viewerImageIndex = (viewerImageIndex + images.length) % images.length;
-      const sizes = product.sizes.length ? `Tamanhos ${product.sizes.join(' e ')}` : 'Consulte a numeração';
+      const sizes = product.sizes.length ? `Tamanhos ${formatSizes(product.sizes)}` : 'Consulte a numeração';
       viewerImage.src = images[viewerImageIndex]; viewerImage.alt = `Tênis ${product.name} à venda em Angra dos Reis — foto ${viewerImageIndex + 1} de ${images.length}`;
       const hasGallery = images.length > 1;
       viewerPrev.hidden = !hasGallery; viewerNext.hidden = !hasGallery; viewerGalleryCount.hidden = !hasGallery;
