@@ -165,7 +165,7 @@
 
     const availability = ['Todas', 'Pronta entrega', 'Sob encomenda'];
     const collections = ['Air Force', 'Adidas Samba', 'New Balance 9060', 'Nike TN', 'Nike Shox', 'Nike VaporMax', 'Nike Running', 'Chuteiras', 'Importados', 'Nacionais'];
-    const brands = [...new Set(products.map(product => product.brand).filter(brand => !['Nacional','New Balance'].includes(brand)))];
+    const brands = [...new Set(products.map(product => product.brand).filter(brand => brand !== 'Nacional'))];
     [...availability.map(filter => [filter, availabilityFilters]), ...collections.map(filter => [filter, collectionFilters]), ...brands.map(filter => [filter, brandFilters])].forEach(([brand, target]) => {
       const button = document.createElement('button');
       button.className = 'filter-chip' + (brand === 'Air Force' ? ' featured' : '') + (brand === activeBrand ? ' active' : '');
