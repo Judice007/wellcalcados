@@ -211,7 +211,14 @@
     }
 
     function productImages(product) { return product.images?.length ? product.images : [product.image]; }
-    function productColors(product) { const images = productImages(product); return product.colorOptions?.length === images.length ? product.colorOptions : []; }
+    function productColors(product) {
+      const images = productImages(product);
+      if (!product.colorOptions?.length) return [];
+      const hasImageGroups = product.colorOptions.every(color => Array.isArray(color.imageIndexes) && color.imageIndexes.length && color.imageIndexes.every(index => Number.isInteger(index) && index >= 0 && index < images.length));
+      return hasImageGroups || product.colorOptions.length === images.length ? product.colorOptions : [];
+    }
+    function colorImageIndexes(color, index) { return Array.isArray(color.imageIndexes) ? color.imageIndexes : [index]; }
+    function colorForImage(product, imageIndex) { return productColors(product).find((color, index) => colorImageIndexes(color, index).includes(imageIndex)); }
     function updateViewer(resetImage = false) {
       const product = visibleProducts[viewerIndex];
       const images = productImages(product);
@@ -224,8 +231,9 @@
       viewerPrev.hidden = !hasGallery; viewerNext.hidden = !hasGallery; viewerGalleryCount.hidden = !hasGallery;
       viewerGalleryCount.textContent = hasGallery ? `${viewerImageIndex + 1} / ${images.length} ${colors.length ? 'CORES' : 'FOTOS'}` : '';
       viewerColors.hidden = colors.length === 0;
-      viewerColorName.textContent = colors[viewerImageIndex]?.name || '';
-      viewerColorList.innerHTML = colors.map((color, index) => `<button class="color-option${index === viewerImageIndex ? ' active' : ''}" style="--swatch:${color.swatch}" type="button" data-color-index="${index}" aria-label="Selecionar cor ${color.name}" aria-pressed="${index === viewerImageIndex}" title="${color.name}"></button>`).join('');
+      const selectedColor = colorForImage(product, viewerImageIndex);
+      viewerColorName.textContent = selectedColor?.name || '';
+      viewerColorList.innerHTML = colors.map((color, index) => { const imageIndexes = colorImageIndexes(color, index); const isActive = imageIndexes.includes(viewerImageIndex); return `<button class="color-option${isActive ? ' active' : ''}" style="--swatch:${color.swatch}" type="button" data-color-index="${imageIndexes[0]}" aria-label="Selecionar cor ${color.name}" aria-pressed="${isActive}" title="${color.name}"></button>`; }).join('');
       viewerColorList.querySelectorAll('.color-option').forEach(button => button.addEventListener('click', () => { viewerImageIndex = Number(button.dataset.colorIndex); updateViewer(); }));
       viewerBrand.textContent = product.brand; viewerName.textContent = product.name;
       viewerDetail.textContent = [sizes, product.note].filter(Boolean).join(' · ');
@@ -270,8 +278,8 @@
     viewerPrev.addEventListener('click', () => moveViewer(-1));
     viewerNext.addEventListener('click', () => moveViewer(1));
     viewer.addEventListener('click', event => { if (event.target === viewer) closeViewer(); });
-    viewerOrder.addEventListener('click', async () => { const product = visibleProducts[viewerIndex]; const color = productColors(product)[viewerImageIndex]?.name; const selectedProduct = color ? `${product.name} na cor ${color}` : product.name; await window.copyProductAndOpenDirect(selectedProduct, product.sizes.join('/'), Boolean(product.orderOnly)); toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3500); });
-    viewerShare.addEventListener('click', () => { const product = visibleProducts[viewerIndex]; const color = productColors(product)[viewerImageIndex]?.name; shareProduct(product, color); });
+    viewerOrder.addEventListener('click', async () => { const product = visibleProducts[viewerIndex]; const color = colorForImage(product, viewerImageIndex)?.name; const selectedProduct = color ? `${product.name} na cor ${color}` : product.name; await window.copyProductAndOpenDirect(selectedProduct, product.sizes.join('/'), Boolean(product.orderOnly)); toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3500); });
+    viewerShare.addEventListener('click', () => { const product = visibleProducts[viewerIndex]; const color = colorForImage(product, viewerImageIndex)?.name; shareProduct(product, color); });
     document.addEventListener('keydown', event => { if (viewer.hidden) return; if (event.key === 'Escape') closeViewer(); if (event.key === 'ArrowLeft') moveViewer(-1); if (event.key === 'ArrowRight') moveViewer(1); });
 
     search.addEventListener('input', render); sizeFilter.addEventListener('change', render); render();
