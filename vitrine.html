@@ -164,7 +164,7 @@
     let activeBrand = 'Todas';
 
     const availability = ['Todas', 'Pronta entrega', 'Sob encomenda'];
-    const collections = ['Air Force', 'Adidas Samba', 'New Balance 9060', 'Nike TN', 'Nike Shox', 'Nike VaporMax', 'Nike Running', 'Chuteiras', 'Importados', 'Nacionais'];
+    const collections = ['Air Force', 'Adidas Samba', 'New Balance 9060', 'Nike TN', 'Nike Shox', 'Nike VaporMax', 'Nike Running', 'Chuteiras', 'Importados', 'Nacionais', 'Acessórios'];
     const brands = [...new Set(products.map(product => product.brand).filter(brand => brand !== 'Nacional'))];
     [...availability.map(filter => [filter, availabilityFilters]), ...collections.map(filter => [filter, collectionFilters]), ...brands.map(filter => [filter, brandFilters])].forEach(([brand, target]) => {
       const button = document.createElement('button');
@@ -255,15 +255,16 @@
           : activeBrand === 'Sob encomenda' ? product.orderOnly
           : activeBrand === 'Air Force' ? isAirForce
           : activeBrand === 'Adidas Samba' ? isSamba
-          : ['New Balance 9060','Nike TN','Nike Shox','Nike VaporMax','Nike Running','Chuteiras','Importados','Nacionais'].includes(activeBrand) ? product.category === activeBrand
+          : ['New Balance 9060','Nike TN','Nike Shox','Nike VaporMax','Nike Running','Chuteiras','Importados','Nacionais','Acessórios'].includes(activeBrand) ? product.category === activeBrand
           : product.brand === activeBrand);
         const matchesSize = !size || product.sizes.includes(size);
-        const haystack = `${product.brand} ${product.name} ${product.note}`.toLocaleLowerCase('pt-BR');
+        const colorNames = (product.colorOptions || []).map(c => c.name).join(' ');
+        const haystack = `${product.brand} ${product.name} ${product.note} ${colorNames}`.toLocaleLowerCase('pt-BR');
         return matchesBrand && matchesSize && (!term || haystack.includes(term));
       });
       visibleProducts = filtered;
       grid.innerHTML = filtered.map(productCard).join('');
-      const catalogTitles = {'Todas':'Todos os modelos','Pronta entrega':'Modelos à pronta entrega','Sob encomenda':'Todos os modelos sob encomenda','Air Force':'Coleção Air Force','Adidas Samba':'Coleção Adidas Samba','New Balance 9060':'New Balance 9060 por encomenda','Nike TN':'Nike Air Max Plus/TN','Nike Shox':'Nike Shox TL por encomenda','Nike VaporMax':'Nike Air VaporMax 2023 Flyknit','Nike Running':'Nike performance running','Chuteiras':'Chuteiras por encomenda','Importados':'Importados por encomenda','Nacionais':'Nacionais por encomenda'};
+      const catalogTitles = {'Todas':'Todos os modelos','Pronta entrega':'Modelos à pronta entrega','Sob encomenda':'Todos os modelos sob encomenda','Air Force':'Coleção Air Force','Adidas Samba':'Coleção Adidas Samba','New Balance 9060':'New Balance 9060 por encomenda','Nike TN':'Nike Air Max Plus/TN','Nike Shox':'Nike Shox TL por encomenda','Nike VaporMax':'Nike Air VaporMax 2023 Flyknit','Nike Running':'Nike performance running','Chuteiras':'Chuteiras por encomenda','Importados':'Importados por encomenda','Nacionais':'Nacionais por encomenda','Acessórios':'Acessórios'};
       catalogTitle.textContent = catalogTitles[activeBrand] || `Modelos ${activeBrand}`;
       count.textContent = `${filtered.length} ${filtered.length === 1 ? 'modelo' : 'modelos'}`;
       grid.classList.toggle('hidden', filtered.length === 0); empty.classList.toggle('show', filtered.length === 0);
