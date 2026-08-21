@@ -6,6 +6,8 @@
   <title>Pagamento — WellCalçados</title>
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#FFFFFF">
+  <script src="meta-pixel-config.js"></script>
+  <script src="meta-pixel.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -122,6 +124,8 @@
     } else if (!productName || displayPrice === '') {
       showError('Não identificamos o produto. Volte pra vitrine e clique em "Pagar agora" novamente.');
     } else {
+      window.wellTrack('InitiateCheckout', { content_name: productName, value: Number(displayPrice) || 0, currency: 'BRL' });
+
       const mp = new MercadoPago(publicKey, { locale: 'pt-BR' });
       const bricksBuilder = mp.bricks();
 
@@ -141,6 +145,7 @@
               clearInterval(pollTimer);
               document.getElementById('pixArea').classList.remove('show');
               setState('stateSuccess');
+              window.wellTrack('Purchase', { content_name: productName, value: Number(displayPrice) || 0, currency: 'BRL' });
             } else if (data.status === 'rejected' || data.status === 'cancelled') {
               clearInterval(pollTimer);
               document.getElementById('pixStatus').textContent = 'Pagamento não concluído.';
@@ -168,6 +173,7 @@
               .then((data) => {
                 if (data.status === 'approved') {
                   setState('stateSuccess');
+                  window.wellTrack('Purchase', { content_name: productName, value: Number(displayPrice) || 0, currency: 'BRL' });
                 } else if (data.status === 'pending' && data.point_of_interaction?.transaction_data) {
                   setState(null);
                   const tx = data.point_of_interaction.transaction_data;

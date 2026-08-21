@@ -58,5 +58,6 @@ window.copyProductAndOpenDirect = async function(productName, sizeText, orderOnl
     : `Olá! Tenho interesse no ${productName}${sizeText ? `, tamanho ${sizeText}` : ''}. Pode me passar mais informações?`;
   window.open(`https://wa.me/5524999485839?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
   try { await navigator.clipboard.writeText(message); } catch (_) {}
+  if (window.wellTrack) window.wellTrack('Contact', { content_name: productName });
   return message;
 };

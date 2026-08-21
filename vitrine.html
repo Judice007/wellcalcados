@@ -6,6 +6,8 @@
   <title>Vitrine de Tênis em Angra dos Reis — WellCalçados</title>
   <meta name="description" content="Veja tênis em Angra dos Reis: Nike, Adidas, New Balance 9060, chuteiras, nacionais e importados disponíveis por encomenda na WellCalçados.">
   <meta name="theme-color" content="#FFFFFF">
+  <script src="meta-pixel-config.js"></script>
+  <script src="meta-pixel.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -269,7 +271,13 @@
       viewerPay.style.display = canPayOnline ? 'block' : 'none';
       if (canPayOnline) viewerPay.href = `pagamento.html?name=${encodeURIComponent(product.name)}&price=${product.price}`;
     }
-    function openViewer(index, trigger, updateHash = true) { viewerIndex = index; viewerTrigger = trigger; updateViewer(true); viewer.hidden = false; document.body.classList.add('viewer-open'); if (updateHash) history.replaceState(null,'',`#${productSlug(visibleProducts[index])}`); viewerClose.focus(); }
+    function openViewer(index, trigger, updateHash = true) {
+      viewerIndex = index; viewerTrigger = trigger; updateViewer(true); viewer.hidden = false; document.body.classList.add('viewer-open');
+      if (updateHash) history.replaceState(null,'',`#${productSlug(visibleProducts[index])}`);
+      viewerClose.focus();
+      const product = visibleProducts[index];
+      window.wellTrack('ViewContent', { content_name: product.name, content_category: product.brand, value: product.price || 0, currency: 'BRL' });
+    }
     function closeViewer() { viewer.hidden = true; document.body.classList.remove('viewer-open'); history.replaceState(null,'',location.pathname + location.search); if (viewerTrigger) viewerTrigger.focus(); }
     function moveViewer(direction) { viewerImageIndex += direction; updateViewer(); }
 
