@@ -91,7 +91,9 @@
     .trust-icon{width:34px;height:34px;border-radius:50%;background:var(--lilac);display:grid;place-items:center;color:var(--purple)}
     .trust-icon svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7}
     .brand-marquee{flex:1 1 auto;max-width:340px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
-    .brand-track{display:flex;align-items:center;gap:20px;width:max-content;color:#929097;font:700 11px "Manrope",sans-serif;white-space:nowrap;animation:brandMarquee 16s linear infinite}
+    .brand-track{display:flex;align-items:center;gap:34px;width:max-content;white-space:nowrap;animation:brandMarquee 16s linear infinite}
+    .brand-track img{height:24px;width:auto;flex:0 0 auto;display:block;filter:grayscale(1);opacity:.6;transition:opacity .2s}
+    .brand-marquee:hover .brand-track img{opacity:.85}
     .brand-marquee:hover .brand-track,.brand-marquee:focus-within .brand-track{animation-play-state:paused}
     @keyframes brandMarquee{to{transform:translateX(calc(-50% - 10px))}}
 
@@ -225,7 +227,7 @@
       <div class="trust-row">
         <div class="trust-group"><span class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-4 7-10V5l-7-3-7 3v6c0 6 7 10 7 10Z"/><path d="m9 12 2 2 4-5"/></svg></span><span><strong>Compra direta e segura</strong><br>Atendimento rápido pelo WhatsApp</span></div>
         <div class="trust-group"><span class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z"/><circle cx="12" cy="10" r="2"/></svg></span><span>Base em<br><strong>Angra dos Reis, RJ</strong></span></div>
-        <div class="brand-marquee" aria-label="Marcas disponíveis"><div class="brand-track"><span>NIKE</span><span>ADIDAS</span><span>ON CLOUD</span><span>NEW BALANCE</span><span>LACOSTE</span><span>NIKE</span><span>ADIDAS</span><span>ON CLOUD</span><span>NEW BALANCE</span><span>LACOSTE</span></div></div>
+        <div class="brand-marquee" aria-label="Marcas disponíveis"><div class="brand-track"><img src="img/logo-marca-nike.png" alt="Nike"><img src="img/logo-marca-adidas.png" alt="Adidas"><img src="img/logo-marca-oncloud.png" alt="On Cloud"><img src="img/logo-marca-newbalance.png" alt="New Balance"><img src="img/logo-marca-lacoste.png" alt="Lacoste"><img src="img/logo-marca-nike.png" alt="" aria-hidden="true"><img src="img/logo-marca-adidas.png" alt="" aria-hidden="true"><img src="img/logo-marca-oncloud.png" alt="" aria-hidden="true"><img src="img/logo-marca-newbalance.png" alt="" aria-hidden="true"><img src="img/logo-marca-lacoste.png" alt="" aria-hidden="true"></div></div>
       </div>
     </section>
 
