@@ -213,13 +213,15 @@
             <figure class="shoe-slide is-active"><img src="img/hero-af1-cutout.png" alt="Nike Air Force 1 branco, preto e roxo"></figure>
             <figure class="shoe-slide is-next"><img src="img/hero-samba-cutout.png" alt="Adidas Samba branco, preto e marrom"></figure>
             <figure class="shoe-slide"><img src="img/hero-oncloud-cutout.png" alt="On Cloud preto e branco"></figure>
+            <figure class="shoe-slide"><img src="img/hero-nb860-preto-cutout.png" alt="New Balance preto"></figure>
+            <figure class="shoe-slide"><img src="img/hero-zoomx-laranja-cutout.png" alt="Nike ZoomX laranja"></figure>
           </div>
           <span class="feature-tag tag-one"><i></i> Pronta entrega</span>
           <span class="feature-tag tag-two"><i></i> Até 3x sem juros</span>
-          <div class="shoe-dots" aria-label="Selecionar tênis em destaque"><button class="shoe-dot is-active" type="button" aria-label="Mostrar Nike Air Force 1"></button><button class="shoe-dot" type="button" aria-label="Mostrar Adidas Samba"></button><button class="shoe-dot" type="button" aria-label="Mostrar On Cloud"></button></div>
+          <div class="shoe-dots" aria-label="Selecionar tênis em destaque"><button class="shoe-dot is-active" type="button" aria-label="Mostrar Nike Air Force 1"></button><button class="shoe-dot" type="button" aria-label="Mostrar Adidas Samba"></button><button class="shoe-dot" type="button" aria-label="Mostrar On Cloud"></button><button class="shoe-dot" type="button" aria-label="Mostrar New Balance preto"></button><button class="shoe-dot" type="button" aria-label="Mostrar Nike ZoomX laranja"></button></div>
         </div>
         <aside class="hero-side">
-          <div class="side-count" id="heroCount">01 / 03 · NIKE</div>
+          <div class="side-count" id="heroCount">01 / 05 · NIKE</div>
           <h2 id="heroProductName">Nike Air Force 1</h2>
           <p id="heroProductMeta">Conforto clássico para acompanhar o seu corre.</p>
         </aside>
@@ -343,9 +345,11 @@
     const shoeSlides = [...document.querySelectorAll('.shoe-slide')];
     const shoeDots = [...document.querySelectorAll('.shoe-dot')];
     const heroModels = [
-      {count:'01 / 03 · NIKE',name:'Nike Air Force 1',meta:'Conforto clássico para acompanhar o seu corre.'},
-      {count:'02 / 03 · ADIDAS',name:'Adidas Samba',meta:'Visual retrô, dois cadarços e pronta entrega na vitrine Well.'},
-      {count:'03 / 03 · ON CLOUD',name:'On Cloud preto',meta:'Leveza e presença para acompanhar a rotina inteira.'}
+      {count:'01 / 05 · NIKE',name:'Nike Air Force 1',meta:'Conforto clássico para acompanhar o seu corre.'},
+      {count:'02 / 05 · ADIDAS',name:'Adidas Samba',meta:'Visual retrô, dois cadarços e pronta entrega na vitrine Well.'},
+      {count:'03 / 05 · ON CLOUD',name:'On Cloud preto',meta:'Leveza e presença para acompanhar a rotina inteira.'},
+      {count:'04 / 05 · NEW BALANCE',name:'New Balance preto',meta:'Solado exagerado e visual robusto para todo dia.'},
+      {count:'05 / 05 · NIKE',name:'Nike ZoomX laranja',meta:'Leve e chamativo, feito para quem quer se destacar.'}
     ];
     let activeShoe = 0;
     let shoeTimer;
