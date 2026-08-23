@@ -18,7 +18,7 @@ Site estático sem build/framework, com página inicial (`index.html`) e catálo
 8. CTA final
 
 ## Pendências / próximos passos
-- [ ] Preço + tamanho do "Nike Court branco/azul" e do "Nike Air Max Plus (TN) holográfico" (hoje estão como "consultar no direct")
+- [ ] Confirmar preços e numerações dos modelos que ainda aparecem como "consultar" na vitrine
 - [ ] Trocar depoimento placeholder por um depoimento real de cliente
 - [ ] Trocar link do botão final (`#contato` → Instagram) pelo link de WhatsApp real, se preferir
 - [ ] Se o catálogo crescer, migrar `catalog.js` para uma planilha ou painel de estoque

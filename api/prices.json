@@ -1,5 +1,9 @@
 [
   {
+    "name": "Lacoste branco",
+    "price": 170
+  },
+  {
     "name": "Nike Air Force 1 bege/marrom",
     "price": 150
   },
@@ -66,6 +70,14 @@
   {
     "name": "Adidas feminino branco",
     "price": 170
+  },
+  {
+    "name": "On Cloud preto",
+    "price": 150
+  },
+  {
+    "name": "Nike Air Max Plus (TN)",
+    "price": 350
   },
   {
     "name": "Nike Air Force 1 plataforma preto/branco",
