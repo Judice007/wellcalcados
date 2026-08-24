@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /pagamento.html
+Disallow: /editor.html
+
+Sitemap: https://wellcalcados.com.br/sitemap.xml
