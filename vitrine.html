@@ -151,6 +151,14 @@
     const products = window.WELL_PRODUCTS;
     const mpConfigured = Boolean(window.MP_PUBLIC_KEY) && window.MP_PUBLIC_KEY !== 'COLE_SUA_PUBLIC_KEY_AQUI';
     const grid = document.getElementById('productGrid');
+    // Carrega o fundo desfocado da foto só quando o card se aproxima da tela (evita baixar o catálogo inteiro de cara).
+    const photoObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.style.setProperty('--photo', `url('${entry.target.dataset.photo}')`);
+        photoObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: '400px 0px' });
     const search = document.getElementById('search');
     const sizeFilter = document.getElementById('sizeFilter');
     const colorFilter = document.getElementById('colorFilter');
@@ -247,7 +255,7 @@
       const orderLabel = product.orderOnly ? 'Encomendar' : 'Pedir este';
       const canPayOnline = mpConfigured && Boolean(product.price) && !product.orderOnly;
       const payLink = canPayOnline ? `<a class="pay-now" href="pagamento.html?name=${encodeURIComponent(product.name)}&price=${product.price}">Pagar agora</a>` : '';
-      return `<div class="card-glow"><article class="card"><button class="photo photo-open" style="--photo:url('${product.image}')" type="button" data-index="${index}" aria-label="Ampliar foto de ${product.name}"><img src="${product.image}" alt="Tênis ${product.name} à venda em Angra dos Reis" loading="lazy" decoding="async">${colorCount}<span class="available${product.orderOnly ? ' order-only' : ''}">${availability}</span><span class="zoom-hint" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4M11 8v6M8 11h6"/></svg></span></button><div class="info"><span class="brand-name">${product.brand}</span><h3 class="name">${product.name}</h3><p class="sizes">${detail}</p><div class="bottom">${price}<button class="order" type="button" data-name="${product.name}" data-size="${product.sizes.join('/')}" data-order-only="${Boolean(product.orderOnly)}"><span>${orderLabel}</span><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></button></div>${payLink}</div></article></div>`;
+      return `<div class="card-glow"><article class="card"><button class="photo photo-open" data-photo="${product.image}" type="button" data-index="${index}" aria-label="Ampliar foto de ${product.name}"><img src="${product.image}" alt="Tênis ${product.name} à venda em Angra dos Reis" loading="lazy" decoding="async">${colorCount}<span class="available${product.orderOnly ? ' order-only' : ''}">${availability}</span><span class="zoom-hint" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4M11 8v6M8 11h6"/></svg></span></button><div class="info"><span class="brand-name">${product.brand}</span><h3 class="name">${product.name}</h3><p class="sizes">${detail}</p><div class="bottom">${price}<button class="order" type="button" data-name="${product.name}" data-size="${product.sizes.join('/')}" data-order-only="${Boolean(product.orderOnly)}"><span>${orderLabel}</span><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></button></div>${payLink}</div></article></div>`;
     }
 
     function productImages(product) { return product.images?.length ? product.images : [product.image]; }
@@ -316,6 +324,7 @@
       });
       visibleProducts = filtered;
       grid.innerHTML = filtered.map(productCard).join('');
+      grid.querySelectorAll('[data-photo]').forEach(el => photoObserver.observe(el));
       const catalogTitles = {'Todas':'Todos os modelos','Pronta entrega':'Modelos à pronta entrega','Sob encomenda':'Todos os modelos sob encomenda','Air Force':'Coleção Air Force','Adidas Samba':'Coleção Adidas Samba','New Balance 9060':'New Balance 9060 por encomenda','Nike TN':'Nike Air Max Plus/TN','Nike Shox':'Nike Shox TL por encomenda','Nike VaporMax':'Nike Air VaporMax 2023 Flyknit','Nike Running':'Nike performance running','Chuteiras':'Chuteiras por encomenda','Importados':'Importados por encomenda','Nacionais':'Nacionais por encomenda','Acessórios':'Acessórios'};
       catalogTitle.textContent = catalogTitles[activeBrand] || `Modelos ${activeBrand}`;
       count.textContent = `${filtered.length} ${filtered.length === 1 ? 'modelo' : 'modelos'}`;
