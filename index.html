@@ -260,10 +260,10 @@
         <div class="hero-product" aria-label="Tênis em destaque">
           <div class="shoe-deck" id="shoeDeck">
             <figure class="shoe-slide is-active"><img src="img/hero-af1-cutout.png" alt="Nike Air Force 1 branco, preto e roxo"></figure>
-            <figure class="shoe-slide is-next"><img src="img/hero-samba-cutout.png" alt="Adidas Samba branco, preto e marrom"></figure>
-            <figure class="shoe-slide"><img src="img/hero-oncloud-cutout.png" alt="On Cloud preto e branco"></figure>
-            <figure class="shoe-slide"><img src="img/hero-nb860-preto-cutout.png" alt="New Balance preto"></figure>
-            <figure class="shoe-slide"><img src="img/hero-zoomx-laranja-cutout.png" alt="Nike ZoomX laranja"></figure>
+            <figure class="shoe-slide is-next"><img data-src="img/hero-samba-cutout.png" alt="Adidas Samba branco, preto e marrom"></figure>
+            <figure class="shoe-slide"><img data-src="img/hero-oncloud-cutout.png" alt="On Cloud preto e branco"></figure>
+            <figure class="shoe-slide"><img data-src="img/hero-nb860-preto-cutout.png" alt="New Balance preto"></figure>
+            <figure class="shoe-slide"><img data-src="img/hero-zoomx-laranja-cutout.png" alt="Nike ZoomX laranja"></figure>
           </div>
           <span class="feature-tag tag-one"><i></i> Pronta entrega</span>
           <span class="feature-tag tag-two"><i></i> Até 3x sem juros</span>
@@ -419,8 +419,14 @@
     ];
     let activeShoe = 0;
     let shoeTimer;
+    const hydrateShoeImage = index => {
+      const img = shoeSlides[index]?.querySelector('img');
+      if (img?.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; }
+    };
     const showShoe = next => {
       activeShoe = (next + shoeSlides.length) % shoeSlides.length;
+      hydrateShoeImage(activeShoe);
+      hydrateShoeImage((activeShoe + 1) % shoeSlides.length);
       shoeSlides.forEach((slide, index) => {
         slide.classList.remove('is-active','is-prev','is-next');
         if (index === activeShoe) slide.classList.add('is-active');
@@ -438,6 +444,7 @@
       window.clearInterval(shoeTimer);
       shoeTimer = window.setInterval(() => showShoe(activeShoe + 1), 4300);
     };
+    hydrateShoeImage(1);
     shoeDots.forEach((dot,index) => dot.addEventListener('click',() => { showShoe(index); startShoes(); }));
     document.querySelector('.hero-product').addEventListener('pointerenter',() => window.clearInterval(shoeTimer));
     document.querySelector('.hero-product').addEventListener('pointerleave',startShoes);
