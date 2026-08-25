@@ -169,6 +169,22 @@
     .benefit strong{display:block;font-size:12px;margin-bottom:5px}
     .benefit span{font-size:11px;color:var(--muted);line-height:1.45;display:block}
 
+    .reviews{padding:70px 0 10px}
+    .reviews-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:30px}
+    .reviews-head h2{font:600 clamp(28px,3vw,40px)/1.05 "Manrope",sans-serif;letter-spacing:-.05em}
+    .reviews-head p{margin-top:8px;color:var(--muted);font-size:13px}
+    .reviews-stars{display:inline-flex;gap:2px;color:#f5b400;margin-bottom:10px}
+    .reviews-stars svg{width:14px;height:14px;fill:currentColor;stroke:none}
+    .reviews-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .review-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px}
+    .review-quote{font-size:13px;line-height:1.55;color:var(--ink)}
+    .review-who{display:flex;align-items:center;gap:10px;margin-top:auto}
+    .review-avatar{width:34px;height:34px;border-radius:50%;background:var(--purple);color:#fff;display:grid;place-items:center;font:700 13px "Manrope",sans-serif;flex:0 0 auto}
+    .review-name{font-size:12px;font-weight:700}
+    .review-source{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+    .reviews-cta{margin-top:26px;text-align:center}
+    .reviews-cta a{font-size:12px;font-weight:700;color:var(--purple);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+
     .trade{padding:86px 0}
     .trade-card{position:relative;background:linear-gradient(120deg,#27113e,#6d36a7);color:#fff;border-radius:30px;padding:52px 56px;overflow:hidden;display:grid;grid-template-columns:1fr 340px;align-items:center;min-height:320px}
     .trade-card::after{content:"W";position:absolute;right:300px;top:-72px;font:800 390px/1 "Manrope",sans-serif;color:rgba(255,255,255,.045)}
@@ -195,8 +211,10 @@
       h1{font-size:clamp(54px,7.3vw,70px)}.hero-product{height:390px}.shoe-deck{inset:0 -16%}.shoe-slide img{width:112%;max-width:690px}
       .product-card{flex-basis:210px}
       .story-grid{gap:36px}.story-visual{height:420px}.trade-card{grid-template-columns:1fr 270px}.trade-shoe{width:350px}
+      .reviews-grid{grid-template-columns:1fr 1fr}
     }
     @media(max-width:640px){
+      .reviews-grid{grid-template-columns:1fr}
       body{background:#fff}.page{width:100%;margin:0;border-radius:0;box-shadow:none}.shell{width:calc(100% - 32px)}
       .topbar{height:82px}.logo img{width:106px;max-height:68px}.head-actions .icon-btn:first-child{display:none}
       .hero{padding:40px 0 30px}.hero::before{width:330px;height:330px;left:58%;top:54%}.hero::after{display:none}
@@ -298,6 +316,23 @@
           <a class="btn btn-primary" href="https://wa.me/5524999485839?text=Ol%C3%A1%21%20Gostaria%20de%20conhecer%20os%20t%C3%AAnis%20dispon%C3%ADveis." target="_blank" rel="noopener">Falar pelo WhatsApp <svg viewBox="0 0 24 24"><path d="m5 12 14 0m-5-5 5 5-5 5"/></svg></a>
         </div>
       </div>
+    </section>
+
+    <section class="reviews shell" id="avaliacoes">
+      <div class="reviews-head">
+        <div>
+          <span class="reviews-stars" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L12 17l-5.6 3.1 1.4-6.3-4.8-4.3 6.4-.6Z"/></svg><svg viewBox="0 0 24 24"><path d="m12 3 2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L12 17l-5.6 3.1 1.4-6.3-4.8-4.3 6.4-.6Z"/></svg><svg viewBox="0 0 24 24"><path d="m12 3 2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L12 17l-5.6 3.1 1.4-6.3-4.8-4.3 6.4-.6Z"/></svg><svg viewBox="0 0 24 24"><path d="m12 3 2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L12 17l-5.6 3.1 1.4-6.3-4.8-4.3 6.4-.6Z"/></svg><svg viewBox="0 0 24 24"><path d="m12 3 2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L12 17l-5.6 3.1 1.4-6.3-4.8-4.3 6.4-.6Z"/></svg></span>
+          <h2>Quem comprou, aprovou.</h2>
+          <p>Avaliações reais de clientes no Google e no Instagram.</p>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <article class="review-card"><p class="review-quote">"Só tênis top de primeira linha, qualidade e confiança!"</p><div class="review-who"><span class="review-avatar">A</span><div><div class="review-name">Abimael Santana</div><div class="review-source">Google · 5 estrelas</div></div></div></article>
+        <article class="review-card"><p class="review-quote">"Tênis de qualidade, atendimento excelente!!"</p><div class="review-who"><span class="review-avatar">J</span><div><div class="review-name">Juliana Dias</div><div class="review-source">Google · 5 estrelas</div></div></div></article>
+        <article class="review-card"><p class="review-quote">"Atendimento rápido, pedido chegou perfeitamente como foi pedido."</p><div class="review-who"><span class="review-avatar">W</span><div><div class="review-name">Waldenir Inácio</div><div class="review-source">Google · 5 estrelas</div></div></div></article>
+        <article class="review-card"><p class="review-quote">"Amei minha compra, com certeza indico."</p><div class="review-who"><span class="review-avatar">R</span><div><div class="review-name">Régia Bomfim</div><div class="review-source">Google · 5 estrelas</div></div></div></article>
+      </div>
+      <div class="reviews-cta"><a href="https://share.google/Rr6vra5MFUGIsxVVu" target="_blank" rel="noopener">Ver todas as avaliações no Google →</a></div>
     </section>
 
     <section class="trade shell" id="parcerias">
