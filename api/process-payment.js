@@ -9,6 +9,34 @@ function loadPrices() {
   return map;
 }
 
+// Mesma regra do "Mês do Cliente" aplicada no carrinho (cart.js), recalculada aqui
+// com os preços oficiais do servidor — nunca confia em total vindo do navegador.
+function isAirForceCombo(name, price) {
+  return /air force|\baf1\b/i.test(name) && price === 250;
+}
+
+function computeCartTotal(items, prices) {
+  const resolved = [];
+  const unresolvedNames = [];
+  items.forEach(({ name, qty }) => {
+    const quantity = Math.max(1, Number(qty) || 1);
+    if (!prices.has(name)) { unresolvedNames.push(name); return; }
+    const price = prices.get(name);
+    for (let i = 0; i < quantity; i++) resolved.push({ name, price });
+  });
+
+  const comboEligible = resolved.filter(item => isAirForceCombo(item.name, item.price));
+  const rest = resolved.filter(item => !isAirForceCombo(item.name, item.price));
+
+  let total = rest.reduce((sum, item) => sum + item.price, 0);
+  const bundles = Math.floor(comboEligible.length / 2);
+  const remainder = comboEligible.length % 2;
+  total += bundles * 400 + remainder * 250;
+
+  const description = items.map(item => `${item.name}${item.size ? ` (tam. ${item.size})` : ''} x${item.qty || 1}`).join(', ');
+  return { total, description, unresolvedNames, resolvedCount: resolved.length };
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
@@ -23,21 +51,38 @@ module.exports = async function handler(req, res) {
 
   try {
     const body = req.body || {};
-    const { productName, formData } = body;
-
+    const { productName, formData, items } = body;
     const prices = loadPrices();
-    if (!productName || !prices.has(productName)) {
-      res.status(400).json({ error: 'Produto não encontrado ou indisponível para pagamento direto.' });
-      return;
+
+    let officialAmount;
+    let description;
+    let metadataItems;
+
+    if (Array.isArray(items) && items.length) {
+      const cart = computeCartTotal(items, prices);
+      if (cart.resolvedCount === 0) {
+        res.status(400).json({ error: 'Nenhum item do carrinho está disponível para pagamento online.' });
+        return;
+      }
+      officialAmount = cart.total;
+      description = cart.description;
+      metadataItems = items;
+    } else {
+      if (!productName || !prices.has(productName)) {
+        res.status(400).json({ error: 'Produto não encontrado ou indisponível para pagamento direto.' });
+        return;
+      }
+      officialAmount = prices.get(productName);
+      description = productName;
+      metadataItems = [{ name: productName, qty: 1 }];
     }
-    const officialPrice = prices.get(productName);
 
     // Nunca confia no valor mandado pelo navegador — usa sempre o preço oficial do catálogo.
     const payment = {
       ...formData,
-      transaction_amount: officialPrice,
-      description: productName,
-      metadata: { product_name: productName },
+      transaction_amount: officialAmount,
+      description,
+      metadata: { items: metadataItems },
     };
 
     const idempotencyKey = `${Date.now()}-${Math.random().toString(36).slice(2)}`;

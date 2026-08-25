@@ -136,9 +136,11 @@
       .well-cart-summary{padding:14px 20px;font-size:12px;color:#667085}
       .well-cart-summary .row{display:flex;justify-content:space-between;margin-bottom:4px}
       .well-cart-summary .total{font-size:16px;font-weight:800;color:#081429;margin-top:6px}
+      .well-cart-pay{margin:0 20px 8px;height:46px;border:1px solid #5B2E93;border-radius:999px;background:#fff;color:#5B2E93;font-weight:800;font-size:12.5px;cursor:pointer}
       .well-cart-checkout{margin:0 20px 20px;height:50px;border:0;border-radius:999px;background:#5B2E93;color:#fff;font-weight:800;font-size:13px;cursor:pointer}
-      .well-cart-checkout:disabled{opacity:.5;cursor:not-allowed}
+      .well-cart-checkout:disabled,.well-cart-pay:disabled{opacity:.5;cursor:not-allowed}
       @media(max-width:480px){.well-cart-drawer{width:100%}}
+      .well-cart-drawer[hidden],.well-cart-overlay[hidden]{display:none}
     `;
     document.head.appendChild(style);
 
@@ -163,6 +165,7 @@
       <div class="well-cart-coupon"><input type="text" placeholder="Cupom de desconto" maxlength="20"><button type="button">Aplicar</button></div>
       <div class="well-cart-coupon-msg"></div>
       <div class="well-cart-summary"></div>
+      <button class="well-cart-pay" type="button" hidden>Pagar agora online</button>
       <button class="well-cart-checkout" type="button">Finalizar pelo WhatsApp</button>
     `;
     document.body.appendChild(drawer);
@@ -174,7 +177,11 @@
     const couponBtn = drawer.querySelector('.well-cart-coupon button');
     const couponMsg = drawer.querySelector('.well-cart-coupon-msg');
     const checkoutBtn = drawer.querySelector('.well-cart-checkout');
+    const payBtn = drawer.querySelector('.well-cart-pay');
     let appliedCoupon = '';
+
+    function mpReady() { return Boolean(window.MP_PUBLIC_KEY) && window.MP_PUBLIC_KEY !== 'COLE_SUA_PUBLIC_KEY_AQUI'; }
+    payBtn.addEventListener('click', () => { window.location.href = 'pagamento.html?cart=1'; });
 
     function open() { render(); overlay.hidden = false; drawer.hidden = false; }
     function close() { overlay.hidden = true; drawer.hidden = true; }
@@ -196,6 +203,8 @@
       const items = getItems();
       badge.textContent = String(getCount());
       badge.hidden = getCount() === 0;
+      const hasPayable = items.some(item => item.price != null && !item.orderOnly);
+      payBtn.hidden = !mpReady() || !hasPayable;
       if (!items.length) {
         itemsRoot.innerHTML = '<p class="well-cart-empty">Seu carrinho está vazio.<br>Escolha um tênis na vitrine e adicione o tamanho.</p>';
         checkoutBtn.disabled = true;

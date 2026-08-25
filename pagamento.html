@@ -31,6 +31,13 @@
     .summary-name{font-size:14px;font-weight:700;line-height:1.35}
     .summary-price{font:700 22px 'Space Mono',monospace;white-space:nowrap}
     .summary-price small{font-size:11px;color:var(--muted);font-weight:400}
+    .summary.cart{display:block}
+    .summary-item{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(8,20,41,.08)}
+    .summary-item:last-of-type{border-bottom:0}
+    .summary-item-meta{color:var(--muted);font-size:11px;margin-top:2px}
+    .summary-row{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:8px}
+    .summary-row.total{font-size:16px;font-weight:800;color:var(--navy);margin-top:10px}
+    .summary-consult{margin-top:12px;padding:10px 12px;border-radius:10px;background:#fff;border:1px dashed var(--line);font-size:11.5px;color:var(--muted);line-height:1.5}
 
     .test-banner{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid rgba(91,46,147,.35);border-radius:12px;background:#fff;color:var(--purple);font:700 11px 'Space Mono',monospace;letter-spacing:.04em;margin-bottom:22px}
 
@@ -70,7 +77,7 @@
 
     <div class="error-box" id="errorBox"></div>
 
-    <div class="summary">
+    <div class="summary" id="summaryBox">
       <div class="summary-name" id="summaryName">Carregando produto…</div>
       <div class="summary-price" id="summaryPrice"></div>
     </div>
@@ -104,28 +111,78 @@
     <a class="back-link" href="vitrine.html"><svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Prefiro pedir pelo WhatsApp</a>
   </main>
 
-  <script src="mp-config.js"></script>
-  <script src="https://sdk.mercadopago.com/js/v2"></script>
-  <script>
+  <script src="cart.js" defer></script>
+  <script src="mp-config.js" defer></script>
+  <script src="https://sdk.mercadopago.com/js/v2" defer></script>
+  <script defer>
     const params = new URLSearchParams(location.search);
-    const productName = params.get('name') || '';
-    const displayPrice = params.get('price') || '';
-
-    document.getElementById('summaryName').textContent = productName || 'Produto não informado';
-    document.getElementById('summaryPrice').innerHTML = displayPrice ? `<small>R$</small> ${displayPrice}` : '';
-
+    const cartMode = params.get('cart') === '1';
     const errorBox = document.getElementById('errorBox');
     function showError(msg) { errorBox.textContent = msg; errorBox.classList.add('show'); }
 
     const publicKey = window.MP_PUBLIC_KEY || '';
     if (publicKey.startsWith('TEST-')) document.getElementById('testBanner').removeAttribute('hidden');
 
+    function isAF1Combo(item) { return /air force|\baf1\b/i.test(item.name) && item.price === 250; }
+
+    // Modo carrinho: soma os itens de pronta entrega (preço conhecido, sem ser sob encomenda)
+    // aplicando o mesmo combo do "Mês do Cliente". Itens sob encomenda ficam de fora do valor
+    // online e são combinados depois pelo WhatsApp — o servidor recalcula tudo de novo por segurança.
+    function readCartFromStorage() {
+      try { return JSON.parse(localStorage.getItem('well_cart_v1')) || []; } catch (_) { return []; }
+    }
+
+    function buildCartCheckout() {
+      const allItems = readCartFromStorage();
+      const payable = allItems.filter(item => item.price != null && !item.orderOnly);
+      const consult = allItems.filter(item => item.price == null || item.orderOnly);
+
+      let comboUnits = 0;
+      payable.forEach(item => { if (isAF1Combo(item)) comboUnits += item.qty; });
+      const bundles = Math.floor(comboUnits / 2);
+      const comboSavings = bundles * 100;
+      const subtotal = payable.reduce((sum, item) => sum + item.price * item.qty, 0);
+      const total = Math.max(0, subtotal - comboSavings);
+
+      const summaryBox = document.getElementById('summaryBox');
+      summaryBox.classList.add('cart');
+      let html = payable.map(item => `<div class="summary-item"><div><strong>${item.name}</strong> ×${item.qty}<div class="summary-item-meta">${item.size ? 'Tam. ' + item.size : 'Consulte numeração'}</div></div><span>R$${item.price * item.qty}</span></div>`).join('');
+      if (bundles > 0) html += `<div class="summary-row"><span>Desconto combo Air Force</span><span>-R$${comboSavings}</span></div>`;
+      html += `<div class="summary-row total"><span>Total</span><span>R$${total}</span></div>`;
+      if (consult.length) html += `<div class="summary-consult">${consult.length} item(ns) sob encomenda (${consult.map(item => item.name).join(', ')}) não entram nesse pagamento — combinamos valor e prazo direto no WhatsApp.</div>`;
+      summaryBox.innerHTML = html || '<div class="summary-empty">Carrinho vazio.</div>';
+
+      return { payable, consult, total };
+    }
+
+    const productName = params.get('name') || '';
+    const displayPrice = params.get('price') || '';
+    let cartResult = { payable: [], total: 0 };
+
+    if (cartMode) {
+      cartResult = buildCartCheckout();
+    } else {
+      document.getElementById('summaryName').textContent = productName || 'Produto não informado';
+      document.getElementById('summaryPrice').innerHTML = displayPrice ? `<small>R$</small> ${displayPrice}` : '';
+    }
+
     if (!publicKey || publicKey === 'COLE_SUA_PUBLIC_KEY_AQUI') {
       showError('Pagamento online ainda não configurado. Peça pra loja finalizar a configuração, ou peça pelo WhatsApp.');
+    } else if (cartMode) {
+      if (!cartResult.payable.length) {
+        showError('Seu carrinho só tem itens sob encomenda — feche pelo WhatsApp que a gente confirma valor e prazo.');
+      } else {
+        const { payable, total } = cartResult;
+        initPaymentBrick(total, () => payable.map(item => item.name).join(', '), { items: payable.map(item => ({ name: item.name, size: item.size, qty: item.qty })) }, () => { if (window.WellCart) window.WellCart.clear(); else localStorage.removeItem('well_cart_v1'); });
+      }
     } else if (!productName || displayPrice === '') {
       showError('Não identificamos o produto. Volte pra vitrine e clique em "Pagar agora" novamente.');
     } else {
-      window.wellTrack('InitiateCheckout', { content_name: productName, value: Number(displayPrice) || 0, currency: 'BRL' });
+      initPaymentBrick(Number(displayPrice), () => productName, { productName }, () => {});
+    }
+
+    function initPaymentBrick(amount, getDescription, requestExtra, onSuccess) {
+      window.wellTrack('InitiateCheckout', { content_name: getDescription(), value: amount, currency: 'BRL' });
 
       const mp = new MercadoPago(publicKey, { locale: 'pt-BR' });
       const bricksBuilder = mp.bricks();
@@ -146,7 +203,8 @@
               clearInterval(pollTimer);
               document.getElementById('pixArea').classList.remove('show');
               setState('stateSuccess');
-              window.wellTrack('Purchase', { content_name: productName, value: Number(displayPrice) || 0, currency: 'BRL' });
+              window.wellTrack('Purchase', { content_name: getDescription(), value: amount, currency: 'BRL' });
+              onSuccess();
             } else if (data.status === 'rejected' || data.status === 'cancelled') {
               clearInterval(pollTimer);
               document.getElementById('pixStatus').textContent = 'Pagamento não concluído.';
@@ -156,7 +214,7 @@
       }
 
       bricksBuilder.create('payment', 'paymentBrick_container', {
-        initialization: { amount: Number(displayPrice) },
+        initialization: { amount },
         customization: {
           paymentMethods: { creditCard: 'all', pix: 'all' },
         },
@@ -168,13 +226,14 @@
             return fetch('/api/process-payment', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ productName, formData }),
+              body: JSON.stringify({ formData, ...requestExtra }),
             })
               .then((res) => res.json())
               .then((data) => {
                 if (data.status === 'approved') {
                   setState('stateSuccess');
-                  window.wellTrack('Purchase', { content_name: productName, value: Number(displayPrice) || 0, currency: 'BRL' });
+                  window.wellTrack('Purchase', { content_name: getDescription(), value: amount, currency: 'BRL' });
+                  onSuccess();
                 } else if (data.status === 'pending' && data.point_of_interaction?.transaction_data) {
                   setState(null);
                   const tx = data.point_of_interaction.transaction_data;
