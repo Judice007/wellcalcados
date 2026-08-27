@@ -90,5 +90,9 @@
   {
     "name": "Meias Nike/Adidas — 2 cores",
     "price": 25
+  },
+  {
+    "name": "TESTE — pagamento R$1",
+    "price": 1
   }
 ]
