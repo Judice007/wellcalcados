@@ -115,6 +115,9 @@
   <script src="mp-config.js" defer></script>
   <script src="https://sdk.mercadopago.com/js/v2" defer></script>
   <script defer>
+   // Espera o carregamento completo (garante que mp-config.js já rodou, mesmo se algum
+   // script de terceiro atrapalhar a ordem dos scripts com defer).
+   document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(location.search);
     const cartMode = params.get('cart') === '1';
     const errorBox = document.getElementById('errorBox');
@@ -260,6 +263,7 @@
         catch (_) { document.execCommand('copy'); }
       });
     }
+   });
   </script>
 </body>
 </html>
