@@ -219,7 +219,7 @@
       bricksBuilder.create('payment', 'paymentBrick_container', {
         initialization: { amount },
         customization: {
-          paymentMethods: { creditCard: 'all', pix: 'all' },
+          paymentMethods: { creditCard: 'all', bankTransfer: 'all' },
         },
         callbacks: {
           onReady: () => {},
