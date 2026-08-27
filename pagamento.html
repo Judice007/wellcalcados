@@ -41,6 +41,25 @@
 
     .test-banner{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid rgba(91,46,147,.35);border-radius:12px;background:#fff;color:var(--purple);font:700 11px 'Space Mono',monospace;letter-spacing:.04em;margin-bottom:22px}
 
+    .address{margin-bottom:26px}
+    .address h2{font-size:14px;margin-bottom:14px}
+    .address-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .address-grid .full{grid-column:1/-1}
+    .field{display:flex;flex-direction:column;gap:5px}
+    .field label{font-size:11px;font-weight:700;color:var(--muted)}
+    .field input{height:46px;padding:0 13px;border:1px solid var(--line);border-radius:11px;font:13px Inter,sans-serif;color:var(--navy)}
+    .field input:focus{outline:none;border-color:var(--purple)}
+    .field-error{display:none;color:#B3261E;font-size:10.5px}
+    .field.invalid input{border-color:#E7B4B4}
+    .field.invalid .field-error{display:block}
+    .address-continue{width:100%;min-height:50px;margin-top:16px;border:0;border-radius:999px;background:var(--navy);color:#fff;font-weight:700;font-size:13px;cursor:pointer}
+    #paymentSection[hidden]{display:none}
+    .address-summary{display:none;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;font-size:12.5px;color:var(--muted);margin-bottom:20px;line-height:1.6}
+    .address-summary.show{display:block}
+    .address-summary strong{color:var(--navy)}
+    .address-summary button{margin-top:8px;background:none;border:0;color:var(--purple);font-weight:700;font-size:11.5px;cursor:pointer;padding:0}
+    .whatsapp-confirm{display:inline-flex;align-items:center;gap:8px;margin-top:16px;min-height:46px;padding:0 20px;border-radius:999px;background:#20102f;color:#fff;text-decoration:none;font-size:12.5px;font-weight:700}
+
     #paymentBrick_container{min-height:200px}
 
     .state{display:none;text-align:center;padding:40px 12px;border:1px solid var(--line);border-radius:18px;background:#fff}
@@ -82,30 +101,53 @@
       <div class="summary-price" id="summaryPrice"></div>
     </div>
 
-    <div id="paymentBrick_container"></div>
-
-    <div class="state" id="stateProcessing">
-      <p>Processando seu pagamento…</p>
-    </div>
-
-    <div class="state" id="stateSuccess">
-      <h2>Pagamento aprovado! 🎉</h2>
-      <p>Recebemos sua confirmação. Te chamamos no WhatsApp com os detalhes da entrega.</p>
-    </div>
-
-    <div class="state" id="stateRejected">
-      <h2>Pagamento não aprovado</h2>
-      <p>Tente outro cartão ou escolha Pix. Se preferir, fala com a gente direto no WhatsApp.</p>
-    </div>
-
-    <div id="pixArea">
-      <h2 style="margin-bottom:10px;font-size:16px;">Escaneie o QR Code</h2>
-      <img id="pixQr" alt="QR Code Pix">
-      <div class="pix-copy">
-        <input id="pixCode" readonly>
-        <button id="pixCopyBtn" type="button">Copiar</button>
+    <form class="address" id="addressForm" novalidate>
+      <h2>Onde vamos entregar?</h2>
+      <div class="address-grid">
+        <div class="field full"><label for="addrName">Nome completo</label><input id="addrName" type="text" autocomplete="name" required><span class="field-error">Preencha seu nome</span></div>
+        <div class="field full"><label for="addrPhone">WhatsApp</label><input id="addrPhone" type="tel" inputmode="tel" placeholder="(24) 90000-0000" autocomplete="tel" required><span class="field-error">Preencha um WhatsApp válido</span></div>
+        <div class="field"><label for="addrCep">CEP</label><input id="addrCep" type="text" inputmode="numeric" placeholder="00000-000" autocomplete="postal-code" required><span class="field-error">Preencha o CEP</span></div>
+        <div class="field"><label for="addrNumber">Número</label><input id="addrNumber" type="text" inputmode="numeric" autocomplete="address-line2" required><span class="field-error">Preencha o número</span></div>
+        <div class="field full"><label for="addrStreet">Endereço</label><input id="addrStreet" type="text" autocomplete="address-line1" required><span class="field-error">Preencha o endereço</span></div>
+        <div class="field"><label for="addrComplement">Complemento (opcional)</label><input id="addrComplement" type="text" autocomplete="address-line3"></div>
+        <div class="field"><label for="addrNeighborhood">Bairro</label><input id="addrNeighborhood" type="text" required><span class="field-error">Preencha o bairro</span></div>
+        <div class="field full"><label for="addrCity">Cidade</label><input id="addrCity" type="text" required><span class="field-error">Preencha a cidade</span></div>
       </div>
-      <div class="pix-status" id="pixStatus">Aguardando pagamento…</div>
+      <button class="address-continue" type="submit">Continuar para pagamento</button>
+    </form>
+
+    <div class="address-summary" id="addressSummary">
+      <strong>Entregar para:</strong> <span id="addressSummaryText"></span>
+      <br><button type="button" id="addressEditBtn">Editar endereço</button>
+    </div>
+
+    <div id="paymentSection" hidden>
+      <div id="paymentBrick_container"></div>
+
+      <div class="state" id="stateProcessing">
+        <p>Processando seu pagamento…</p>
+      </div>
+
+      <div class="state" id="stateSuccess">
+        <h2>Pagamento aprovado! 🎉</h2>
+        <p>Recebemos sua confirmação e o endereço de entrega.</p>
+        <a class="whatsapp-confirm" id="whatsappConfirm" href="#" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" style="stroke:#fff"><path d="M20 11.5a8 8 0 0 1-9 8 9 9 0 0 1-4 1l1-3a8 8 0 1 1 12-6Z"/></svg>Confirmar pedido no WhatsApp</a>
+      </div>
+
+      <div class="state" id="stateRejected">
+        <h2>Pagamento não aprovado</h2>
+        <p>Tente outro cartão ou escolha Pix. Se preferir, fala com a gente direto no WhatsApp.</p>
+      </div>
+
+      <div id="pixArea">
+        <h2 style="margin-bottom:10px;font-size:16px;">Escaneie o QR Code</h2>
+        <img id="pixQr" alt="QR Code Pix">
+        <div class="pix-copy">
+          <input id="pixCode" readonly>
+          <button id="pixCopyBtn" type="button">Copiar</button>
+        </div>
+        <div class="pix-status" id="pixStatus">Aguardando pagamento…</div>
+      </div>
     </div>
 
     <a class="back-link" href="vitrine.html"><svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Prefiro pedir pelo WhatsApp</a>
@@ -160,7 +202,10 @@
 
     const productName = params.get('name') || '';
     const displayPrice = params.get('price') || '';
+    const category = params.get('category') || '';
     let cartResult = { payable: [], total: 0 };
+    const addressForm = document.getElementById('addressForm');
+    let pendingCheckout = null; // guarda os dados do pagamento até o endereço ser confirmado
 
     if (cartMode) {
       cartResult = buildCartCheckout();
@@ -171,20 +216,100 @@
 
     if (!publicKey || publicKey === 'COLE_SUA_PUBLIC_KEY_AQUI') {
       showError('Pagamento online ainda não configurado. Peça pra loja finalizar a configuração, ou peça pelo WhatsApp.');
+      addressForm.hidden = true;
     } else if (cartMode) {
       if (!cartResult.payable.length) {
         showError('Seu carrinho só tem itens sob encomenda — feche pelo WhatsApp que a gente confirma valor e prazo.');
+        addressForm.hidden = true;
       } else {
         const { payable, total } = cartResult;
-        initPaymentBrick(total, () => payable.map(item => item.name).join(', '), { items: payable.map(item => ({ name: item.name, size: item.size, qty: item.qty })) }, () => { if (window.WellCart) window.WellCart.clear(); else localStorage.removeItem('well_cart_v1'); });
+        const allImportados = payable.every(item => item.category === 'Importados');
+        pendingCheckout = {
+          amount: total,
+          getDescription: () => payable.map(item => item.name).join(', '),
+          requestExtra: { items: payable.map(item => ({ name: item.name, size: item.size, qty: item.qty })) },
+          onSuccess: () => { if (window.WellCart) window.WellCart.clear(); else localStorage.removeItem('well_cart_v1'); },
+          maxInstallments: allImportados ? 5 : 3,
+        };
       }
     } else if (!productName || displayPrice === '') {
       showError('Não identificamos o produto. Volte pra vitrine e clique em "Pagar agora" novamente.');
+      addressForm.hidden = true;
     } else {
-      initPaymentBrick(Number(displayPrice), () => productName, { productName }, () => {});
+      pendingCheckout = {
+        amount: Number(displayPrice),
+        getDescription: () => productName,
+        requestExtra: { productName },
+        onSuccess: () => {},
+        maxInstallments: category === 'Importados' ? 5 : 3,
+      };
     }
 
-    function initPaymentBrick(amount, getDescription, requestExtra, onSuccess) {
+    // ---- Endereço de entrega (sem cadastro/login — só coleta os dados na hora) ----
+    const addrCep = document.getElementById('addrCep');
+    addrCep?.addEventListener('blur', async () => {
+      const cep = addrCep.value.replace(/\D/g, '');
+      if (cep.length !== 8) return;
+      try {
+        const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await res.json();
+        if (data.erro) return;
+        if (data.logradouro) document.getElementById('addrStreet').value = data.logradouro;
+        if (data.bairro) document.getElementById('addrNeighborhood').value = data.bairro;
+        if (data.localidade) document.getElementById('addrCity').value = data.localidade;
+      } catch (_) { /* sem sorte, a pessoa preenche na mão */ }
+    });
+
+    function validateAddressForm() {
+      let valid = true;
+      addressForm.querySelectorAll('.field').forEach(field => {
+        const input = field.querySelector('input');
+        if (!input.required) return;
+        const filled = input.value.trim().length > (input.id === 'addrPhone' ? 9 : 0);
+        field.classList.toggle('invalid', !filled);
+        if (!filled) valid = false;
+      });
+      return valid;
+    }
+    addressForm.querySelectorAll('input').forEach(input => input.addEventListener('input', () => input.closest('.field')?.classList.remove('invalid')));
+
+    let brickInitialized = false;
+    addressForm?.addEventListener('submit', event => {
+      event.preventDefault();
+      if (!pendingCheckout || !validateAddressForm()) return;
+      const address = {
+        name: document.getElementById('addrName').value.trim(),
+        phone: document.getElementById('addrPhone').value.trim(),
+        cep: document.getElementById('addrCep').value.trim(),
+        street: document.getElementById('addrStreet').value.trim(),
+        number: document.getElementById('addrNumber').value.trim(),
+        complement: document.getElementById('addrComplement').value.trim(),
+        neighborhood: document.getElementById('addrNeighborhood').value.trim(),
+        city: document.getElementById('addrCity').value.trim(),
+      };
+      const addressLine = `${address.street}, ${address.number}${address.complement ? ' — ' + address.complement : ''} — ${address.neighborhood}, ${address.city} — CEP ${address.cep}`;
+
+      addressForm.hidden = true;
+      const summaryEl = document.getElementById('addressSummary');
+      document.getElementById('addressSummaryText').textContent = `${address.name} · ${address.phone} · ${addressLine}`;
+      summaryEl.classList.add('show');
+      document.getElementById('paymentSection').hidden = false;
+
+      const whatsappMsg = `Olá! Acabei de pagar meu pedido no site (${pendingCheckout.getDescription()}).\n\nEntregar para:\n${address.name} — ${address.phone}\n${addressLine}`;
+      document.getElementById('whatsappConfirm').href = `https://wa.me/5524999485839?text=${encodeURIComponent(whatsappMsg)}`;
+
+      if (!brickInitialized) {
+        brickInitialized = true;
+        initPaymentBrick(pendingCheckout.amount, pendingCheckout.getDescription, { ...pendingCheckout.requestExtra, deliveryAddress: address }, pendingCheckout.onSuccess, pendingCheckout.maxInstallments);
+      }
+    });
+    document.getElementById('addressEditBtn')?.addEventListener('click', () => {
+      document.getElementById('addressSummary').classList.remove('show');
+      document.getElementById('paymentSection').hidden = true;
+      addressForm.hidden = false;
+    });
+
+    function initPaymentBrick(amount, getDescription, requestExtra, onSuccess, maxInstallments) {
       window.wellTrack('InitiateCheckout', { content_name: getDescription(), value: amount, currency: 'BRL' });
 
       const mp = new MercadoPago(publicKey, { locale: 'pt-BR' });
@@ -219,7 +344,7 @@
       bricksBuilder.create('payment', 'paymentBrick_container', {
         initialization: { amount },
         customization: {
-          paymentMethods: { creditCard: 'all', bankTransfer: 'all' },
+          paymentMethods: { creditCard: 'all', bankTransfer: 'all', maxInstallments: maxInstallments || 3 },
         },
         callbacks: {
           onReady: () => {},

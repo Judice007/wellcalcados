@@ -254,7 +254,7 @@
       const availability = product.orderOnly ? 'SOB ENCOMENDA' : 'DISPONÍVEL';
       const orderLabel = product.orderOnly ? 'Encomendar' : 'Pedir este';
       const canPayOnline = mpConfigured && Boolean(product.price) && !product.orderOnly;
-      const payLink = canPayOnline ? `<a class="pay-now" href="pagamento.html?name=${encodeURIComponent(product.name)}&price=${product.price}">Pagar agora</a>` : '';
+      const payLink = canPayOnline ? `<a class="pay-now" href="pagamento.html?name=${encodeURIComponent(product.name)}&price=${product.price}&category=${encodeURIComponent(product.category || '')}">Pagar agora</a>` : '';
       return `<div class="card-glow"><article class="card"><button class="photo photo-open" data-photo="${product.image}" type="button" data-index="${index}" aria-label="Ampliar foto de ${product.name}"><img src="${product.image}" alt="Tênis ${product.name} à venda em Angra dos Reis" loading="lazy" decoding="async">${colorCount}<span class="available${product.orderOnly ? ' order-only' : ''}">${availability}</span><span class="zoom-hint" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4M11 8v6M8 11h6"/></svg></span></button><div class="info"><span class="brand-name">${product.brand}</span><h3 class="name">${product.name}</h3><p class="sizes">${detail}</p><div class="bottom">${price}<button class="order" type="button" data-name="${product.name}" data-size="${product.sizes.join('/')}" data-order-only="${Boolean(product.orderOnly)}"><span>${orderLabel}</span><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></button></div>${payLink}</div></article></div>`;
     }
 
@@ -289,7 +289,7 @@
       viewerOrder.textContent = product.orderOnly ? 'Encomendar este modelo' : 'Pedir este modelo';
       const canPayOnline = mpConfigured && Boolean(product.price) && !product.orderOnly;
       viewerPay.style.display = canPayOnline ? 'block' : 'none';
-      if (canPayOnline) viewerPay.href = `pagamento.html?name=${encodeURIComponent(product.name)}&price=${product.price}`;
+      if (canPayOnline) viewerPay.href = `pagamento.html?name=${encodeURIComponent(product.name)}&price=${product.price}&category=${encodeURIComponent(product.category || '')}`;
       viewerSizeWrap.hidden = product.sizes.length < 2;
       if (product.sizes.length > 1) viewerSizeSelect.innerHTML = product.sizes.map(size => `<option value="${size}">${size}</option>`).join('');
     }

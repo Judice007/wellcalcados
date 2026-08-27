@@ -51,7 +51,7 @@ module.exports = async function handler(req, res) {
 
   try {
     const body = req.body || {};
-    const { productName, formData, items } = body;
+    const { productName, formData, items, deliveryAddress } = body;
     const prices = loadPrices();
 
     let officialAmount;
@@ -82,7 +82,7 @@ module.exports = async function handler(req, res) {
       ...formData,
       transaction_amount: officialAmount,
       description,
-      metadata: { items: metadataItems },
+      metadata: { items: metadataItems, delivery_address: deliveryAddress || null },
     };
 
     const idempotencyKey = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
