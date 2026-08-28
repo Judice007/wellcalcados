@@ -192,7 +192,8 @@
     let viewerIndex = 0;
     let viewerImageIndex = 0;
     let viewerTrigger;
-    let activeBrand = 'Todas';
+    const urlFilter = new URLSearchParams(location.search).get('filtro');
+    let activeBrand = urlFilter || 'Todas';
 
     const availability = ['Todas', 'Pronta entrega', 'Sob encomenda'];
     const collections = ['Air Force', 'Adidas Samba', 'New Balance 9060', 'Nike TN', 'Nike Shox', 'Nike VaporMax', 'Nike Running', 'Chuteiras', 'Importados', 'Nacionais', 'Acessórios'];

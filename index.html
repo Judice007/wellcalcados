@@ -127,6 +127,14 @@
     .brand-marquee:hover .brand-track,.brand-marquee:focus-within .brand-track{animation-play-state:paused}
     @keyframes brandMarquee{to{transform:translateX(calc(-50% - 10px))}}
 
+    .promo-banner{position:relative;width:100%;aspect-ratio:4/1;border-radius:24px;overflow:hidden;margin:28px 0;display:block;box-shadow:0 20px 50px rgba(21,17,27,.12)}
+    .promo-slide{position:absolute;inset:0;opacity:0;transition:opacity .7s ease}
+    .promo-slide.is-active{opacity:1}
+    .promo-slide img{width:100%;height:100%;object-fit:cover;display:block}
+    .promo-dots{position:absolute;left:50%;bottom:12px;z-index:2;display:flex;gap:6px;transform:translateX(-50%);padding:7px 9px;border-radius:999px;background:rgba(8,20,41,.38);backdrop-filter:blur(7px)}
+    .promo-dot{width:6px;height:6px;border:0;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;padding:0}
+    .promo-dot.is-active{width:18px;border-radius:999px;background:#fff}
+
     .products{padding:56px 0 74px;background:#fff}
     .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:26px}
     .section-head h2,.story-copy h2,.trade-copy h2{font:600 clamp(30px,3.2vw,46px)/1.05 "Manrope",sans-serif;letter-spacing:-.055em}
@@ -215,6 +223,7 @@
     }
     @media(max-width:640px){
       .reviews-grid{grid-template-columns:1fr}
+      .promo-banner{aspect-ratio:16/10;border-radius:18px;margin:20px 0}
       body{background:#fff}.page{width:100%;margin:0;border-radius:0;box-shadow:none}.shell{width:calc(100% - 32px)}
       .topbar{height:82px}.logo img{width:106px;max-height:68px}.head-actions .icon-btn:first-child{display:none}
       .hero{padding:40px 0 30px}.hero::before{width:330px;height:330px;left:58%;top:54%}.hero::after{display:none}
@@ -281,6 +290,14 @@
         <div class="brand-marquee" aria-label="Marcas disponíveis"><div class="brand-track"><img src="img/logo-marca-nike.png" alt="Nike"><img src="img/logo-marca-adidas.png" alt="Adidas"><img src="img/logo-marca-oncloud.png" alt="On Cloud"><img src="img/logo-marca-newbalance.png" alt="New Balance"><img src="img/logo-marca-lacoste.png" alt="Lacoste"><img src="img/logo-marca-nike.png" alt="" aria-hidden="true"><img src="img/logo-marca-adidas.png" alt="" aria-hidden="true"><img src="img/logo-marca-oncloud.png" alt="" aria-hidden="true"><img src="img/logo-marca-newbalance.png" alt="" aria-hidden="true"><img src="img/logo-marca-lacoste.png" alt="" aria-hidden="true"></div></div>
       </div>
     </section>
+
+    <div class="shell">
+      <div class="promo-banner" id="promoBanner" aria-label="Promoção Mês do Cliente">
+        <a class="promo-slide is-active" href="vitrine.html?filtro=Air%20Force" aria-label="2 pares da linha Air Force por R$400"><img src="img/banner-promo-air-force.png" alt="Mês do Cliente: 2 pares da linha Air Force por R$400, de R$500 — válido até 30/09, 3x sem juros" loading="lazy"></a>
+        <a class="promo-slide" href="vitrine.html?filtro=Importados" aria-label="R$50 de desconto em cada tênis importado com o cupom WELLO9SET"><img src="img/banner-promo-importados.png" alt="Mês do Cliente: R$50 off em cada tênis da linha Importados com o cupom WELLO9SET — válido até 30/09, 5x sem juros" loading="lazy"></a>
+        <div class="promo-dots" aria-hidden="true"><button class="promo-dot is-active" type="button"></button><button class="promo-dot" type="button"></button></div>
+      </div>
+    </div>
 
     <section class="products shell" id="destaques">
       <div class="section-head"><div><h2>Nossa vitrine em Angra dos Reis</h2><p>Tênis novos passam por aqui — pause quando encontrar o seu par.</p></div><div class="rail-actions"><button class="rail-toggle" id="railToggle" type="button" aria-label="Pausar produtos">Ⅱ</button><a class="view-all" href="vitrine.html">Ver todos os modelos →</a></div></div>
@@ -395,6 +412,26 @@
         new IntersectionObserver(([entry]) => entry.isIntersecting ? storyVideo.play().catch(() => {}) : storyVideo.pause(), {threshold:.25}).observe(storyVideo);
       }
     }
+
+    const promoBanner = document.getElementById('promoBanner');
+    const promoSlides = [...document.querySelectorAll('.promo-slide')];
+    const promoDots = [...document.querySelectorAll('.promo-dot')];
+    let activePromoSlide = 0;
+    let promoTimer;
+    const showPromoSlide = index => {
+      activePromoSlide = (index + promoSlides.length) % promoSlides.length;
+      promoSlides.forEach((slide, slideIndex) => slide.classList.toggle('is-active', slideIndex === activePromoSlide));
+      promoDots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === activePromoSlide));
+    };
+    const startPromoBanner = () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      window.clearInterval(promoTimer);
+      promoTimer = window.setInterval(() => showPromoSlide(activePromoSlide + 1), 4000);
+    };
+    promoDots.forEach((dot, index) => dot.addEventListener('click', event => { event.preventDefault(); showPromoSlide(index); startPromoBanner(); }));
+    promoBanner?.addEventListener('pointerenter', () => window.clearInterval(promoTimer));
+    promoBanner?.addEventListener('pointerleave', startPromoBanner);
+    startPromoBanner();
 
     const storyCarousel = document.getElementById('storyCarousel');
     const storySlides = [...document.querySelectorAll('.story-slide')];
