@@ -101,8 +101,17 @@
 
   function checkout(couponCode) {
     const message = buildWhatsAppMessage(couponCode);
+    const totals = computeTotals(couponCode);
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
-    if (window.wellTrack) window.wellTrack('InitiateCheckout', { content_name: 'carrinho', value: computeTotals(couponCode).total, currency: 'BRL' });
+    if (window.wellTrack) window.wellTrack('InitiateCheckout', { content_name: 'carrinho', value: totals.total, currency: 'BRL' });
+    if (totals.couponApplied) {
+      const items = readCart();
+      fetch('/api/track-coupon', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: couponCode, description: items.map(item => item.name).join(', '), savings: totals.couponSavings, total: totals.total }),
+      }).catch(() => {}); // não trava o checkout se o registro falhar
+    }
     clear();
   }
 

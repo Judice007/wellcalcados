@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uso de cupom — WellCalçados</title>
+  <meta name="robots" content="noindex">
+  <style>
+    :root{--ink:#10131a;--muted:#71747c;--purple:#5B2E93;--line:#e6e5e8;--surface:#f7f7f8}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,Arial,sans-serif;color:var(--ink);background:var(--surface);padding:32px 16px}
+    .wrap{width:min(720px,100%);margin:auto}
+    h1{font-size:22px;margin-bottom:6px}
+    .sub{color:var(--muted);font-size:13px;margin-bottom:24px}
+    .count-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 24px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between}
+    .count-card .num{font-size:34px;font-weight:800;color:var(--purple)}
+    .count-card .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+    table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+    th,td{text-align:left;padding:10px 14px;font-size:12.5px;border-bottom:1px solid var(--line)}
+    th{background:#faf9fb;color:var(--muted);font-weight:700;text-transform:uppercase;font-size:10.5px}
+    tr:last-child td{border-bottom:0}
+    .empty{padding:30px;text-align:center;color:var(--muted);font-size:13px}
+    .error{padding:16px;border-radius:12px;background:#FBEFEF;color:#B3261E;font-size:13px}
+    input{height:40px;padding:0 12px;border:1px solid var(--line);border-radius:8px;font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Uso do cupom</h1>
+    <p class="sub" id="subline">Carregando…</p>
+    <div id="content"></div>
+  </div>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const key = params.get('key') || '';
+    const code = params.get('code') || 'WELLO9SET';
+    const content = document.getElementById('content');
+    const subline = document.getElementById('subline');
+
+    if (!key) {
+      subline.textContent = '';
+      content.innerHTML = '<div class="error">Adicione ?key=SUACHAVE na URL pra acessar.</div>';
+    } else {
+      fetch(`/api/coupon-stats?key=${encodeURIComponent(key)}&code=${encodeURIComponent(code)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.error) { subline.textContent = ''; content.innerHTML = `<div class="error">${data.error}</div>`; return; }
+          subline.textContent = `Cupom ${data.code}`;
+          const rows = data.log.map(entry => `<tr><td>${new Date(entry.at).toLocaleString('pt-BR')}</td><td>${entry.description || '—'}</td><td>R$${entry.savings}</td><td>R$${entry.total}</td></tr>`).join('');
+          content.innerHTML = `
+            <div class="count-card"><div><div class="label">Total de usos</div><div class="num">${data.count}</div></div></div>
+            ${data.log.length ? `<table><thead><tr><th>Data</th><th>Pedido</th><th>Desconto</th><th>Total</th></tr></thead><tbody>${rows}</tbody></table>` : '<div class="empty">Nenhum uso registrado ainda.</div>'}
+          `;
+        })
+        .catch(() => { content.innerHTML = '<div class="error">Falha ao carregar os dados.</div>'; });
+    }
+  </script>
+</body>
+</html>
