@@ -3,7 +3,7 @@
 const ADMIN_KEY = 'well2026admin';
 
 module.exports = async function handler(req, res) {
-  if (req.method !== 'GET') {
+  if (req.method !== 'GET' && req.method !== 'DELETE') {
     res.status(405).json({ error: 'Method not allowed' });
     return;
   }
@@ -20,6 +20,16 @@ module.exports = async function handler(req, res) {
   }
 
   const code = String(req.query.code || 'WELLO9SET').toUpperCase().trim();
+
+  if (req.method === 'DELETE') {
+    await fetch(`${kvUrl}/pipeline`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${kvToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify([['DEL', `coupon:${code}:count`], ['DEL', `coupon:${code}:log`]]),
+    });
+    res.status(200).json({ ok: true });
+    return;
+  }
 
   try {
     const pipeline = [
