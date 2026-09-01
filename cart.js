@@ -9,8 +9,12 @@
     { id: 'af1-2x400', label: 'Combo 2 pares Air Force', match: item => /air force|\baf1\b/i.test(item.name) && !item.orderOnly && item.price === 250, size: 2, bundlePrice: 400 }
   ];
   const COUPONS = {
-    WELLO9SET: { label: 'WELLO9SET', discount: 50, appliesTo: item => item.category === 'Importados' }
+    WELLO9SET: { label: 'WELLO9SET', discount: 50, appliesTo: item => item.category === 'Importados' },
+    LUNA10: { label: 'LUNA10', percent: 10, firstPurchase: true, appliesTo: () => true },
+    JUDICE10: { label: 'JUDICE10', percent: 10, firstPurchase: true, appliesTo: () => true }
   };
+
+  function normalizePhone(phone) { return String(phone || '').replace(/\D/g, ''); }
 
   function readCart() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch (_) { return []; }
@@ -74,14 +78,35 @@
       if (item.price != null) subtotal += item.price * item.qty;
     });
 
+    let couponPending = false;
     if (coupon) {
-      items.forEach(item => { if (coupon.appliesTo(item)) couponSavings += coupon.discount * item.qty; });
-      if (couponSavings > 0) notes.push(`Cupom ${coupon.label}: -R$${couponSavings}`);
+      if (coupon.percent) {
+        const eligibleSubtotal = items.reduce((sum, item) => coupon.appliesTo(item) && item.price != null ? sum + item.price * item.qty : sum, 0);
+        const discountBase = Math.max(0, eligibleSubtotal - comboSavings);
+        couponSavings = Math.round(discountBase * coupon.percent / 100);
+        couponPending = items.some(item => coupon.appliesTo(item) && item.price == null);
+        if (couponSavings > 0) notes.push(`Cupom ${coupon.label}: ${coupon.percent}% OFF (-R$${couponSavings})`);
+        if (couponPending) notes.push(`Cupom ${coupon.label}: ${coupon.percent}% OFF no valor dos itens a consultar`);
+      } else {
+        items.forEach(item => { if (coupon.appliesTo(item)) couponSavings += coupon.discount * item.qty; });
+        if (couponSavings > 0) notes.push(`Cupom ${coupon.label}: -R$${couponSavings}`);
+      }
     }
 
     const hasConsult = items.some(item => item.price == null);
     const total = Math.max(0, subtotal - comboSavings - couponSavings);
-    return { subtotal, comboSavings, couponSavings, total, notes, hasConsult, couponValid: Boolean(coupon), couponApplied: Boolean(coupon) && couponSavings > 0 };
+    return { subtotal, comboSavings, couponSavings, total, notes, hasConsult, couponValid: Boolean(coupon), couponApplied: Boolean(coupon) && (couponSavings > 0 || couponPending), couponPending, coupon };
+  }
+
+  async function checkFirstPurchaseCoupon(code, phone, redeem = false) {
+    const response = await fetch(redeem ? '/api/track-coupon' : '/api/validate-coupon', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, phone: normalizePhone(phone) }),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || 'Não foi possível validar o cupom agora.');
+    return data;
   }
 
   function buildWhatsAppMessage(couponCode) {
@@ -99,19 +124,52 @@
     return msg;
   }
 
-  function checkout(couponCode) {
+  async function checkout(couponCode, couponPhone) {
     const message = buildWhatsAppMessage(couponCode);
     const totals = computeTotals(couponCode);
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
-    if (window.wellTrack) window.wellTrack('InitiateCheckout', { content_name: 'carrinho', value: totals.total, currency: 'BRL' });
+    const pendingWhatsApp = totals.couponApplied && totals.coupon?.firstPurchase ? window.open('about:blank', '_blank') : null;
     if (totals.couponApplied) {
       const items = readCart();
-      fetch('/api/track-coupon', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: couponCode, description: items.map(item => item.name).join(', '), savings: totals.couponSavings, total: totals.total }),
-      }).catch(() => {}); // não trava o checkout se o registro falhar
+      if (totals.coupon?.firstPurchase) {
+        const phone = normalizePhone(couponPhone);
+        if (phone.length < 10) {
+          pendingWhatsApp?.close();
+          throw new Error('Informe um WhatsApp válido para usar o cupom de primeira compra.');
+        }
+        let response;
+        try {
+          response = await fetch('/api/track-coupon', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: couponCode, phone, description: items.map(item => item.name).join(', '), savings: totals.couponSavings, total: totals.total }),
+          });
+        } catch (_) {
+          pendingWhatsApp?.close();
+          throw new Error('Não foi possível validar o cupom agora.');
+        }
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          pendingWhatsApp?.close();
+          throw new Error(data.error || 'Não foi possível validar o cupom agora.');
+        }
+      } else {
+        fetch('/api/track-coupon', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code: couponCode, description: items.map(item => item.name).join(', '), savings: totals.couponSavings, total: totals.total }),
+        }).catch(() => {}); // não trava o checkout se o registro falhar
+      }
     }
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    if (pendingWhatsApp) {
+      pendingWhatsApp.opener = null;
+      pendingWhatsApp.location.replace(whatsappUrl);
+    } else if (totals.coupon?.firstPurchase) {
+      window.location.href = whatsappUrl;
+    } else {
+      window.open(whatsappUrl, '_blank', 'noopener');
+    }
+    if (window.wellTrack) window.wellTrack('InitiateCheckout', { content_name: 'carrinho', value: totals.total, currency: 'BRL' });
     clear();
   }
 
@@ -141,6 +199,7 @@
       .well-cart-coupon{display:flex;gap:8px;padding:12px 20px 0}
       .well-cart-coupon input{flex:1;height:38px;border:1px solid rgba(8,20,41,.15);border-radius:10px;padding:0 12px;font-size:12px}
       .well-cart-coupon button{height:38px;padding:0 14px;border:0;border-radius:10px;background:#081429;color:#fff;font-size:12px;font-weight:700;cursor:pointer}
+      .well-cart-coupon-phone{padding:8px 20px 0}.well-cart-coupon-phone[hidden]{display:none}.well-cart-coupon-phone input{width:100%;height:38px;border:1px solid rgba(8,20,41,.15);border-radius:10px;padding:0 12px;font-size:12px;box-sizing:border-box}
       .well-cart-coupon-msg{padding:6px 20px 0;font-size:11px}
       .well-cart-summary{padding:14px 20px;font-size:12px;color:#667085}
       .well-cart-summary .row{display:flex;justify-content:space-between;margin-bottom:4px}
@@ -172,6 +231,7 @@
       <div class="well-cart-head"><h2>Seu carrinho</h2><button class="well-cart-close" type="button" aria-label="Fechar carrinho">×</button></div>
       <div class="well-cart-items"></div>
       <div class="well-cart-coupon"><input type="text" placeholder="Cupom de desconto" maxlength="20"><button type="button">Aplicar</button></div>
+      <div class="well-cart-coupon-phone" hidden><input type="tel" inputmode="numeric" autocomplete="tel" placeholder="WhatsApp com DDD para validar a 1ª compra" maxlength="19"></div>
       <div class="well-cart-coupon-msg"></div>
       <div class="well-cart-summary"></div>
       <button class="well-cart-pay" type="button" hidden>Pagar agora online</button>
@@ -184,6 +244,8 @@
     const summaryRoot = drawer.querySelector('.well-cart-summary');
     const couponInput = drawer.querySelector('.well-cart-coupon input');
     const couponBtn = drawer.querySelector('.well-cart-coupon button');
+    const couponPhoneWrap = drawer.querySelector('.well-cart-coupon-phone');
+    const couponPhoneInput = couponPhoneWrap.querySelector('input');
     const couponMsg = drawer.querySelector('.well-cart-coupon-msg');
     const checkoutBtn = drawer.querySelector('.well-cart-checkout');
     const payBtn = drawer.querySelector('.well-cart-pay');
@@ -198,13 +260,32 @@
     overlay.addEventListener('click', close);
     drawer.querySelector('.well-cart-close').addEventListener('click', close);
 
-    couponBtn.addEventListener('click', () => {
+    couponInput.addEventListener('input', () => {
+      if (appliedCoupon && couponInput.value.trim().toUpperCase() !== appliedCoupon) appliedCoupon = '';
+      const coupon = COUPONS[couponInput.value.trim().toUpperCase()];
+      couponPhoneWrap.hidden = !coupon?.firstPurchase;
+      if (!coupon?.firstPurchase) couponPhoneInput.value = '';
+      renderSummary();
+    });
+
+    couponBtn.addEventListener('click', async () => {
       const code = couponInput.value.trim().toUpperCase();
       const totals = computeTotals(code);
       if (!code) { couponMsg.textContent = ''; appliedCoupon = ''; }
       else if (!totals.couponValid) { couponMsg.textContent = 'Cupom inválido.'; couponMsg.style.color = '#A32D2D'; appliedCoupon = ''; }
-      else if (!totals.couponApplied) { couponMsg.textContent = 'Cupom válido, mas nenhum item do carrinho é elegível.'; couponMsg.style.color = '#A32D2D'; appliedCoupon = code; }
-      else { couponMsg.textContent = `Cupom aplicado! Economia de R$${totals.couponSavings}.`; couponMsg.style.color = '#3B6D11'; appliedCoupon = code; }
+      else if (totals.coupon?.firstPurchase && normalizePhone(couponPhoneInput.value).length < 10) { couponMsg.textContent = 'Informe seu WhatsApp com DDD para validar a primeira compra.'; couponMsg.style.color = '#A32D2D'; appliedCoupon = ''; couponPhoneWrap.hidden = false; }
+      else {
+        try {
+          couponBtn.disabled = true;
+          if (totals.coupon?.firstPurchase) await checkFirstPurchaseCoupon(code, couponPhoneInput.value);
+          if (!totals.couponApplied) { couponMsg.textContent = 'Cupom válido, mas nenhum item do carrinho é elegível.'; couponMsg.style.color = '#A32D2D'; appliedCoupon = code; }
+          else { couponMsg.textContent = totals.couponPending && !totals.couponSavings ? 'Cupom aplicado! Os 10% serão calculados após a confirmação do valor.' : `Cupom aplicado! Economia de R$${totals.couponSavings}.`; couponMsg.style.color = '#3B6D11'; appliedCoupon = code; }
+        } catch (error) {
+          couponMsg.textContent = error.message;
+          couponMsg.style.color = '#A32D2D';
+          appliedCoupon = '';
+        } finally { couponBtn.disabled = false; }
+      }
       renderSummary();
     });
 
@@ -241,10 +322,13 @@
     function renderSummary() {
       const totals = computeTotals(appliedCoupon);
       const items = getItems();
+      const hasPayable = items.some(item => item.price != null && !item.orderOnly);
+      payBtn.hidden = !mpReady() || !hasPayable || Boolean(appliedCoupon);
       let html = '';
       if (totals.subtotal > 0) html += `<div class="row"><span>Subtotal</span><span>R$${totals.subtotal}</span></div>`;
       if (totals.comboSavings > 0) html += `<div class="row"><span>Desconto combo</span><span>-R$${totals.comboSavings}</span></div>`;
       if (totals.couponSavings > 0) html += `<div class="row"><span>Cupom</span><span>-R$${totals.couponSavings}</span></div>`;
+      else if (totals.couponPending) html += '<div class="row"><span>Cupom</span><span>10% no valor confirmado</span></div>';
       if (totals.hasConsult) html += `<div class="row"><span>Itens sob encomenda</span><span>a combinar</span></div>`;
       if (totals.subtotal > 0) html += `<div class="row total"><span>Total</span><span>R$${totals.total}</span></div>`;
       summaryRoot.innerHTML = items.length ? html : '';
@@ -261,7 +345,18 @@
       else if (actionBtn.dataset.action === 'remove') removeItem(key);
     });
 
-    checkoutBtn.addEventListener('click', () => { checkout(appliedCoupon); close(); });
+    checkoutBtn.addEventListener('click', async () => {
+      try {
+        checkoutBtn.disabled = true;
+        await checkout(appliedCoupon, couponPhoneInput.value);
+        close();
+      } catch (error) {
+        couponMsg.textContent = error.message;
+        couponMsg.style.color = '#A32D2D';
+        appliedCoupon = '';
+        renderSummary();
+      } finally { checkoutBtn.disabled = getItems().length === 0; }
+    });
 
     listeners.push(render);
     render();
